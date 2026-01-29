@@ -7,13 +7,12 @@ const { t } = Astro.props;
 
 const features = [
   {
-    key: 'satellite',
+    key: 'starMap',
     icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      <path d="M2 12h20"/>
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
     </svg>`,
-    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]'
+    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]'
   },
   {
     key: 'weather',
@@ -30,6 +29,31 @@ const features = [
     gradient: 'from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)]'
   },
   {
+    key: 'solar',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2"/>
+      <path d="M12 20v2"/>
+      <path d="M2 12h2"/>
+      <path d="M20 12h2"/>
+      <path d="M4.93 4.93l1.41 1.41"/>
+      <path d="M17.66 17.66l1.41 1.41"/>
+      <path d="M4.93 19.07l1.41-1.41"/>
+      <path d="M17.66 6.34l1.41-1.41"/>
+    </svg>`,
+    gradient: 'from-[var(--sulfur-gold)] to-[var(--oxygen-blue)]'
+  },
+  {
+    key: 'deepSpace',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="12" cy="12" rx="10" ry="6"/>
+      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(60 12 12)"/>
+      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(120 12 12)"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+    </svg>`,
+    gradient: 'from-[var(--carbon-purple)] to-[var(--nitrogen-cyan)]'
+  },
+  {
     key: 'meteor',
     icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 2L2 12l10 10 10-10L12 2z"/>
@@ -44,12 +68,37 @@ const features = [
     gradient: 'from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)]'
   },
   {
-    key: 'starMap',
+    key: 'satellite',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      <path d="M2 12h20"/>
+    </svg>`,
+    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]'
+  },
+  {
+    key: 'tools',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M12 2v4"/>
+      <path d="M12 18v4"/>
+      <path d="M4.93 4.93l2.83 2.83"/>
+      <path d="M16.24 16.24l2.83 2.83"/>
+      <path d="M2 12h4"/>
+      <path d="M18 12h4"/>
+      <path d="M4.93 19.07l2.83-2.83"/>
+      <path d="M16.24 7.76l2.83-2.83"/>
+    </svg>`,
+    gradient: 'from-[var(--hydrogen-pink)] to-[var(--sulfur-gold)]'
+  },
+  {
+    key: 'free',
     icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+      <path d="M12 22V12"/>
+      <path d="M17 8.5L12 5l-5 3.5"/>
     </svg>`,
-    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]'
+    gradient: 'from-[var(--nitrogen-cyan)] to-[var(--oxygen-blue)]'
   }
 ];
 ---
@@ -80,7 +129,7 @@ const features = [
       {
         features.map((feature, index) => (
           <div
-            class={`group relative glass-card p-8 overflow-hidden`}
+            class={`group relative glass-card p-6 overflow-hidden`}
             style={`animation-delay: ${index * 0.1}s;`}
           >
             <!-- 背景渐变光晕 -->
@@ -89,27 +138,19 @@ const features = [
             <!-- 内容 -->
             <div class="relative">
               <!-- 图标 -->
-              <div class={`w-16 h-16 mb-6 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
+              <div class={`w-12 h-12 mb-4 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
                 <div class="text-white" set:html={feature.icon} />
               </div>
 
               <!-- 标题 -->
-              <h3 class="text-xl font-bold mb-3 text-white group-hover:text-[var(--hydrogen-pink)] transition-colors duration-300">
+              <h3 class="text-lg font-bold mb-2 text-white group-hover:text-[var(--hydrogen-pink)] transition-colors duration-300">
                 {t.features[feature.key].title}
               </h3>
 
               <!-- 描述 -->
-              <p class="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
+              <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
                 {t.features[feature.key].description}
               </p>
-
-              <!-- Learn More 链接 -->
-              <div class="flex items-center gap-2 text-[var(--hydrogen-pink)] opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                <span class="text-sm font-medium">Learn more</span>
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </div>
             </div>
           </div>
         ))
@@ -117,22 +158,22 @@ const features = [
     </div>
 
     <!-- 底部统计 -->
-    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="glass-card p-8 text-center">
-        <div class="text-4xl font-bold gradient-text-warm mb-2">5000+</div>
-        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Satellites</div>
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass-card p-6 text-center">
+        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.bortle?.value}</div>
+        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.bortle?.label}</div>
       </div>
-      <div class="glass-card p-8 text-center">
-        <div class="text-4xl font-bold gradient-text-cool mb-2">Real-time</div>
-        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Tracking</div>
+      <div class="glass-card p-6 text-center">
+        <div class="text-2xl font-bold gradient-text-cool mb-1">{t.features.stats?.seeing?.value}</div>
+        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.seeing?.label}</div>
       </div>
-      <div class="glass-card p-8 text-center">
-        <div class="text-4xl font-bold gradient-text mb-2">15 Days</div>
-        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Forecast</div>
+      <div class="glass-card p-6 text-center">
+        <div class="text-2xl font-bold gradient-text mb-1">{t.features.stats?.tracker?.value}</div>
+        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.tracker?.label}</div>
       </div>
-      <div class="glass-card p-8 text-center">
-        <div class="text-4xl font-bold gradient-text-warm mb-2">24/7</div>
-        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Alerts</div>
+      <div class="glass-card p-6 text-center">
+        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.ar?.value}</div>
+        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.ar?.label}</div>
       </div>
     </div>
   </div>

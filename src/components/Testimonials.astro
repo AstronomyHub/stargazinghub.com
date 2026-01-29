@@ -5,50 +5,31 @@ interface Props {
 
 const { t } = Astro.props;
 
-const testimonials = [
-  {
-    name: "Sarah Chen",
-    location: "San Francisco, USA",
-    rating: 5,
-    text: "This app has completely transformed my stargazing experience. The real-time satellite tracking is incredible!",
-    avatar: "SC"
-  },
-  {
-    name: "Michael Weber",
-    location: "Munich, Germany",
-    rating: 5,
-    text: "Best astronomy app I've ever used. The weather forecast feature helps me plan perfect observation nights.",
-    avatar: "MW"
-  },
-  {
-    name: "Yuki Tanaka",
-    location: "Tokyo, Japan",
-    rating: 5,
-    text: "The meteor shower predictions are spot on. I've never missed a celestial event since I started using this app.",
-    avatar: "YT"
-  }
-];
+const testimonials = t.testimonials?.reviews || [];
+const upcomingEvents = t.testimonials?.events || [];
 
-const upcomingEvents = [
-  {
-    name: "Perseids Meteor Shower",
-    date: "Aug 12-13, 2025",
-    type: "Meteor Shower",
-    peak: "Peak Activity"
-  },
-  {
-    name: "Saturn at Opposition",
-    date: "Sep 8, 2025",
-    type: "Planetary Event",
-    peak: "Best Viewing"
-  },
-  {
-    name: "Supermoon",
-    date: "Oct 7, 2025",
-    type: "Lunar Event",
-    peak: "Full Moon"
+// Icon helper function - redesigned with better astronomical visuals
+const getIconPath = (type: string) => {
+  const typeLower = type?.toLowerCase() || '';
+  
+  // Planetary Opposition - Saturn with rings
+  if (typeLower.includes('planet') || typeLower.includes('行星') || typeLower.includes('惑星') || typeLower.includes('planeta') || typeLower.includes('planetar') || typeLower.includes('планета')) {
+    return "M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm-8-3l-2 1c.73 1.63 1.73 3.01 2.87 4.13l1.41-1.41C4.79 15.41 3.96 14.26 3.33 13zm17.34 0c-.63 1.26-1.46 2.41-2.28 3.72l1.41 1.41c1.14-1.12 2.14-2.5 2.87-4.13l-2-1zM12 3c-1.1 0-2 .9-2 2v2h4V5c0-1.1-.9-2-2-2zm-6.36 2.64l-1.41-1.41C3.01 5.69 2 7.26 2 9h2c0-1.1.45-2.1 1.18-2.82l.46-.54zm12.72 0l.46.54C17.55 6.9 18 7.9 18 9h2c0-1.74-1.01-3.31-2.59-4.05l-1.41 1.41z";
   }
-];
+  
+  // Lunar Eclipse - Moon with shadow/blood moon
+  if (typeLower.includes('lunar') || typeLower.includes('月') || typeLower.includes('lun') || typeLower.includes('달') || typeLower.includes('лун') || typeLower.includes('maan')) {
+    return "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z";
+  }
+  
+  // Solar Eclipse - Sun with corona
+  if (typeLower.includes('solar') || typeLower.includes('太陽') || typeLower.includes('太阳') || typeLower.includes('sol') || typeLower.includes('태양') || typeLower.includes('солн') || typeLower.includes('zon')) {
+    return "M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000 1.41.996.996 0 001.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06z";
+  }
+  
+  // Meteor Shower - shooting star with trail
+  return "M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z";
+};
 ---
 
 <section class="relative py-24 px-4">
@@ -64,26 +45,26 @@ const upcomingEvents = [
           <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <span class="text-sm text-text-secondary">User Reviews</span>
+          <span class="text-sm text-text-secondary">{t.testimonials?.reviewsLabel || 'User Reviews'}</span>
         </div>
 
         <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
-          <span class="gradient-text">What Our Users Say</span>
+          <span class="gradient-text">{t.testimonials?.title}</span>
         </h2>
 
         <div class="space-y-6">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial: any, index: number) => (
             <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-accent/50 transition-all duration-500">
               <div class="absolute -inset-1 bg-gradient-to-r from-accent to-accent-cyan rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
               
               <div class="flex items-start gap-4">
                 <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent-cyan flex items-center justify-center text-white font-bold text-lg shrink-0">
-                  {testimonial.avatar}
+                  {testimonial.name.charAt(0)}
                 </div>
                 
                 <div class="flex-1">
                   <div class="flex items-center gap-1 mb-2">
-                    {Array.from({ length: testimonial.rating }).map(() => (
+                    {Array.from({ length: 5 }).map(() => (
                       <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
@@ -105,59 +86,165 @@ const upcomingEvents = [
 
       <div>
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-          <svg class="w-4 h-4 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-          </svg>
-          <span class="text-sm text-text-secondary">Upcoming Events</span>
+          <div class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-cyan opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-cyan"></span>
+          </div>
+          <span class="text-sm text-text-secondary uppercase tracking-widest">{t.testimonials?.eventsLabel || 'Upcoming Events'}</span>
         </div>
 
         <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
-          <span class="gradient-text-cyan">Don't Miss These Events</span>
+          <span class="gradient-text-cyan">{t.testimonials?.subtitle}</span>
+          <span class="ml-2 text-sm font-normal text-accent-cyan border border-accent-cyan/30 px-2 py-0.5 rounded text-vertical-middle">2026</span>
         </h2>
 
-        <div class="space-y-4">
-          {upcomingEvents.map((event, index) => (
-            <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-accent-cyan/50 transition-all duration-500">
-              <div class="absolute -inset-1 bg-gradient-to-r from-accent-cyan to-accent rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
-              
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                  <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent/20 flex items-center justify-center">
-                    <svg class="w-7 h-7 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                    </svg>
-                  </div>
-                  
-                  <div>
-                    <h3 class="text-lg font-semibold text-white group-hover:text-accent-cyan transition-colors">{event.name}</h3>
-                    <p class="text-sm text-text-secondary">{event.type}</p>
-                  </div>
-                </div>
+        <!-- Carousel Container -->
+        <div class="relative">
+          <!-- Carousel Wrapper -->
+          <div id="events-carousel" class="overflow-hidden rounded-xl">
+            <div id="events-track" class="flex transition-transform duration-500 ease-in-out">
+              <!-- First Slide (4 events) -->
+              <div class="w-full flex-shrink-0 space-y-4 p-1">
+                {upcomingEvents.slice(0, 4).map((event: any, index: number) => (
+                  <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-accent-cyan/50 transition-all duration-500">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-accent-cyan to-accent rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent/20 flex items-center justify-center border border-accent-cyan/10">
+                            <svg class="w-7 h-7 text-accent-cyan" fill="currentColor" viewBox="0 0 24 24">
+                              <path d={getIconPath(event.type)} stroke="none" />
+                            </svg>
+                          </div>
+                          
+                          <div>
+                            <h3 class="text-lg font-bold text-white group-hover:text-accent-cyan transition-colors">{event.name}</h3>
+                            <div class="flex items-center gap-2">
+                              <span class="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">
+                                {event.type}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
 
-                <div class="text-right">
-                  <p class="text-accent-cyan font-medium">{event.date}</p>
-                  <p class="text-xs text-text-secondary">{event.peak}</p>
-                </div>
+                      <div class="text-right">
+                        <p class="text-accent-cyan font-medium">{event.date}</p>
+                        <p class="text-xs text-text-secondary">{event.peak}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
+              
+              <!-- Second Slide (remaining events) -->
+              {upcomingEvents.length > 4 && (
+                <div class="w-full flex-shrink-0 space-y-4 p-1">
+                  {upcomingEvents.slice(4).map((event: any, index: number) => (
+                    <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-accent-cyan/50 transition-all duration-500">
+                      <div class="absolute -inset-1 bg-gradient-to-r from-accent-cyan to-accent rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
+                      
+                      <div class="flex items-center justify-between">
+                          <div class="flex items-center gap-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent/20 flex items-center justify-center border border-accent-cyan/10">
+                              <svg class="w-7 h-7 text-accent-cyan" fill="currentColor" viewBox="0 0 24 24">
+                                <path d={getIconPath(event.type)} stroke="none" />
+                              </svg>
+                            </div>
+                            
+                            <div>
+                              <h3 class="text-lg font-bold text-white group-hover:text-accent-cyan transition-colors">{event.name}</h3>
+                              <div class="flex items-center gap-2">
+                                <span class="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20">
+                                  {event.type}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                        <div class="text-right">
+                          <p class="text-accent-cyan font-medium">{event.date}</p>
+                          <p class="text-xs text-text-secondary">{event.peak}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          ))}
+          </div>
+          
+          <!-- Navigation Arrows -->
+          {upcomingEvents.length > 4 && (
+            <div class="flex justify-center gap-4 mt-6">
+              <button id="prev-btn" class="p-3 rounded-full glass hover:bg-accent-cyan/20 transition-all duration-300 group" aria-label="Previous slide">
+                <svg class="w-5 h-5 text-accent-cyan group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div id="carousel-dots" class="flex items-center gap-2">
+                <button class="w-3 h-3 rounded-full bg-accent-cyan" aria-label="Slide 1"></button>
+                <button class="w-3 h-3 rounded-full bg-white/20 hover:bg-white/40 transition-all" aria-label="Slide 2"></button>
+              </div>
+              <button id="next-btn" class="p-3 rounded-full glass hover:bg-accent-cyan/20 transition-all duration-300 group" aria-label="Next slide">
+                <svg class="w-5 h-5 text-accent-cyan group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
 
-        <div class="mt-8 p-6 rounded-2xl glass border border-accent-cyan/20">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-10 h-10 rounded-full bg-accent-cyan/20 flex items-center justify-center">
-              <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold">Never Miss an Event</h3>
-          </div>
-          <p class="text-text-secondary text-sm mb-4">Get personalized notifications for meteor showers, eclipses, and other celestial events in your area.</p>
-          <button class="w-full py-3 px-4 bg-gradient-to-r from-accent-cyan to-accent rounded-xl font-medium hover:opacity-90 transition-opacity">
-            Enable Notifications
-          </button>
-        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  // Carousel functionality
+  const track = document.getElementById('events-track');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const dots = document.querySelectorAll('#carousel-dots button');
+  
+  if (track && prevBtn && nextBtn && dots.length > 0) {
+    let currentSlide = 0;
+    const totalSlides = 2;
+    
+    const updateCarousel = () => {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.remove('bg-white/20', 'hover:bg-white/40');
+          dot.classList.add('bg-accent-cyan');
+        } else {
+          dot.classList.remove('bg-accent-cyan');
+          dot.classList.add('bg-white/20', 'hover:bg-white/40');
+        }
+      });
+    };
+    
+    prevBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    });
+    
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentSlide = index;
+        updateCarousel();
+      });
+    });
+    
+    // Auto-rotate every 5 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }, 5000);
+  }
+</script>
