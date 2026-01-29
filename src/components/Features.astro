@@ -1,0 +1,139 @@
+---
+interface Props {
+  t: any;
+}
+
+const { t } = Astro.props;
+
+const features = [
+  {
+    key: 'satellite',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      <path d="M2 12h20"/>
+    </svg>`,
+    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]'
+  },
+  {
+    key: 'weather',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17.5 19c0-3.037-2.463-5.5-5.5-5.5S6.5 15.963 6.5 19"/>
+      <circle cx="12" cy="10" r="3"/>
+      <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+      <path d="M12 2v2"/>
+      <path d="M4.22 5.22l1.42 1.42"/>
+      <path d="M1 12h2"/>
+      <path d="M19.78 5.22l-1.42 1.42"/>
+      <path d="M21 12h2"/>
+    </svg>`,
+    gradient: 'from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)]'
+  },
+  {
+    key: 'meteor',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 12l10 10 10-10L12 2z"/>
+      <path d="M12 2v20"/>
+      <path d="M2 12h20"/>
+      <circle cx="12" cy="12" r="3" fill="currentColor"/>
+      <path d="M12 9l3-3"/>
+      <path d="M12 9l-3-3"/>
+      <path d="M12 15l3 3"/>
+      <path d="M12 15l-3 3"/>
+    </svg>`,
+    gradient: 'from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)]'
+  },
+  {
+    key: 'starMap',
+    icon: `<svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+      <circle cx="12" cy="12" r="2" fill="currentColor"/>
+    </svg>`,
+    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]'
+  }
+];
+---
+
+<section class="relative py-20 px-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- 区域标题 -->
+    <div class="text-center mb-12">
+      <!-- 装饰标签 -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+        <svg class="w-4 h-4 text-[var(--oxygen-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+        <span class="text-sm text-[var(--text-secondary)]">Powerful Features</span>
+      </div>
+
+      <h2 class="mb-4">
+        <span class="gradient-text-cool">{t.features.title}</span>
+      </h2>
+
+      <p class="text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+        {t.features.subtitle}
+      </p>
+    </div>
+
+    <!-- 功能卡片网格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        features.map((feature, index) => (
+          <div
+            class={`group relative glass-card p-8 overflow-hidden`}
+            style={`animation-delay: ${index * 0.1}s;`}
+          >
+            <!-- 背景渐变光晕 -->
+            <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+
+            <!-- 内容 -->
+            <div class="relative">
+              <!-- 图标 -->
+              <div class={`w-16 h-16 mb-6 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
+                <div class="text-white" set:html={feature.icon} />
+              </div>
+
+              <!-- 标题 -->
+              <h3 class="text-xl font-bold mb-3 text-white group-hover:text-[var(--hydrogen-pink)] transition-colors duration-300">
+                {t.features[feature.key].title}
+              </h3>
+
+              <!-- 描述 -->
+              <p class="text-[var(--text-secondary)] text-sm leading-relaxed mb-4">
+                {t.features[feature.key].description}
+              </p>
+
+              <!-- Learn More 链接 -->
+              <div class="flex items-center gap-2 text-[var(--hydrogen-pink)] opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                <span class="text-sm font-medium">Learn more</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- 底部统计 -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass-card p-8 text-center">
+        <div class="text-4xl font-bold gradient-text-warm mb-2">5000+</div>
+        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Satellites</div>
+      </div>
+      <div class="glass-card p-8 text-center">
+        <div class="text-4xl font-bold gradient-text-cool mb-2">Real-time</div>
+        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Tracking</div>
+      </div>
+      <div class="glass-card p-8 text-center">
+        <div class="text-4xl font-bold gradient-text mb-2">15 Days</div>
+        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Forecast</div>
+      </div>
+      <div class="glass-card p-8 text-center">
+        <div class="text-4xl font-bold gradient-text-warm mb-2">24/7</div>
+        <div class="text-sm text-[var(--text-muted)] uppercase tracking-wider">Alerts</div>
+      </div>
+    </div>
+  </div>
+</section>

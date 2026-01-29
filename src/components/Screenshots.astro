@@ -1,0 +1,150 @@
+---
+const screenshots = [
+  '/images/screenshots/appstore-1.jpg',
+  '/images/screenshots/appstore-2.jpg',
+  '/images/screenshots/appstore-3.jpg',
+  '/images/screenshots/appstore-4.jpg',
+  '/images/screenshots/appstore-5.jpg',
+];
+---
+
+<section class="relative py-20 px-6 overflow-hidden">
+  <!-- 背景星云 -->
+  <div class="absolute inset-0">
+    <div class="cosmic-nebula nebula-2" style="bottom: -10%; right: -10%; opacity: 0.15;"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <!-- 区域标题 -->
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+        <svg class="w-4 h-4 text-[var(--hydrogen-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+        </svg>
+        <span class="text-sm text-[var(--text-secondary)]">App Preview</span>
+      </div>
+
+      <h2 class="mb-4">
+        <span class="gradient-text-warm">Beautiful & Intuitive</span>
+      </h2>
+      <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
+        Designed for clarity and simplicity. Everything you need at your fingertips.
+      </p>
+    </div>
+
+    <!-- 截图轮播 -->
+    <div class="relative max-w-4xl mx-auto">
+      <!-- 主截图展示 -->
+      <div class="relative">
+        <!-- 发光效果 -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[var(--hydrogen-pink)] via-[var(--carbon-purple)] to-[var(--nitrogen-cyan)] rounded-[2.5rem] blur-3xl opacity-20"></div>
+
+        <!-- 手机边框 -->
+        <div class="relative glass-strong rounded-[2.5rem] p-3 animate-float">
+          <div class="bg-[var(--cosmic-void)] rounded-[2rem] overflow-hidden aspect-[9/19] relative">
+            <!-- 刘海 -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-b-2xl z-20"></div>
+
+            <!-- 截图轮播 -->
+            <div class="relative w-full h-full" id="screenshot-carousel">
+              {
+                screenshots.map((screenshot, index) => (
+                  <div
+                    class={`absolute inset-0 transition-opacity duration-500 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+                    style={`animation-delay: ${index * 0}s;`}
+                    id={`screenshot-${index}`}
+                  >
+                    <img
+                      src={screenshot}
+                      alt={`Stargazing Hub Screenshot ${index + 1}`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))
+              }
+            </div>
+
+            <!-- 轮播指示器 -->
+            <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+              {
+                screenshots.map((_, index) => (
+                  <button
+                    class={`w-2 h-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-white w-6' : 'bg-white/40 hover:bg-white/60'}`}
+                    aria-label={`View screenshot ${index + 1}`}
+                    onclick={`showScreenshot(${index})`}
+                  ></button>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- 装饰元素 -->
+        <div class="absolute -top-6 -right-6 w-12 h-12 bg-[var(--sulfur-gold)] rounded-full blur-xl opacity-40 animate-float" style="animation-delay: 1s;"></div>
+        <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-[var(--oxygen-blue)] rounded-full blur-xl opacity-30 animate-float" style="animation-delay: 2s;"></div>
+      </div>
+    </div>
+
+    <!-- 特性列表 -->
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      <div class="glass-card p-4 text-center">
+        <div class="text-2xl mb-1">🛰️</div>
+        <div class="text-xs text-[var(--text-secondary)]">Satellite Tracking</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-2xl mb-1">🌤️</div>
+        <div class="text-xs text-[var(--text-secondary)]">Weather Forecast</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-2xl mb-1">🌠</div>
+        <div class="text-xs text-[var(--text-secondary)]">Meteor Alerts</div>
+      </div>
+      <div class="glass-card p-4 text-center">
+        <div class="text-2xl mb-1">⭐</div>
+        <div class="text-xs text-[var(--text-secondary)]">Star Atlas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  let currentScreenshot = 0;
+  const totalScreenshots = 5;
+
+  function showScreenshot(index) {
+    // Hide all
+    for (let i = 0; i < totalScreenshots; i++) {
+      const el = document.getElementById(`screenshot-${i}`);
+      if (el) {
+        el.classList.remove('opacity-100');
+        el.classList.add('opacity-0');
+      }
+    }
+
+    // Show selected
+    const selected = document.getElementById(`screenshot-${index}`);
+    if (selected) {
+      selected.classList.remove('opacity-0');
+      selected.classList.add('opacity-100');
+    }
+
+    // Update indicators
+    const buttons = document.querySelectorAll('#screenshot-carousel button');
+    buttons.forEach((btn, i) => {
+      if (i === index) {
+        btn.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-white w-6';
+      } else {
+        btn.className = 'w-2 h-2 rounded-full transition-all duration-300 bg-white/40 hover:bg-white/60';
+      }
+    });
+
+    currentScreenshot = index;
+  }
+
+  // Auto-advance
+  setInterval(() => {
+    currentScreenshot = (currentScreenshot + 1) % totalScreenshots;
+    showScreenshot(currentScreenshot);
+  }, 4000);
+</script>

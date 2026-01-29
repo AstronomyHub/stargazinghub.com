@@ -1,0 +1,163 @@
+---
+interface Props {
+  t: any;
+}
+
+const { t } = Astro.props;
+
+const testimonials = [
+  {
+    name: "Sarah Chen",
+    location: "San Francisco, USA",
+    rating: 5,
+    text: "This app has completely transformed my stargazing experience. The real-time satellite tracking is incredible!",
+    avatar: "SC"
+  },
+  {
+    name: "Michael Weber",
+    location: "Munich, Germany",
+    rating: 5,
+    text: "Best astronomy app I've ever used. The weather forecast feature helps me plan perfect observation nights.",
+    avatar: "MW"
+  },
+  {
+    name: "Yuki Tanaka",
+    location: "Tokyo, Japan",
+    rating: 5,
+    text: "The meteor shower predictions are spot on. I've never missed a celestial event since I started using this app.",
+    avatar: "YT"
+  }
+];
+
+const upcomingEvents = [
+  {
+    name: "Perseids Meteor Shower",
+    date: "Aug 12-13, 2025",
+    type: "Meteor Shower",
+    peak: "Peak Activity"
+  },
+  {
+    name: "Saturn at Opposition",
+    date: "Sep 8, 2025",
+    type: "Planetary Event",
+    peak: "Best Viewing"
+  },
+  {
+    name: "Supermoon",
+    date: "Oct 7, 2025",
+    type: "Lunar Event",
+    peak: "Full Moon"
+  }
+];
+---
+
+<section class="relative py-24 px-4">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="nebula w-[500px] h-[500px] bg-accent/20 top-1/4 left-[-200px]"></div>
+    <div class="nebula w-[400px] h-[400px] bg-accent-cyan/20 bottom-1/4 right-[-150px]"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-16">
+      <div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+          <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span class="text-sm text-text-secondary">User Reviews</span>
+        </div>
+
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
+          <span class="gradient-text">What Our Users Say</span>
+        </h2>
+
+        <div class="space-y-6">
+          {testimonials.map((testimonial, index) => (
+            <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-accent/50 transition-all duration-500">
+              <div class="absolute -inset-1 bg-gradient-to-r from-accent to-accent-cyan rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-accent to-accent-cyan flex items-center justify-center text-white font-bold text-lg shrink-0">
+                  {testimonial.avatar}
+                </div>
+                
+                <div class="flex-1">
+                  <div class="flex items-center gap-1 mb-2">
+                    {Array.from({ length: testimonial.rating }).map(() => (
+                      <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  
+                  <p class="text-text-secondary mb-3">"{testimonial.text}"</p>
+                  
+                  <div class="text-sm">
+                    <span class="text-white font-medium">{testimonial.name}</span>
+                    <span class="text-text-secondary"> · {testimonial.location}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+          <svg class="w-4 h-4 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+          <span class="text-sm text-text-secondary">Upcoming Events</span>
+        </div>
+
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
+          <span class="gradient-text-cyan">Don't Miss These Events</span>
+        </h2>
+
+        <div class="space-y-4">
+          {upcomingEvents.map((event, index) => (
+            <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-xl p-5 border border-white/10 hover:border-accent-cyan/50 transition-all duration-500">
+              <div class="absolute -inset-1 bg-gradient-to-r from-accent-cyan to-accent rounded-xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
+              
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                  <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent/20 flex items-center justify-center">
+                    <svg class="w-7 h-7 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                  </div>
+                  
+                  <div>
+                    <h3 class="text-lg font-semibold text-white group-hover:text-accent-cyan transition-colors">{event.name}</h3>
+                    <p class="text-sm text-text-secondary">{event.type}</p>
+                  </div>
+                </div>
+
+                <div class="text-right">
+                  <p class="text-accent-cyan font-medium">{event.date}</p>
+                  <p class="text-xs text-text-secondary">{event.peak}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 p-6 rounded-2xl glass border border-accent-cyan/20">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-accent-cyan/20 flex items-center justify-center">
+              <svg class="w-5 h-5 text-accent-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold">Never Miss an Event</h3>
+          </div>
+          <p class="text-text-secondary text-sm mb-4">Get personalized notifications for meteor showers, eclipses, and other celestial events in your area.</p>
+          <button class="w-full py-3 px-4 bg-gradient-to-r from-accent-cyan to-accent rounded-xl font-medium hover:opacity-90 transition-opacity">
+            Enable Notifications
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
