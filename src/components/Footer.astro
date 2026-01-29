@@ -92,13 +92,25 @@ const socialLinks = [
       </p>
 
       <!-- 语言选择器 -->
-      <div class="flex items-center gap-4">
-        <span class="text-[var(--text-muted)] text-sm">Choose your language:</span>
-        <div class="flex gap-2">
-          <a href="/" class="px-3 py-1.5 rounded-lg glass text-xs text-[var(--text-secondary)] hover:text-white transition-colors">EN</a>
-          <a href="/zh/" class="px-3 py-1.5 rounded-lg glass text-xs text-[var(--text-secondary)] hover:text-white transition-colors">中文</a>
-          <a href="/ja/" class="px-3 py-1.5 rounded-lg glass text-xs text-[var(--text-secondary)] hover:text-white transition-colors">日本語</a>
-        </div>
+      <div class="flex items-center gap-3">
+        <span class="text-[var(--text-muted)] text-sm">🌐</span>
+        <select
+          class="bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-[var(--hydrogen-pink)] cursor-pointer hover:border-[var(--hydrogen-pink)]/50 transition-colors"
+          onchange="window.location.href=this.value"
+        >
+          <option value="/" selected={lang === 'en'}>English</option>
+          <option value="/zh/" selected={lang === 'zh'}>简体中文</option>
+          <option value="/zh-tw/" selected={lang === 'zh-tw'}>繁體中文</option>
+          <option value="/ja/" selected={lang === 'ja'}>日本語</option>
+          <option value="/ko/" selected={lang === 'ko'}>한국어</option>
+          <option value="/de/" selected={lang === 'de'}>Deutsch</option>
+          <option value="/fr/" selected={lang === 'fr'}>Français</option>
+          <option value="/es/" selected={lang === 'es'}>Español</option>
+          <option value="/it/" selected={lang === 'it'}>Italiano</option>
+          <option value="/ru/" selected={lang === 'ru'}>Русский</option>
+          <option value="/nl/" selected={lang === 'nl'}>Nederlands</option>
+          <option value="/pl/" selected={lang === 'pl'}>Polski</option>
+        </select>
       </div>
     </div>
   </div>
