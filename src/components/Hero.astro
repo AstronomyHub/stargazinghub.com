@@ -21,12 +21,9 @@ const screenshotPaths = gpConfig?.files || [];
 
 // Helper to resolve JSON path to ImageMetadata
 const getScreenshotImage = (path: string) => {
-  // JSON path example: /images/screenshots/en-googleplay/googleplay-1.webp
-  // Target glob key:   /src/assets/screenshots/en-googleplay/googleplay-1.webp
-  const assetPath = path.replace('/images/screenshots', '/src/assets/screenshots');
-  const mod = allScreenshots[assetPath];
+  const mod = allScreenshots[path];
   if (!mod) {
-    // console.warn(`[Hero] Image not found for path: ${path} (resolved: ${assetPath})`);
+    // console.warn(`[Hero] Image not found for path: ${path}`);
     return undefined;
   }
   return mod.default;
@@ -163,8 +160,6 @@ const outerWidth = containerWidth + (padding * 2);
                   alt={`${t.brand?.name} ${index + 1}`}
                   class="w-full h-full object-cover"
                   loading={index < 2 ? 'eager' : 'lazy'}
-                  width={280} 
-                  height={609}
                   format="webp"
                 />
               </div>
@@ -245,8 +240,6 @@ const outerWidth = containerWidth + (padding * 2);
                         alt={`${t.brand?.name} ${index + 1}`}
                         class={`w-full h-full object-cover ${pos !== 0 ? 'grayscale' : ''}`}
                         loading="eager"
-                        width={280}
-                        height={609}
                         format="webp"
                       />
                     </div>
