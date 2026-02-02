@@ -3,16 +3,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/zh-googleplay/googleplay-1.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-2.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-3.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-4.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-5.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-6.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-7.jpg",
-      "/images/screenshots/zh-googleplay/googleplay-8.jpg"
+      "/images/screenshots/zh-googleplay/googleplay-1.webp",
+      "/images/screenshots/zh-googleplay/googleplay-2.webp",
+      "/images/screenshots/zh-googleplay/googleplay-3.webp",
+      "/images/screenshots/zh-googleplay/googleplay-4.webp",
+      "/images/screenshots/zh-googleplay/googleplay-5.webp",
+      "/images/screenshots/zh-googleplay/googleplay-6.webp",
+      "/images/screenshots/zh-googleplay/googleplay-7.webp",
+      "/images/screenshots/zh-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -20,16 +20,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/zh-tw-googleplay/googleplay-1.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-2.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-3.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-4.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-5.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-6.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-7.jpg",
-      "/images/screenshots/zh-tw-googleplay/googleplay-8.jpg"
+      "/images/screenshots/zh-tw-googleplay/googleplay-1.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-2.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-3.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-4.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-5.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-6.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-7.webp",
+      "/images/screenshots/zh-tw-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -37,11 +37,11 @@
     "source": "googleplay",
     "count": 3,
     "files": [
-      "/images/screenshots/de-googleplay/googleplay-1.jpg",
-      "/images/screenshots/de-googleplay/googleplay-5.jpg",
-      "/images/screenshots/de-googleplay/googleplay-6.jpg"
+      "/images/screenshots/de-googleplay/googleplay-1.webp",
+      "/images/screenshots/de-googleplay/googleplay-5.webp",
+      "/images/screenshots/de-googleplay/googleplay-6.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -49,9 +49,9 @@
     "source": "googleplay",
     "count": 1,
     "files": [
-      "/images/screenshots/ja-googleplay/googleplay-6.jpg"
+      "/images/screenshots/ja-googleplay/googleplay-6.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -59,10 +59,10 @@
     "source": "googleplay",
     "count": 2,
     "files": [
-      "/images/screenshots/ko-googleplay/googleplay-1.jpg",
-      "/images/screenshots/ko-googleplay/googleplay-2.jpg"
+      "/images/screenshots/ko-googleplay/googleplay-1.webp",
+      "/images/screenshots/ko-googleplay/googleplay-2.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -70,16 +70,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/fr-googleplay/googleplay-1.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-2.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-3.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-4.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-5.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-6.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-7.jpg",
-      "/images/screenshots/fr-googleplay/googleplay-8.jpg"
+      "/images/screenshots/fr-googleplay/googleplay-1.webp",
+      "/images/screenshots/fr-googleplay/googleplay-2.webp",
+      "/images/screenshots/fr-googleplay/googleplay-3.webp",
+      "/images/screenshots/fr-googleplay/googleplay-4.webp",
+      "/images/screenshots/fr-googleplay/googleplay-5.webp",
+      "/images/screenshots/fr-googleplay/googleplay-6.webp",
+      "/images/screenshots/fr-googleplay/googleplay-7.webp",
+      "/images/screenshots/fr-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -87,16 +87,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/es-googleplay/googleplay-1.jpg",
-      "/images/screenshots/es-googleplay/googleplay-2.jpg",
-      "/images/screenshots/es-googleplay/googleplay-3.jpg",
-      "/images/screenshots/es-googleplay/googleplay-4.jpg",
-      "/images/screenshots/es-googleplay/googleplay-5.jpg",
-      "/images/screenshots/es-googleplay/googleplay-6.jpg",
-      "/images/screenshots/es-googleplay/googleplay-7.jpg",
-      "/images/screenshots/es-googleplay/googleplay-8.jpg"
+      "/images/screenshots/es-googleplay/googleplay-1.webp",
+      "/images/screenshots/es-googleplay/googleplay-2.webp",
+      "/images/screenshots/es-googleplay/googleplay-3.webp",
+      "/images/screenshots/es-googleplay/googleplay-4.webp",
+      "/images/screenshots/es-googleplay/googleplay-5.webp",
+      "/images/screenshots/es-googleplay/googleplay-6.webp",
+      "/images/screenshots/es-googleplay/googleplay-7.webp",
+      "/images/screenshots/es-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -104,16 +104,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/it-googleplay/googleplay-1.jpg",
-      "/images/screenshots/it-googleplay/googleplay-2.jpg",
-      "/images/screenshots/it-googleplay/googleplay-3.jpg",
-      "/images/screenshots/it-googleplay/googleplay-4.jpg",
-      "/images/screenshots/it-googleplay/googleplay-5.jpg",
-      "/images/screenshots/it-googleplay/googleplay-6.jpg",
-      "/images/screenshots/it-googleplay/googleplay-7.jpg",
-      "/images/screenshots/it-googleplay/googleplay-8.jpg"
+      "/images/screenshots/it-googleplay/googleplay-1.webp",
+      "/images/screenshots/it-googleplay/googleplay-2.webp",
+      "/images/screenshots/it-googleplay/googleplay-3.webp",
+      "/images/screenshots/it-googleplay/googleplay-4.webp",
+      "/images/screenshots/it-googleplay/googleplay-5.webp",
+      "/images/screenshots/it-googleplay/googleplay-6.webp",
+      "/images/screenshots/it-googleplay/googleplay-7.webp",
+      "/images/screenshots/it-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -121,16 +121,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/ru-googleplay/googleplay-1.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-2.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-3.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-4.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-5.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-6.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-7.jpg",
-      "/images/screenshots/ru-googleplay/googleplay-8.jpg"
+      "/images/screenshots/ru-googleplay/googleplay-1.webp",
+      "/images/screenshots/ru-googleplay/googleplay-2.webp",
+      "/images/screenshots/ru-googleplay/googleplay-3.webp",
+      "/images/screenshots/ru-googleplay/googleplay-4.webp",
+      "/images/screenshots/ru-googleplay/googleplay-5.webp",
+      "/images/screenshots/ru-googleplay/googleplay-6.webp",
+      "/images/screenshots/ru-googleplay/googleplay-7.webp",
+      "/images/screenshots/ru-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -138,15 +138,15 @@
     "source": "googleplay",
     "count": 7,
     "files": [
-      "/images/screenshots/nl-googleplay/googleplay-1.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-2.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-3.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-4.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-5.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-6.jpg",
-      "/images/screenshots/nl-googleplay/googleplay-8.jpg"
+      "/images/screenshots/nl-googleplay/googleplay-1.webp",
+      "/images/screenshots/nl-googleplay/googleplay-2.webp",
+      "/images/screenshots/nl-googleplay/googleplay-3.webp",
+      "/images/screenshots/nl-googleplay/googleplay-4.webp",
+      "/images/screenshots/nl-googleplay/googleplay-5.webp",
+      "/images/screenshots/nl-googleplay/googleplay-6.webp",
+      "/images/screenshots/nl-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -154,16 +154,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/pl-googleplay/googleplay-1.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-2.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-3.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-4.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-5.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-6.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-7.jpg",
-      "/images/screenshots/pl-googleplay/googleplay-8.jpg"
+      "/images/screenshots/pl-googleplay/googleplay-1.webp",
+      "/images/screenshots/pl-googleplay/googleplay-2.webp",
+      "/images/screenshots/pl-googleplay/googleplay-3.webp",
+      "/images/screenshots/pl-googleplay/googleplay-4.webp",
+      "/images/screenshots/pl-googleplay/googleplay-5.webp",
+      "/images/screenshots/pl-googleplay/googleplay-6.webp",
+      "/images/screenshots/pl-googleplay/googleplay-7.webp",
+      "/images/screenshots/pl-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   },
@@ -171,16 +171,16 @@
     "source": "googleplay",
     "count": 8,
     "files": [
-      "/images/screenshots/en-googleplay/googleplay-1.jpg",
-      "/images/screenshots/en-googleplay/googleplay-2.jpg",
-      "/images/screenshots/en-googleplay/googleplay-3.jpg",
-      "/images/screenshots/en-googleplay/googleplay-4.jpg",
-      "/images/screenshots/en-googleplay/googleplay-5.jpg",
-      "/images/screenshots/en-googleplay/googleplay-6.jpg",
-      "/images/screenshots/en-googleplay/googleplay-7.jpg",
-      "/images/screenshots/en-googleplay/googleplay-8.jpg"
+      "/images/screenshots/en-googleplay/googleplay-1.webp",
+      "/images/screenshots/en-googleplay/googleplay-2.webp",
+      "/images/screenshots/en-googleplay/googleplay-3.webp",
+      "/images/screenshots/en-googleplay/googleplay-4.webp",
+      "/images/screenshots/en-googleplay/googleplay-5.webp",
+      "/images/screenshots/en-googleplay/googleplay-6.webp",
+      "/images/screenshots/en-googleplay/googleplay-7.webp",
+      "/images/screenshots/en-googleplay/googleplay-8.webp"
     ],
-    "totalSize": "~5MB",
+    "totalSize": "~400KB",
     "dimensions": "2560x1440",
     "orientation": "landscape"
   }
