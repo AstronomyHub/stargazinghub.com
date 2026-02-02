@@ -1,22 +1,25 @@
-<div id="lang-toast" class="fixed bottom-4 left-4 right-4 z-[100] md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-full md:max-w-md max-w-[calc(100vw-2rem)] hidden">
+<!-- Language detection toast - delayed execution for SEO -->
+<!-- data-crawler-ignore: tells search engines this is user-only content -->
+<!-- style="display: none" ensures element is hidden before CSS loads -->
+<div id="lang-toast" data-crawler-ignore style="display: none" class="fixed bottom-4 left-4 right-4 z-[100] md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-full md:max-w-md max-w-[calc(100vw-2rem)] hidden" aria-labelledby="lang-toast-title" aria-describedby="lang-toast-message" role="dialog">
   <div class="glass p-3 rounded-2xl shadow-2xl border border-[var(--hydrogen-pink)]/30 animate-reveal-up backdrop-blur-xl bg-[#030014]/90">
     <div class="flex flex-col gap-3">
-      
+
       <!-- Top: Icon + Text -->
       <div class="flex items-center gap-3">
-        <span class="text-xl shrink-0">🌐</span>
+        <span class="text-xl shrink-0" aria-hidden="true">🌐</span>
         <div class="flex-1 min-w-0">
-          <p class="font-bold text-white text-sm leading-tight mb-0.5" id="lang-toast-title">Change Language?</p>
+          <h2 class="font-bold text-white text-sm leading-tight mb-0.5" id="lang-toast-title">Change Language?</h2>
           <p class="text-[var(--text-secondary)] text-[11px] leading-tight break-words" id="lang-toast-message">Switch to your local language</p>
         </div>
       </div>
 
-      <!-- Bottom: Buttons (Full Width) -->
+      <!-- Bottom: Buttons (Full Width, 44px min-height for touch targets) -->
       <div class="grid grid-cols-2 gap-2 w-full">
-        <button id="lang-toast-close" class="py-2 px-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] text-xs font-medium transition-colors border border-white/10 text-center truncate">
+        <button id="lang-toast-close" class="min-h-[44px] py-3 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] text-sm font-medium transition-colors border border-white/10 text-center">
           Dismiss
         </button>
-        <button id="lang-toast-confirm" class="py-2 px-2 bg-[var(--hydrogen-pink)] hover:bg-[var(--hydrogen-pink)]/90 text-white text-xs font-bold rounded-xl transition-colors shadow-lg shadow-pink-500/20 text-center truncate">
+        <button id="lang-toast-confirm" class="min-h-[44px] py-3 px-3 bg-white text-pink-600 text-sm font-bold rounded-xl transition-colors shadow-lg shadow-pink-500/20 text-center hover:bg-white/90">
           Switch
         </button>
       </div>
@@ -42,20 +45,24 @@
 </style>
 
 <script is:inline>
-  (function() {
-    // Only run on root path (English homepage)
-    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
+  // Delay language detection to avoid blocking SEO crawlers
+  // Run after page fully loads (including images) to ensure user sees content first
+  window.addEventListener('load', function() {
+    // Additional delay to ensure page is fully rendered and visible
+    setTimeout(function() {
+      // Only run on root path (English homepage)
+      if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
 
-    // 1. Check if user dismissed it before
-    if (localStorage.getItem('lang_toast_dismissed')) return;
+      // 1. Check if user dismissed it before
+      if (localStorage.getItem('lang_toast_dismissed')) return;
 
-    // 2. Check browser language
-    var userLang = navigator.language || navigator.userLanguage; 
-    if (!userLang) return;
-    userLang = userLang.toLowerCase();
+      // 2. Check browser language
+      var userLang = navigator.language || navigator.userLanguage;
+      if (!userLang) return;
+      userLang = userLang.toLowerCase();
 
-    // Language mapping & UI Text
-    var langConfig = {
+      // Language mapping & UI Text
+      var langConfig = {
       'zh': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
       'zh-cn': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
       'zh-sg': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
@@ -94,8 +101,12 @@
         msgEl.textContent = target.msg;
         confirmBtn.textContent = target.name;
 
-        // Show toast
-        toast.classList.remove('hidden');
+        // Show toast with a small animation delay for better UX
+        requestAnimationFrame(function() {
+          toast.style.display = 'block';
+          // Also remove hidden class for compatibility
+          toast.classList.remove('hidden');
+        });
 
         // Handlers
         confirmBtn.onclick = function() {
@@ -104,10 +115,12 @@
         };
 
         closeBtn.onclick = function() {
+          toast.style.display = 'none';
           toast.classList.add('hidden');
           localStorage.setItem('lang_toast_dismissed', 'true');
         };
       }
     }
-  })();
+    }, 2000); // 2 second delay after page fully loads (images, css, etc.)
+  });
 </script>

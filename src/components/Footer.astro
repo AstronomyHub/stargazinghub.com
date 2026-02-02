@@ -93,9 +93,11 @@ const socialLinks = [
 
       <!-- 语言选择器 -->
       <div class="flex items-center gap-3">
-        <span class="text-[var(--text-muted)] text-sm">🌐</span>
+        <label for="language-selector" class="text-[var(--text-muted)] text-sm">🌐</label>
         <select
+          id="language-selector"
           class="bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)] text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-[var(--hydrogen-pink)] cursor-pointer hover:border-[var(--hydrogen-pink)]/50 transition-colors"
+          aria-label="Select language / 选择语言"
           onchange="localStorage.setItem('preferred_path', this.value); window.location.href=this.value"
         >
           <option value="/" selected={lang === 'en'}>English</option>

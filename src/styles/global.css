@@ -30,7 +30,7 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --text-primary: #FFFFFF;
   --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-muted: rgba(255, 255, 255, 0.4);
+  --text-muted: rgba(255, 255, 255, 0.6);
 
   /* 动画曲线 - 有机运动 */
   --ease-breathe: cubic-bezier(0.4, 0, 0.2, 1);
