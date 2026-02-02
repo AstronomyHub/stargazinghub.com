@@ -1,53 +1,90 @@
+<div id="lang-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md hidden">
+  <div class="glass p-4 rounded-xl shadow-2xl border border-[var(--hydrogen-pink)]/30 flex items-center justify-between gap-4 animate-reveal">
+    <div class="flex items-center gap-3">
+      <span class="text-2xl">🌐</span>
+      <div class="text-sm">
+        <p class="font-bold text-white mb-0.5" id="lang-toast-title">Change Language?</p>
+        <p class="text-[var(--text-secondary)] text-xs" id="lang-toast-message">Switch to your local language</p>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button id="lang-toast-close" class="p-2 rounded-lg hover:bg-white/10 text-[var(--text-secondary)] transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <button id="lang-toast-confirm" class="px-4 py-2 bg-[var(--hydrogen-pink)] hover:bg-[var(--hydrogen-pink)]/90 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-pink-500/20">
+        Switch
+      </button>
+    </div>
+  </div>
+</div>
+
 <script is:inline>
   (function() {
     // Only run on root path (English homepage)
     if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
 
-    // 1. Check user preference
-    var preferred = localStorage.getItem('preferred_path');
-    if (preferred) {
-      if (preferred !== '/' && preferred !== '/index.html') {
-        window.location.replace(preferred);
-      }
-      return;
-    }
+    // 1. Check if user dismissed it before
+    if (localStorage.getItem('lang_toast_dismissed')) return;
 
     // 2. Check browser language
     var userLang = navigator.language || navigator.userLanguage; 
     if (!userLang) return;
     userLang = userLang.toLowerCase();
 
-    // Language mapping
-    var langMap = {
-      'zh': '/zh/',
-      'zh-cn': '/zh/',
-      'zh-sg': '/zh/',
-      'zh-tw': '/zh-tw/',
-      'zh-hk': '/zh-tw/',
-      'zh-mo': '/zh-tw/',
-      'de': '/de/',
-      'ja': '/ja/',
-      'ko': '/ko/',
-      'fr': '/fr/',
-      'es': '/es/',
-      'it': '/it/',
-      'ru': '/ru/',
-      'nl': '/nl/',
-      'pl': '/pl/'
+    // Language mapping & UI Text
+    var langConfig = {
+      'zh': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
+      'zh-cn': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
+      'zh-sg': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
+      'zh-tw': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
+      'zh-hk': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
+      'zh-mo': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
+      'de': { url: '/de/', name: 'Deutsch', title: 'Sprache ändern?', msg: 'Zu Deutsch wechseln' },
+      'ja': { url: '/ja/', name: '日本語', title: '言語を変更？', msg: '日本語に切り替える' },
+      'ko': { url: '/ko/', name: '한국어', title: '언어 변경?', msg: '한국어로 전환' },
+      'fr': { url: '/fr/', name: 'Français', title: 'Changer de langue?', msg: 'Passer au français' },
+      'es': { url: '/es/', name: 'Español', title: '¿Cambiar idioma?', msg: 'Cambiar a español' },
+      'it': { url: '/it/', name: 'Italiano', title: 'Cambia lingua?', msg: 'Passa all\'italiano' },
+      'ru': { url: '/ru/', name: 'Русский', title: 'Сменить язык?', msg: 'Переключиться на русский' },
+      'nl': { url: '/nl/', name: 'Nederlands', title: 'Taal wijzigen?', msg: 'Wissel naar Nederlands' },
+      'pl': { url: '/pl/', name: 'Polski', title: 'Zmień język?', msg: 'Przełącz na polski' }
     };
 
-    // Try exact match
-    var target = langMap[userLang];
-
-    // Try primary language match (e.g. de-AT -> de)
+    // Try match
+    var target = langConfig[userLang];
     if (!target) {
       var mainLang = userLang.split('-')[0];
-      target = langMap[mainLang];
+      target = langConfig[mainLang];
     }
 
-    // 3. Redirect if match found
-    if (target) {
-      window.location.replace(target);
+    // If target found and it's NOT English (since we are on English page)
+    if (target && !userLang.startsWith('en')) {
+      var toast = document.getElementById('lang-toast');
+      var titleEl = document.getElementById('lang-toast-title');
+      var msgEl = document.getElementById('lang-toast-message');
+      var confirmBtn = document.getElementById('lang-toast-confirm');
+      var closeBtn = document.getElementById('lang-toast-close');
+
+      if (toast && titleEl && msgEl && confirmBtn && closeBtn) {
+        // Update UI
+        titleEl.textContent = target.title;
+        msgEl.textContent = target.msg;
+        confirmBtn.textContent = target.name;
+
+        // Show toast
+        toast.classList.remove('hidden');
+
+        // Handlers
+        confirmBtn.onclick = function() {
+          localStorage.setItem('preferred_path', target.url);
+          window.location.href = target.url;
+        };
+
+        closeBtn.onclick = function() {
+          toast.classList.add('hidden');
+          localStorage.setItem('lang_toast_dismissed', 'true');
+        };
+      }
     }
   })();
 </script>

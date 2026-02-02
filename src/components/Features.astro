@@ -125,7 +125,8 @@ const features = [
     </div>
 
     <!-- 功能卡片网格 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Desktop: Grid Layout -->
+    <div class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {
         features.map((feature, index) => (
           <div
@@ -152,6 +153,36 @@ const features = [
                 {t.features[feature.key].description}
               </p>
             </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Mobile: Horizontal Carousel (Snap Scroll) -->
+    <div class="lg:hidden flex overflow-x-auto gap-4 snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6">
+      {
+        features.map((feature, index) => (
+          <div class="snap-center shrink-0 w-[80vw] sm:w-[360px] relative glass-card p-6 overflow-hidden">
+             <!-- 背景渐变光晕 -->
+             <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-5 transition-opacity duration-500`}></div>
+
+             <!-- 内容 -->
+             <div class="relative">
+               <!-- 图标 -->
+               <div class={`w-12 h-12 mb-4 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
+                 <div class="text-white" set:html={feature.icon} />
+               </div>
+ 
+               <!-- 标题 -->
+               <h3 class="text-lg font-bold mb-2 text-white">
+                 {t.features[feature.key].title}
+               </h3>
+ 
+               <!-- 描述 -->
+               <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
+                 {t.features[feature.key].description}
+               </p>
+             </div>
           </div>
         ))
       }
