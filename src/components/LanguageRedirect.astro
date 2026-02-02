@@ -1,0 +1,53 @@
+<script is:inline>
+  (function() {
+    // Only run on root path (English homepage)
+    if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
+
+    // 1. Check user preference
+    var preferred = localStorage.getItem('preferred_path');
+    if (preferred) {
+      if (preferred !== '/' && preferred !== '/index.html') {
+        window.location.replace(preferred);
+      }
+      return;
+    }
+
+    // 2. Check browser language
+    var userLang = navigator.language || navigator.userLanguage; 
+    if (!userLang) return;
+    userLang = userLang.toLowerCase();
+
+    // Language mapping
+    var langMap = {
+      'zh': '/zh/',
+      'zh-cn': '/zh/',
+      'zh-sg': '/zh/',
+      'zh-tw': '/zh-tw/',
+      'zh-hk': '/zh-tw/',
+      'zh-mo': '/zh-tw/',
+      'de': '/de/',
+      'ja': '/ja/',
+      'ko': '/ko/',
+      'fr': '/fr/',
+      'es': '/es/',
+      'it': '/it/',
+      'ru': '/ru/',
+      'nl': '/nl/',
+      'pl': '/pl/'
+    };
+
+    // Try exact match
+    var target = langMap[userLang];
+
+    // Try primary language match (e.g. de-AT -> de)
+    if (!target) {
+      var mainLang = userLang.split('-')[0];
+      target = langMap[mainLang];
+    }
+
+    // 3. Redirect if match found
+    if (target) {
+      window.location.replace(target);
+    }
+  })();
+</script>

@@ -22,6 +22,8 @@ const siteTitle = title === 'Stargazing Hub - Sky Live'
   : title;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+import LanguageRedirect from '../components/LanguageRedirect.astro';
 ---
 
 <!doctype html>
@@ -56,6 +58,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png" />
+
+    <!-- Language Redirect Logic -->
+    <LanguageRedirect />
 
     <!-- JSON-LD Structured Data for AI/LLMs -->
     <script type="application/ld+json" set:html={JSON.stringify({

@@ -127,8 +127,8 @@ const outerWidth = containerWidth + (padding * 2);
       </div>
 
       <!-- 右侧截图区 - 扇形画廊 -->
-      <div class="flex-1 flex justify-center lg:justify-end items-center" style="animation-delay: 0.3s;">
-        <div class="gallery-container relative" style="width: 100%; max-width: 1200px; height: 580px;">
+      <div class="flex-1 flex justify-center lg:justify-end items-center w-full" style="animation-delay: 0.3s;">
+        <div class="gallery-container relative transform scale-[0.6] sm:scale-[0.7] md:scale-[0.8] lg:scale-100 origin-center lg:origin-right" style="width: 100%; max-width: 1200px; height: 600px;">
           <!-- 背景光晕 -->
           <div class="absolute inset-0 bg-gradient-to-r from-[var(--hydrogen-pink)] via-[var(--carbon-purple)] to-[var(--nitrogen-cyan)] rounded-[3rem] blur-3xl opacity-15"></div>
 
@@ -237,6 +237,7 @@ const outerWidth = containerWidth + (padding * 2);
     // 更新所有卡片的位置
     function updateCards() {
       const cards = document.querySelectorAll('.gallery-card');
+      const isMobile = window.innerWidth < 1024; // 检查是否为移动端
 
       cardOrder.forEach((cardIndex, position) => {
         if (position >= maxDisplay) {
@@ -253,21 +254,46 @@ const outerWidth = containerWidth + (padding * 2);
         if (card) {
           const img = card.querySelector('img');
 
-          // 左侧主卡片 + 右侧堆叠参数（7张卡片）
-          const xOffset = position === 0 ? 0 : 65 + (position - 1) * 40;
-          const scale = position === 0 ? 1 : 0.96 - (position - 1) * 0.06;
-          const opacity = position === 0 ? 1 : 0.93 - (position - 1) * 0.12;
-          const blur = position === 0 ? 0 : (position - 1) * 0.15;
-          const zIndex = 100 - position;
+          let xOffset, scale, opacity, blur, zIndex;
 
-          card.style.left = `${xOffset}px`;
+          if (isMobile) {
+             // 移动端：居中堆叠模式 (Centered Stack)
+             // 所有的卡片都居中，只通过缩放和透明度区分
+             xOffset = 0; // 不再向右偏移
+             
+             // 稍微向下的垂直偏移，制造堆叠感
+             const yOffset = position * 15; 
+             card.style.top = `${yOffset}px`;
+             
+             scale = 1 - (position * 0.05); // 1, 0.95, 0.90...
+             opacity = position === 0 ? 1 : 1 - (position * 0.15);
+             blur = position === 0 ? 0 : position * 2;
+             zIndex = 100 - position;
+             
+             // 修正居中
+             card.style.left = '50%';
+             card.style.marginLeft = '-140px'; // 宽度的一半 (280/2)
+          } else {
+             // 桌面端：原有的扇形展开模式
+             card.style.top = '0px'; // 重置 top
+             card.style.marginLeft = '0px'; // 重置 margin
+
+             xOffset = position === 0 ? 0 : 65 + (position - 1) * 40;
+             scale = position === 0 ? 1 : 0.96 - (position - 1) * 0.06;
+             opacity = position === 0 ? 1 : 0.93 - (position - 1) * 0.12;
+             blur = position === 0 ? 0 : (position - 1) * 0.15;
+             zIndex = 100 - position;
+             
+             card.style.left = `${xOffset}px`;
+          }
+
           card.style.transform = `scale(${scale})`;
           card.style.opacity = opacity;
           card.style.filter = `blur(${blur}px)`;
           card.style.zIndex = zIndex;
           card.style.pointerEvents = 'auto';
 
-          // 只有第一张（最左边）是彩色的
+          // 只有第一张（最左边/最上面）是彩色的
           if (img) {
             if (position === 0) {
               img.classList.remove('grayscale');
@@ -278,6 +304,11 @@ const outerWidth = containerWidth + (padding * 2);
         }
       });
     }
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', () => {
+       updateCards();
+    });
 
     // 下一张
     function nextCard() {
