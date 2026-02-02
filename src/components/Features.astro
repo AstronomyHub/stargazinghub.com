@@ -158,35 +158,72 @@ const features = [
       }
     </div>
 
-    <!-- Mobile: Horizontal Carousel (Snap Scroll) -->
-    <div class="lg:hidden flex overflow-x-auto gap-4 snap-x snap-mandatory pb-6 no-scrollbar -mx-6 px-6">
+    <!-- Mobile: Grid Scroll (Auto Play) -->
+    <div id="features-mobile-gallery" class="lg:hidden grid grid-rows-2 grid-flow-col gap-4 overflow-x-auto pb-6 snap-x snap-mandatory no-scrollbar -mx-6 px-6 scroll-smooth">
       {
         features.map((feature, index) => (
-          <div class="snap-center shrink-0 w-[80vw] sm:w-[360px] relative glass-card p-6 overflow-hidden">
+          <div class="snap-start w-[70vw] sm:w-[300px] relative glass-card p-5 overflow-hidden flex flex-col justify-center h-full">
              <!-- 背景渐变光晕 -->
              <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-5 transition-opacity duration-500`}></div>
 
              <!-- 内容 -->
-             <div class="relative">
-               <!-- 图标 -->
-               <div class={`w-12 h-12 mb-4 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                 <div class="text-white" set:html={feature.icon} />
+             <div class="relative flex items-start gap-4">
+               <!-- 图标 (Smaller) -->
+               <div class={`w-10 h-10 shrink-0 bg-gradient-to-br ${feature.gradient} rounded-lg flex items-center justify-center shadow-lg`}>
+                 <div class="text-white transform scale-75" set:html={feature.icon} />
                </div>
  
-               <!-- 标题 -->
-               <h3 class="text-lg font-bold mb-2 text-white">
-                 {t.features[feature.key].title}
-               </h3>
- 
-               <!-- 描述 -->
-               <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
-                 {t.features[feature.key].description}
-               </p>
+               <div>
+                 <!-- 标题 -->
+                 <h3 class="text-base font-bold mb-1 text-white leading-tight">
+                   {t.features[feature.key].title}
+                 </h3>
+   
+                 <!-- 描述 (Truncated) -->
+                 <p class="text-[var(--text-secondary)] text-xs leading-relaxed line-clamp-2">
+                   {t.features[feature.key].description}
+                 </p>
+               </div>
              </div>
           </div>
         ))
       }
     </div>
+
+    <script is:inline>
+      (function() {
+        const gallery = document.getElementById('features-mobile-gallery');
+        if (!gallery) return;
+
+        let interval;
+        // In grid-flow-col, width depends on column width. 
+        // We approximate it to scroll one "page" (which is one column width)
+        
+        function startAutoPlay() {
+          interval = setInterval(() => {
+            const scrollAmount = gallery.clientWidth * 0.8; // Scroll most of the screen width
+
+            // If at end, scroll to start
+            if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
+              gallery.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+          }, 4000); // Slower than hero
+        }
+
+        function stopAutoPlay() {
+          clearInterval(interval);
+        }
+
+        // Start
+        startAutoPlay();
+
+        // Pause on interaction
+        gallery.addEventListener('touchstart', stopAutoPlay, { passive: true });
+        gallery.addEventListener('touchend', () => setTimeout(startAutoPlay, 5000), { passive: true });
+      })();
+    </script>
 
     <!-- 底部统计 -->
     <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">

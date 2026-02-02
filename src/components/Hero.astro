@@ -128,8 +128,8 @@ const outerWidth = containerWidth + (padding * 2);
 
       <!-- 右侧截图区 - 响应式设计 -->
       <div class="flex-1 flex justify-center lg:justify-end items-center w-full" style="animation-delay: 0.3s;">
-        <!-- 移动端：横向滚动轮播 (Snap Scroll) -->
-        <div class="lg:hidden w-full overflow-x-auto pb-8 snap-x snap-mandatory flex gap-4 px-4 no-scrollbar">
+        <!-- 移动端：横向滚动轮播 (Snap Scroll + Auto Play) -->
+        <div id="hero-mobile-gallery" class="lg:hidden w-full overflow-x-auto pb-8 snap-x snap-mandatory flex gap-4 px-4 no-scrollbar scroll-smooth">
           {
             screenshots.map((screenshot, index) => (
               <div class="snap-center shrink-0 w-[70vw] sm:w-[50vw] relative aspect-[9/19.5] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
@@ -143,6 +143,38 @@ const outerWidth = containerWidth + (padding * 2);
             ))
           }
         </div>
+
+        <script is:inline>
+          (function() {
+            const gallery = document.getElementById('hero-mobile-gallery');
+            if (!gallery) return;
+
+            let interval;
+            const scrollAmount = gallery.offsetWidth * 0.75; // Approx card width + gap
+
+            function startAutoPlay() {
+              interval = setInterval(() => {
+                // If at end, scroll to start
+                if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
+                  gallery.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                  gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+              }, 3000);
+            }
+
+            function stopAutoPlay() {
+              clearInterval(interval);
+            }
+
+            // Start
+            startAutoPlay();
+
+            // Pause on interaction
+            gallery.addEventListener('touchstart', stopAutoPlay, { passive: true });
+            gallery.addEventListener('touchend', () => setTimeout(startAutoPlay, 5000), { passive: true });
+          })();
+        </script>
 
         <!-- 桌面端：扇形画廊 -->
         <div class="hidden lg:block gallery-container relative transform scale-100 origin-right" style="width: 100%; max-width: 1200px; height: 600px;">
