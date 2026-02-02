@@ -1,22 +1,45 @@
-<div id="lang-toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-md hidden">
-  <div class="glass p-4 rounded-xl shadow-2xl border border-[var(--hydrogen-pink)]/30 flex items-center justify-between gap-4 animate-reveal">
-    <div class="flex items-center gap-3">
-      <span class="text-2xl">🌐</span>
-      <div class="text-sm">
-        <p class="font-bold text-white mb-0.5" id="lang-toast-title">Change Language?</p>
-        <p class="text-[var(--text-secondary)] text-xs" id="lang-toast-message">Switch to your local language</p>
+<div id="lang-toast" class="fixed bottom-4 left-4 right-4 z-[100] hidden">
+  <div class="glass p-4 rounded-2xl shadow-2xl border border-[var(--hydrogen-pink)]/30 animate-reveal-up backdrop-blur-xl bg-[#030014]/80">
+    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      
+      <!-- Content Area -->
+      <div class="flex items-start gap-3 w-full sm:w-auto">
+        <span class="text-2xl mt-0.5 shrink-0">🌐</span>
+        <div class="flex-1 min-w-0"> <!-- min-w-0 ensures text truncation works if needed -->
+          <p class="font-bold text-white text-sm mb-0.5" id="lang-toast-title">Change Language?</p>
+          <p class="text-[var(--text-secondary)] text-xs leading-relaxed" id="lang-toast-message">Switch to your local language</p>
+        </div>
       </div>
-    </div>
-    <div class="flex gap-2">
-      <button id="lang-toast-close" class="p-2 rounded-lg hover:bg-white/10 text-[var(--text-secondary)] transition-colors">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-      <button id="lang-toast-confirm" class="px-4 py-2 bg-[var(--hydrogen-pink)] hover:bg-[var(--hydrogen-pink)]/90 text-white text-sm font-bold rounded-lg transition-colors shadow-lg shadow-pink-500/20">
-        Switch
-      </button>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-3 w-full sm:w-auto mt-1 sm:mt-0">
+        <button id="lang-toast-close" class="flex-1 sm:flex-none py-2.5 sm:py-2 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] text-sm font-medium transition-colors border border-white/10 text-center whitespace-nowrap">
+          Dismiss
+        </button>
+        <button id="lang-toast-confirm" class="flex-[1.5] sm:flex-none py-2.5 sm:py-2 px-6 bg-[var(--hydrogen-pink)] hover:bg-[var(--hydrogen-pink)]/90 text-white text-sm font-bold rounded-xl transition-colors shadow-lg shadow-pink-500/20 text-center whitespace-nowrap">
+          Switch
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-reveal-up {
+    animation: reveal-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
 
 <script is:inline>
   (function() {
@@ -33,21 +56,21 @@
 
     // Language mapping & UI Text
     var langConfig = {
-      'zh': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
-      'zh-cn': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
-      'zh-sg': { url: '/zh/', name: '简体中文', title: '切换语言？', msg: '检测到您的浏览器语言为中文' },
-      'zh-tw': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
-      'zh-hk': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
-      'zh-mo': { url: '/zh-tw/', name: '繁體中文', title: '切換語言？', msg: '檢測到您的瀏覽器語言為中文' },
-      'de': { url: '/de/', name: 'Deutsch', title: 'Sprache ändern?', msg: 'Zu Deutsch wechseln' },
-      'ja': { url: '/ja/', name: '日本語', title: '言語を変更？', msg: '日本語に切り替える' },
-      'ko': { url: '/ko/', name: '한국어', title: '언어 변경?', msg: '한국어로 전환' },
-      'fr': { url: '/fr/', name: 'Français', title: 'Changer de langue?', msg: 'Passer au français' },
-      'es': { url: '/es/', name: 'Español', title: '¿Cambiar idioma?', msg: 'Cambiar a español' },
-      'it': { url: '/it/', name: 'Italiano', title: 'Cambia lingua?', msg: 'Passa all\'italiano' },
-      'ru': { url: '/ru/', name: 'Русский', title: 'Сменить язык?', msg: 'Переключиться на русский' },
-      'nl': { url: '/nl/', name: 'Nederlands', title: 'Taal wijzigen?', msg: 'Wissel naar Nederlands' },
-      'pl': { url: '/pl/', name: 'Polski', title: 'Zmień język?', msg: 'Przełącz na polski' }
+      'zh': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
+      'zh-cn': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
+      'zh-sg': { url: '/zh/', name: '切换 (Switch)', title: '建议切换语言', msg: '检测到您的浏览器为中文，是否切换？' },
+      'zh-tw': { url: '/zh-tw/', name: '切換 (Switch)', title: '建議切換語言', msg: '檢測到您的瀏覽器為中文，是否切換？' },
+      'zh-hk': { url: '/zh-tw/', name: '切換 (Switch)', title: '建議切換語言', msg: '檢測到您的瀏覽器為中文，是否切換？' },
+      'zh-mo': { url: '/zh-tw/', name: '切換 (Switch)', title: '建議切換語言', msg: '檢測到您的瀏覽器為中文，是否切換？' },
+      'de': { url: '/de/', name: 'Wechseln', title: 'Sprache ändern?', msg: 'Möchten Sie zu Deutsch wechseln?' },
+      'ja': { url: '/ja/', name: '切り替え', title: '言語設定', msg: '日本語サイトに切り替えますか？' },
+      'ko': { url: '/ko/', name: '전환', title: '언어 변경', msg: '한국어 사이트로 이동하시겠습니까?' },
+      'fr': { url: '/fr/', name: 'Changer', title: 'Langue détectée', msg: 'Voulez-vous passer en français ?' },
+      'es': { url: '/es/', name: 'Cambiar', title: 'Idioma detectado', msg: '¿Cambiar a español?' },
+      'it': { url: '/it/', name: 'Cambia', title: 'Lingua rilevata', msg: 'Passare all\'italiano?' },
+      'ru': { url: '/ru/', name: 'Перейти', title: 'Сменить язык', msg: 'Переключиться на русский?' },
+      'nl': { url: '/nl/', name: 'Wissel', title: 'Taal wijzigen', msg: 'Wissel naar Nederlands?' },
+      'pl': { url: '/pl/', name: 'Zmień', title: 'Zmień język', msg: 'Przełącz na polski?' }
     };
 
     // Try match
