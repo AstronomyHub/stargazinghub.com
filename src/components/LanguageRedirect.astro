@@ -1,28 +1,22 @@
-<div id="lang-toast" class="fixed bottom-0 left-0 w-full z-[100] hidden">
-  <!-- Backdrop for mobile focus -->
-  <div class="absolute inset-0 bg-black/20 backdrop-blur-sm" id="lang-toast-backdrop"></div>
-  
-  <!-- Main Bar -->
-  <div class="relative w-full bg-[#0a0a23]/95 backdrop-blur-xl border-t border-[var(--hydrogen-pink)]/30 animate-slide-up shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-    <div class="max-w-7xl mx-auto px-4 py-4 sm:py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div id="lang-toast" class="fixed bottom-4 inset-x-4 z-[100] md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-full md:max-w-md hidden">
+  <div class="glass p-3 rounded-2xl shadow-2xl border border-[var(--hydrogen-pink)]/30 animate-reveal-up backdrop-blur-xl bg-[#030014]/90">
+    <div class="flex flex-col gap-3">
       
-      <!-- Text Area -->
-      <div class="flex items-center gap-3 w-full sm:w-auto">
-        <div class="w-10 h-10 rounded-full bg-[var(--hydrogen-pink)]/10 flex items-center justify-center shrink-0">
-          <span class="text-xl">🌐</span>
-        </div>
+      <!-- Top: Icon + Text -->
+      <div class="flex items-center gap-3">
+        <span class="text-xl shrink-0">🌐</span>
         <div class="flex-1 min-w-0">
           <p class="font-bold text-white text-sm leading-tight mb-0.5" id="lang-toast-title">Change Language?</p>
-          <p class="text-[var(--text-secondary)] text-xs leading-tight truncate" id="lang-toast-message">Switch to your local language</p>
+          <p class="text-[var(--text-secondary)] text-[11px] leading-tight break-words" id="lang-toast-message">Switch to your local language</p>
         </div>
       </div>
 
-      <!-- Button Area -->
-      <div class="flex gap-3 w-full sm:w-auto shrink-0">
-        <button id="lang-toast-close" class="flex-1 sm:flex-none py-2.5 sm:py-2 px-4 rounded-lg bg-white/5 active:bg-white/10 text-[var(--text-secondary)] text-sm font-medium border border-white/10 transition-colors text-center">
+      <!-- Bottom: Buttons (Full Width) -->
+      <div class="grid grid-cols-2 gap-2 w-full">
+        <button id="lang-toast-close" class="py-2 px-2 rounded-xl bg-white/5 hover:bg-white/10 text-[var(--text-secondary)] text-xs font-medium transition-colors border border-white/10 text-center truncate">
           Dismiss
         </button>
-        <button id="lang-toast-confirm" class="flex-1 sm:flex-none py-2.5 sm:py-2 px-6 bg-[var(--hydrogen-pink)] active:bg-[var(--hydrogen-pink)]/80 text-white text-sm font-bold rounded-lg shadow-lg shadow-pink-500/20 transition-colors text-center">
+        <button id="lang-toast-confirm" class="py-2 px-2 bg-[var(--hydrogen-pink)] hover:bg-[var(--hydrogen-pink)]/90 text-white text-xs font-bold rounded-xl transition-colors shadow-lg shadow-pink-500/20 text-center truncate">
           Switch
         </button>
       </div>
@@ -30,16 +24,6 @@
     </div>
   </div>
 </div>
-
-<style>
-  @keyframes slide-up {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-  .animate-slide-up {
-    animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  }
-</style>
 
 <style>
   @keyframes reveal-up {
