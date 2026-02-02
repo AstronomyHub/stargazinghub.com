@@ -1,0 +1,23 @@
+# Stargazing Hub (天文通)
+
+> The Ultimate Stargazing Companion App for iOS and Android.
+
+## Core Features
+- **Real-time Sky Map**: AR-enabled star chart to identify stars, planets, and constellations.
+- **Astronomy Weather**: Specialized forecast including Bortle scale, seeing index, transparency, and cloud cover.
+- **Satellite Tracker**: Real-time tracking for ISS, Starlink, and 5000+ satellites with pass predictions.
+- **Events Calendar**: Alerts for meteor showers, eclipses, planetary oppositions, and auroras.
+- **Light Pollution Map**: Global overlay to find dark sky locations.
+- **Deep Space**: Detailed catalog of Messier and NGC objects for astrophotography.
+
+## Platforms & Download
+- **App Store (iOS)**: https://apps.apple.com/us/app/stargazing-hub-sky-live/id1478601599
+- **Google Play (Android)**: https://play.google.com/store/apps/details?id=com.twtapp
+
+## Supported Languages
+English, Simplified Chinese (简体中文), Traditional Chinese (繁體中文), Japanese, Korean, German, French, Spanish, Italian, Russian, Dutch, Polish.
+
+## Technical Details
+- **Privacy Policy**: https://stargazinghub.com/privacy
+- **Terms of Service**: https://stargazinghub.com/terms
+- **Contact**: support@stargazinghub.com

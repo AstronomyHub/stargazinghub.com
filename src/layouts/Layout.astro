@@ -56,6 +56,34 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png" />
+
+    <!-- JSON-LD Structured Data for AI/LLMs -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": t.brand?.name || "Stargazing Hub",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "EducationalApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "32000"
+      },
+      "description": description,
+      "featureList": [
+        "Real-time Sky Map with AR",
+        "Bortle Scale Light Pollution Map",
+        "Satellite & ISS Tracker",
+        "Meteor Shower & Aurora Alerts",
+        "Astrophotography Tools"
+      ],
+      "downloadUrl": t.links?.appStore
+    })}></script>
   </head>
   <body class="starry-bg">
     <div class="min-h-screen flex flex-col">
