@@ -82,11 +82,11 @@ const { t } = Astro.props;
   <div class="relative z-10 max-w-7xl mx-auto">
     <!-- 区域标题 -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-        <svg class="w-4 h-4 text-[var(--hydrogen-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass mb-6 max-w-full">
+        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-[var(--hydrogen-pink)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
         </svg>
-        <span class="text-sm text-[var(--text-secondary)]">App Preview</span>
+        <span class="text-xs md:text-sm text-[var(--text-secondary)] truncate">App Preview</span>
       </div>
 
       <h2 class="mb-4">

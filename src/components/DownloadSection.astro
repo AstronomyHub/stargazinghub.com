@@ -15,11 +15,11 @@ const { t } = Astro.props;
 
   <div class="relative z-10 max-w-5xl mx-auto text-center">
     <!-- 标签 -->
-    <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass mb-8">
-      <svg class="w-4 h-4 text-[var(--hydrogen-pink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full glass mb-8 max-w-full">
+      <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-[var(--hydrogen-pink)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
       </svg>
-      <span class="text-sm font-medium text-[var(--text-secondary)]">{t.download.ctaLabel}</span>
+      <span class="text-xs md:text-sm font-medium text-[var(--text-secondary)] truncate">{t.download.ctaLabel}</span>
     </div>
 
     <!-- 主标题 -->
