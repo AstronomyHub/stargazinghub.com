@@ -57,12 +57,12 @@ const getIconPath = (type: string) => {
             <div class="group relative bg-gradient-to-br from-surface/80 to-primary/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 border border-white/10 hover:border-accent/50 transition-all duration-500">
               <div class="absolute -inset-1 bg-gradient-to-r from-accent to-accent-cyan rounded-2xl blur opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10"></div>
               
-              <div class="flex items-start gap-3 sm:gap-4">
+              <div class="flex items-start gap-3 sm:gap-4 w-full">
                 <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-accent to-accent-cyan flex items-center justify-center text-white font-bold text-base sm:text-lg shrink-0">
                   {testimonial.name.charAt(0)}
                 </div>
                 
-                <div class="flex-1 min-w-0">
+                <div class="flex-1 min-w-0 w-0">
                   <div class="flex items-center gap-1 mb-2">
                     {Array.from({ length: 5 }).map(() => (
                       <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
@@ -71,9 +71,9 @@ const getIconPath = (type: string) => {
                     ))}
                   </div>
                   
-                  <p class="text-text-secondary text-sm sm:text-base mb-3 break-words">"{testimonial.text}"</p>
+                  <p class="text-text-secondary text-sm sm:text-base mb-3 break-words w-full">"{testimonial.text}"</p>
                   
-                  <div class="text-xs sm:text-sm truncate">
+                  <div class="text-xs sm:text-sm truncate w-full">
                     <span class="text-white font-medium">{testimonial.name}</span>
                     <span class="text-text-secondary"> · {testimonial.location}</span>
                   </div>
