@@ -41,11 +41,11 @@ const getIconPath = (type: string) => {
   <div class="relative z-10 max-w-7xl mx-auto">
     <div class="grid lg:grid-cols-2 gap-16">
       <div>
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-          <svg class="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 24 24">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass mb-6 max-w-full">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <span class="text-sm text-text-secondary">{t.testimonials?.reviewsLabel || 'User Reviews'}</span>
+          <span class="text-xs sm:text-sm text-text-secondary truncate">{t.testimonials?.reviewsLabel || 'User Reviews'}</span>
         </div>
 
         <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
@@ -85,12 +85,12 @@ const getIconPath = (type: string) => {
       </div>
 
       <div>
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-          <div class="relative flex h-2 w-2">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass mb-6 max-w-full">
+          <div class="relative flex h-2 w-2 shrink-0">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-cyan opacity-75"></span>
             <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-cyan"></span>
           </div>
-          <span class="text-sm text-text-secondary uppercase tracking-widest">{t.testimonials?.eventsLabel || 'Upcoming Events'}</span>
+          <span class="text-xs sm:text-sm text-text-secondary uppercase tracking-widest truncate">{t.testimonials?.eventsLabel || 'Upcoming Events'}</span>
         </div>
 
         <h2 class="font-display text-3xl md:text-4xl font-bold mb-8">
