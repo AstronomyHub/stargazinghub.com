@@ -1,175 +1,7 @@
 {
-  "zh": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/zh-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/zh-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "zh-tw": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/zh-tw-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "de": {
-    "source": "googleplay",
-    "count": 3,
-    "files": [
-      "/src/assets/screenshots/de-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/de-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/de-googleplay/googleplay-6.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "ja": {
-    "source": "googleplay",
-    "count": 1,
-    "files": [
-      "/src/assets/screenshots/ja-googleplay/googleplay-6.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "ko": {
-    "source": "googleplay",
-    "count": 2,
-    "files": [
-      "/src/assets/screenshots/ko-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/ko-googleplay/googleplay-2.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "fr": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/fr-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/fr-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "es": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/es-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/es-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "it": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/it-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/it-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "ru": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/ru-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/ru-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "nl": {
-    "source": "googleplay",
-    "count": 7,
-    "files": [
-      "/src/assets/screenshots/nl-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/nl-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
-  "pl": {
-    "source": "googleplay",
-    "count": 8,
-    "files": [
-      "/src/assets/screenshots/pl-googleplay/googleplay-1.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-2.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-3.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-4.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-5.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-6.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/pl-googleplay/googleplay-8.webp"
-    ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
-  },
   "en": {
-    "source": "googleplay",
-    "count": 8,
+    "source": "store-assets",
+    "count": 10,
     "files": [
       "/src/assets/screenshots/en-googleplay/googleplay-1.webp",
       "/src/assets/screenshots/en-googleplay/googleplay-2.webp",
@@ -178,10 +10,221 @@
       "/src/assets/screenshots/en-googleplay/googleplay-5.webp",
       "/src/assets/screenshots/en-googleplay/googleplay-6.webp",
       "/src/assets/screenshots/en-googleplay/googleplay-7.webp",
-      "/src/assets/screenshots/en-googleplay/googleplay-8.webp"
+      "/src/assets/screenshots/en-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/en-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/en-googleplay/googleplay-10.webp"
     ],
-    "totalSize": "~400KB",
-    "dimensions": "2560x1440",
-    "orientation": "landscape"
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "zh": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/zh-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/zh-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "zh-tw": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/zh-tw-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "de": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/de-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/de-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "es": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/es-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/es-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "fr": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/fr-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/fr-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "it": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/it-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/it-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "ja": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/ja-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/ja-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "ko": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/ko-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/ko-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "nl": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/nl-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/nl-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "pl": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/pl-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/pl-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
+  },
+  "ru": {
+    "source": "store-assets",
+    "count": 10,
+    "files": [
+      "/src/assets/screenshots/ru-googleplay/googleplay-1.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-2.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-3.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-4.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-5.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-6.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-7.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-8.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-9.webp",
+      "/src/assets/screenshots/ru-googleplay/googleplay-10.webp"
+    ],
+    "totalSize": "~800KB",
+    "dimensions": "1080x1920",
+    "orientation": "portrait"
   }
 }

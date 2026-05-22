@@ -11,7 +11,7 @@ const lang = 'it';
 const t = translations[lang];
 ---
 
-<Layout title="Migliore app di astronomia gratuita: mappa del cielo & inquinamento luminoso" lang={lang} description="Migliore app di astronomia con mappa del cielo in tempo reale, inquinamento luminoso, ISS e meteo astronomico. Vista del cielo AR.">
+<Layout title={t.meta?.title || 'Stargazing Hub: mappa del cielo, inquinamento luminoso e aurore'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

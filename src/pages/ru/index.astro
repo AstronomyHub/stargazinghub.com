@@ -11,7 +11,7 @@ const lang = 'ru';
 const t = translations[lang];
 ---
 
-<Layout title="Лучшее бесплатное приложение для наблюдения за звездами: карта звездного неба и световое загрязнение" lang={lang} description="Лучшее бесплатное приложение для наблюдения за звездами. Карта звездного неба, световое загрязнение, трекер МКС и погода. AR-карта.">
+<Layout title={t.meta?.title || 'Stargazing Hub: карта неба, световое загрязнение и сияния'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

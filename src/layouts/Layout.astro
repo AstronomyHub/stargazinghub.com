@@ -6,22 +6,59 @@ interface Props {
   description?: string;
   image?: string;
   lang?: string;
+  markdownUrl?: string;
+  alternateLinks?: Array<{ hreflang: string; path: string }>;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
-  title = 'Best Free Stargazing App: Sky Map & Light Pollution',
-  description = 'Free stargazing app with real-time sky map, light pollution map, ISS tracker & astronomy weather. AR sky view to identify stars, track comets & satellites.',
+  title = 'Stargazing Hub: Sky Map, Light Pollution & Aurora Forecast',
+  description = 'Plan every night under the stars with a real sky map, stargazing index, light pollution map, aurora forecast, 3D Moon, meteor calendar and astrophotography tools.',
   image = '/images/icon.png',
-  lang = 'en'
+  lang = 'en',
+  markdownUrl,
+  alternateLinks,
+  structuredData
 } = Astro.props;
 
 import { translations } from '../i18n/ui';
+import { downloadLinks, homepageAlternateLinks, homepagePaths, siteUrl } from '../data/appKnowledge';
 const t = translations[lang as keyof typeof translations] || translations.en;
-const siteTitle = title === 'Stargazing Hub - Sky Live' 
-  ? `${t.brand?.name} - Sky Live`
+const siteTitle = title === 'Stargazing Hub - Sky Live'
+  ? `${t.brand?.name} - Sky Map & Forecast`
   : title;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const resolvedAlternateLinks = alternateLinks ?? (homepagePaths.has(currentPath) ? homepageAlternateLinks : []);
+const markdownAbsoluteUrl = markdownUrl ? new URL(markdownUrl, Astro.site) : null;
+const defaultStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": t.brand?.name || "Stargazing Hub",
+  "alternateName": "天文通",
+  "url": siteUrl,
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "EducationalApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": description,
+  "featureList": [
+    "Real-time sky map and AR star chart",
+    "Stargazing index and multi-model hourly forecast",
+    "Light pollution, aurora, Sun, Moon and Milky Way planning maps",
+    "Night-sky photo recognition",
+    "3D Moon, meteor calendar and astrophotography tools"
+  ],
+  "sameAs": [downloadLinks.appStore, downloadLinks.googlePlay],
+  "downloadUrl": [downloadLinks.appStore, downloadLinks.googlePlay]
+};
+const structuredDataList = structuredData
+  ? Array.isArray(structuredData) ? structuredData : [structuredData]
+  : [defaultStructuredData];
 
 import LanguageRedirect from '../components/LanguageRedirect.astro';
 ---
@@ -36,6 +73,12 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
 
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
+    {resolvedAlternateLinks.map((link) => (
+      <link rel="alternate" hreflang={link.hreflang} href={new URL(link.path, Astro.site)} />
+    ))}
+    {markdownAbsoluteUrl && (
+      <link rel="alternate" type="text/markdown" href={markdownAbsoluteUrl} />
+    )}
 
     <!-- Primary Meta Tags -->
     <title>{siteTitle}</title>
@@ -59,36 +102,10 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png" />
 
-    <!-- Language Redirect Logic -->
-    <LanguageRedirect />
-
-    <!-- JSON-LD Structured Data for AI/LLMs -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": t.brand?.name || "Stargazing Hub",
-      "operatingSystem": "iOS, Android",
-      "applicationCategory": "EducationalApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "32000"
-      },
-      "description": description,
-      "featureList": [
-        "Real-time Sky Map with AR",
-        "Bortle Scale Light Pollution Map",
-        "Satellite & ISS Tracker",
-        "Meteor Shower & Aurora Alerts",
-        "Astrophotography Tools"
-      ],
-      "downloadUrl": t.links?.appStore
-    })}></script>
+    <!-- JSON-LD Structured Data for search engines -->
+    {structuredDataList.map((data) => (
+      <script type="application/ld+json" set:html={JSON.stringify(data)}></script>
+    ))}
     <!-- Matomo -->
     <script is:inline>
       var _paq = window._paq = window._paq || [];
@@ -106,6 +123,7 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
     <!-- End Matomo -->
   </head>
   <body class="starry-bg">
+    <LanguageRedirect />
     <div class="min-h-screen flex flex-col">
       <slot />
     </div>

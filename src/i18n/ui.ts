@@ -1,4 +1,4 @@
-export const translations = {
+export const translations: Record<string, any> = {
   en: {
     brand: {
       name: 'Stargazing Hub',
@@ -1769,6 +1769,835 @@ export const translations = {
     },
   },
 };
+
+const currentProductCopy: Record<string, any> = {
+  en: {
+    meta: {
+      title: 'Stargazing Hub: Sky Map, Light Pollution & Aurora Forecast',
+      description: 'Plan every night under the stars with a real sky map, stargazing index, light pollution map, aurora forecast, 3D Moon, meteor calendar and astrophotography tools.',
+    },
+    links: {
+      appStore: 'https://apps.apple.com/app/id1478601599',
+      googlePlay: 'https://play.google.com/store/apps/details?id=com.twtapp&hl=en',
+    },
+    hero: {
+      title: 'Plan every night under the stars',
+      subtitle: 'Sky map, forecast, aurora, Moon and deep-sky tools in one app.',
+      description: 'Check stargazing conditions, recognize the night sky from a photo, simulate constellations, plan with light pollution and Milky Way maps, and follow the Moon, meteors and aurora.',
+      platformLabel: 'Available on iOS and Android',
+    },
+    features: {
+      eyebrow: 'Complete astronomy toolkit',
+      title: 'Everything from forecast to field planning',
+      subtitle: 'Built for casual skywatchers, astronomy beginners and astrophotographers who need reliable planning before heading out.',
+      stats: {
+        bortle: { value: 'Light Pollution', label: 'Dark-sky planning' },
+        seeing: { value: 'Multi-model', label: 'Hourly forecast' },
+        tracker: { value: 'Sky Solve', label: 'Photo recognition' },
+        ar: { value: 'Sky Map + AR', label: 'True simulation' },
+      },
+      satellite: {
+        title: 'Planning Maps',
+        description: 'Use light pollution, weather, aurora, Sun, Moon and Milky Way layers to choose the right place and time.',
+      },
+      weather: {
+        title: 'Stargazing Forecast',
+        description: 'Stargazing index, cloud cover, seeing, transparency, moonlight and detailed multi-model hourly forecasts.',
+      },
+      meteor: {
+        title: 'Meteors & Aurora',
+        description: 'Follow meteor shower calendars, peak predictions, aurora alerts and high-value sky events.',
+      },
+      starMap: {
+        title: 'Real Sky Map',
+        description: 'Simulate the sky with constellations, horizon masking, terrain, satellites, Milky Way, AR and framing overlays.',
+      },
+      solar: {
+        title: '3D Moon & Solar System',
+        description: 'Explore lunar phases, landmarks, eclipses, Sun and Moon visibility, and planet positions.',
+      },
+      deepSpace: {
+        title: 'Sky Guide & Targets',
+        description: 'Get sky simulation and recommended targets for planets, deep-sky objects, events and tonight’s conditions.',
+      },
+      tools: {
+        title: 'Astrophotography Tools',
+        description: 'Plan field of view, camera and telescope framing, mosaic panels, equivalent focal length and guiding accuracy.',
+      },
+      free: {
+        title: 'Daily Astronomy Gallery',
+        description: 'Discover curated space images and keep a pocket-sized sky reference for everyday inspiration.',
+      },
+    },
+    download: {
+      title: 'Make your next night out easier to plan',
+      subtitle: 'Download Stargazing Hub and bring forecasts, maps, sky simulation and imaging tools with you.',
+      bullets: ['Free to start', 'Global sky data', 'Phone and tablet ready'],
+    },
+    footer: {
+      description: 'A complete astronomy app for forecasts, sky maps, light pollution planning, night-sky recognition and astrophotography tools.',
+    },
+  },
+  zh: {
+    meta: {
+      title: '天文通：星图、光污染、极光预报与观星指数',
+      description: '天文通提供真实星图、观星指数、光污染地图、极光预报、3D月球、流星雨日历、星空识别和天文摄影工具，帮你规划每一次观星。',
+    },
+    links: {
+      appStore: 'https://apps.apple.com/app/id1478601599',
+      googlePlay: 'https://play.google.com/store/apps/details?id=com.twtapp&hl=zh',
+    },
+    hero: {
+      title: '有天象，看天文通',
+      subtitle: '观星指数、真实星图、光污染和天象规划，一站完成。',
+      description: '从朝霞晚霞、小时预报到极光、流星雨、3D月球和星空识别，帮你判断能不能看、去哪看、什么时候看。',
+      platformLabel: '支持 iOS 和 Android',
+    },
+    features: {
+      eyebrow: '完整天文工具箱',
+      title: '从天气预报到实地规划',
+      subtitle: '面向观星入门、天文爱好者和天文摄影用户，把观测条件、星图模拟和拍摄工具集中到一个 App。',
+      stats: {
+        bortle: { value: '光污染', label: '暗空规划' },
+        seeing: { value: '多模型', label: '小时预报' },
+        tracker: { value: '星空识别', label: '照片解析' },
+        ar: { value: '星图 + AR', label: '真实模拟' },
+      },
+      satellite: {
+        title: '地图规划',
+        description: '叠加光污染、天气、极光、太阳、月亮与银河规划图层，选择更合适的地点和时间。',
+      },
+      weather: {
+        title: '观星预报',
+        description: '提供观星指数、云量、视宁度、透明度、月光影响和详细多模型小时预报。',
+      },
+      meteor: {
+        title: '流星与极光',
+        description: '查看流星雨日历、极大时刻、极光预警和近期值得关注的天象。',
+      },
+      starMap: {
+        title: '真实星图',
+        description: '模拟星座、地平遮挡、真实地形、卫星、银河、AR 与取景框，适合观察和构图。',
+      },
+      solar: {
+        title: '3D 月球与太阳系',
+        description: '查看月相、月面地标、月食模拟、日月可见性和行星位置。',
+      },
+      deepSpace: {
+        title: '天空模拟与目标推荐',
+        description: '根据天空条件推荐行星、深空天体和近期天象，帮助你快速决定今晚看什么。',
+      },
+      tools: {
+        title: '天文摄影工具',
+        description: '支持取景框、相机与望远镜视场、马赛克规划、等效焦距和导星精度计算。',
+      },
+      free: {
+        title: '每日天文美图',
+        description: '每日更新精选天文图像，把整片星空放进口袋。',
+      },
+    },
+    download: {
+      title: '让下一次观星更好规划',
+      subtitle: '下载天文通，把预报、地图、星图模拟和摄影工具随身带走。',
+      bullets: ['免费开始使用', '全球天文数据', '适配手机和平板'],
+    },
+    footer: {
+      description: '覆盖观星预报、真实星图、光污染规划、星空识别和天文摄影工具的全能天文 App。',
+    },
+  },
+  'zh-tw': {
+    meta: {
+      title: '天文通：星圖、光污染、極光預報與觀星指數',
+      description: '天文通提供真實星圖、觀星指數、光污染地圖、極光預報、3D 月球、流星雨日曆、星空辨識和天文攝影工具，幫你規劃每一次觀星。',
+    },
+    links: {
+      appStore: 'https://apps.apple.com/app/id1478601599',
+      googlePlay: 'https://play.google.com/store/apps/details?id=com.twtapp&hl=zh-TW',
+    },
+    hero: {
+      title: '有天象，看天文通',
+      subtitle: '觀星指數、真實星圖、光污染和天象規劃，一站完成。',
+      description: '從朝霞晚霞、小時預報到極光、流星雨、3D 月球和星空辨識，幫你判斷能不能看、去哪看、什麼時候看。',
+      platformLabel: '支援 iOS 和 Android',
+    },
+    features: {
+      eyebrow: '完整天文工具箱',
+      title: '從天氣預報到實地規劃',
+      subtitle: '面向觀星入門、天文愛好者和天文攝影用戶，把觀測條件、星圖模擬和拍攝工具集中到一個 App。',
+      stats: {
+        bortle: { value: '光污染', label: '暗空規劃' },
+        seeing: { value: '多模型', label: '小時預報' },
+        tracker: { value: '星空辨識', label: '照片解析' },
+        ar: { value: '星圖 + AR', label: '真實模擬' },
+      },
+      satellite: {
+        title: '地圖規劃',
+        description: '疊加光污染、天氣、極光、太陽、月亮與銀河規劃圖層，選擇更合適的地點和時間。',
+      },
+      weather: {
+        title: '觀星預報',
+        description: '提供觀星指數、雲量、視寧度、透明度、月光影響和詳細多模型小時預報。',
+      },
+      meteor: {
+        title: '流星與極光',
+        description: '查看流星雨日曆、極大時刻、極光預警和近期值得關注的天象。',
+      },
+      starMap: {
+        title: '真實星圖',
+        description: '模擬星座、地平遮擋、真實地形、衛星、銀河、AR 與取景框，適合觀察和構圖。',
+      },
+      solar: {
+        title: '3D 月球與太陽系',
+        description: '查看月相、月面地標、月食模擬、日月可見性和行星位置。',
+      },
+      deepSpace: {
+        title: '天空模擬與目標推薦',
+        description: '根據天空條件推薦行星、深空天體和近期天象，幫助你快速決定今晚看什麼。',
+      },
+      tools: {
+        title: '天文攝影工具',
+        description: '支援取景框、相機與望遠鏡視場、馬賽克規劃、等效焦距和導星精度計算。',
+      },
+      free: {
+        title: '每日天文美圖',
+        description: '每日更新精選天文圖像，把整片星空放入口袋。',
+      },
+    },
+    download: {
+      title: '讓下一次觀星更好規劃',
+      subtitle: '下載天文通，把預報、地圖、星圖模擬和攝影工具隨身帶走。',
+      bullets: ['免費開始使用', '全球天文資料', '適配手機和平板'],
+    },
+    footer: {
+      description: '覆蓋觀星預報、真實星圖、光污染規劃、星空辨識和天文攝影工具的全能天文 App。',
+    },
+  },
+  de: {
+    meta: {
+      title: 'Stargazing Hub: Sternkarte, Lichtverschmutzung & Aurora',
+      description: 'Plane jede Nacht mit echter Sternkarte, Beobachtungsindex, Lichtverschmutzung, Aurora-Prognose, 3D-Mond, Meteorkalender und Astrofotografie-Tools.',
+    },
+    hero: {
+      title: 'Plane jede Nacht unter den Sternen',
+      subtitle: 'Sternkarte, Prognose, Aurora, Mond und Deep-Sky-Tools in einer App.',
+      description: 'Prüfe Beobachtungsbedingungen, erkenne den Nachthimmel per Foto, simuliere Sternbilder und plane mit Lichtverschmutzungs- und Milchstraßenkarten.',
+    },
+    features: {
+      eyebrow: 'Komplettes Astronomie-Toolkit',
+      title: 'Von der Prognose bis zur Feldplanung',
+      subtitle: 'Für Einsteiger, Sternfreunde und Astrofotografen, die vor dem Aufbruch verlässliche Planung brauchen.',
+    },
+  },
+  es: {
+    meta: {
+      title: 'Stargazing Hub: mapa del cielo, contaminación lumínica y auroras',
+      description: 'Planifica cada noche con mapa del cielo real, índice de observación, contaminación lumínica, auroras, Luna 3D, calendario de meteoros y herramientas de astrofotografía.',
+    },
+    hero: {
+      title: 'Planifica cada noche bajo las estrellas',
+      subtitle: 'Mapa del cielo, pronóstico, auroras, Luna y cielo profundo en una app.',
+      description: 'Consulta condiciones de observación, reconoce el cielo desde una foto, simula constelaciones y planifica con mapas de contaminación lumínica y Vía Láctea.',
+    },
+    features: {
+      eyebrow: 'Kit completo de astronomía',
+      title: 'Del pronóstico a la planificación en campo',
+      subtitle: 'Para principiantes, observadores y astrofotógrafos que necesitan decidir cuándo y dónde salir.',
+    },
+  },
+  fr: {
+    meta: {
+      title: 'Stargazing Hub : carte du ciel, pollution lumineuse et aurores',
+      description: 'Planifiez chaque nuit avec carte du ciel réelle, indice d’observation, pollution lumineuse, aurores, Lune 3D, calendrier des météores et outils d’astrophotographie.',
+    },
+    hero: {
+      title: 'Planifiez chaque nuit sous les étoiles',
+      subtitle: 'Carte du ciel, météo, aurores, Lune et ciel profond dans une app.',
+      description: 'Vérifiez les conditions, reconnaissez le ciel depuis une photo, simulez les constellations et planifiez avec la pollution lumineuse et la Voie lactée.',
+    },
+    features: {
+      eyebrow: 'Boîte à outils d’astronomie complète',
+      title: 'De la prévision à la planification sur le terrain',
+      subtitle: 'Pour débutants, observateurs et astrophotographes qui veulent choisir le bon moment et le bon lieu.',
+    },
+  },
+  it: {
+    meta: {
+      title: 'Stargazing Hub: mappa del cielo, inquinamento luminoso e aurore',
+      description: 'Pianifica ogni notte con mappa del cielo reale, indice di osservazione, inquinamento luminoso, aurore, Luna 3D, calendario meteore e strumenti di astrofotografia.',
+    },
+    hero: {
+      title: 'Pianifica ogni notte sotto le stelle',
+      subtitle: 'Mappa del cielo, meteo, aurore, Luna e cielo profondo in una sola app.',
+      description: 'Controlla le condizioni, riconosci il cielo da una foto, simula le costellazioni e pianifica con mappe di inquinamento luminoso e Via Lattea.',
+    },
+    features: {
+      eyebrow: 'Toolkit astronomico completo',
+      title: 'Dalle previsioni alla pianificazione sul campo',
+      subtitle: 'Per principianti, osservatori e astrofotografi che vogliono scegliere il momento e il luogo giusti.',
+    },
+  },
+  ja: {
+    meta: {
+      title: 'Stargazing Hub：星図・光害マップ・オーロラ予報',
+      description: 'リアル星図、観星指数、光害マップ、オーロラ予報、3D 月、流星群カレンダー、星空写真認識、天体撮影ツールで観測を計画できます。',
+    },
+    hero: {
+      title: '星空の夜を計画する',
+      subtitle: '星図、予報、オーロラ、月、ディープスカイを一つのアプリで。',
+      description: '観測条件を確認し、写真から星空を認識し、星座をシミュレーション。光害と天の川マップで場所と時間を選べます。',
+    },
+    features: {
+      eyebrow: '天文ツール一式',
+      title: '予報から現地計画まで',
+      subtitle: '星空観察の初心者、天文ファン、天体写真ユーザーのための実用的な計画アプリです。',
+    },
+  },
+  ko: {
+    meta: {
+      title: 'Stargazing Hub: 별 지도, 광공해 지도와 오로라 예보',
+      description: '실제 별 지도, 관측 지수, 광공해 지도, 오로라 예보, 3D 달, 유성우 달력, 밤하늘 사진 인식과 천체사진 도구로 관측을 계획하세요.',
+    },
+    hero: {
+      title: '별이 보이는 밤을 계획하세요',
+      subtitle: '별 지도, 예보, 오로라, 달과 심우주 도구를 한 앱에.',
+      description: '관측 조건을 확인하고 사진으로 밤하늘을 인식하며 별자리를 시뮬레이션하고 광공해와 은하수 지도로 장소와 시간을 선택하세요.',
+    },
+    features: {
+      eyebrow: '완전한 천문 도구',
+      title: '예보부터 현장 계획까지',
+      subtitle: '초보 관측자, 천문 애호가, 천체사진 사용자가 나가기 전에 필요한 정보를 한곳에 모았습니다.',
+    },
+  },
+  nl: {
+    meta: {
+      title: 'Stargazing Hub: sterrenkaart, lichtvervuiling en aurora',
+      description: 'Plan elke sterrennacht met echte sterrenkaart, observatie-index, lichtvervuilingskaart, auroravoorspelling, 3D Maan, meteorenkalender en astrofotografie-tools.',
+    },
+    hero: {
+      title: 'Plan elke nacht onder de sterren',
+      subtitle: 'Sterrenkaart, voorspelling, aurora, Maan en deep-sky tools in één app.',
+      description: 'Controleer omstandigheden, herken de nachthemel vanaf een foto, simuleer sterrenbeelden en plan met lichtvervuiling en Melkwegkaarten.',
+    },
+    features: {
+      eyebrow: 'Complete astronomietoolkit',
+      title: 'Van voorspelling tot veldplanning',
+      subtitle: 'Voor beginners, sterrenkijkers en astrofotografen die betrouwbaar willen plannen voordat ze vertrekken.',
+    },
+  },
+  pl: {
+    meta: {
+      title: 'Stargazing Hub: mapa nieba, zanieczyszczenie światłem i zorze',
+      description: 'Planuj nocne obserwacje z prawdziwą mapą nieba, indeksem obserwacji, mapą zanieczyszczenia światłem, prognozą zorzy, Księżycem 3D, kalendarzem meteorów i narzędziami astrofoto.',
+    },
+    hero: {
+      title: 'Zaplanuj każdą noc pod gwiazdami',
+      subtitle: 'Mapa nieba, prognoza, zorze, Księżyc i deep sky w jednej aplikacji.',
+      description: 'Sprawdzaj warunki, rozpoznawaj niebo ze zdjęcia, symuluj gwiazdozbiory i planuj z mapą zanieczyszczenia światłem oraz Drogi Mlecznej.',
+    },
+    features: {
+      eyebrow: 'Kompletny zestaw astronomiczny',
+      title: 'Od prognozy do planowania w terenie',
+      subtitle: 'Dla początkujących, obserwatorów i astrofotografów, którzy chcą dobrze wybrać czas i miejsce.',
+    },
+  },
+  ru: {
+    meta: {
+      title: 'Stargazing Hub: карта неба, световое загрязнение и сияния',
+      description: 'Планируйте ночные наблюдения с реальной картой неба, индексом условий, картой светового загрязнения, прогнозом сияний, 3D Луной, календарем метеоров и инструментами астрофотографии.',
+    },
+    hero: {
+      title: 'Планируйте каждую ночь под звездами',
+      subtitle: 'Карта неба, прогноз, сияния, Луна и deep-sky инструменты в одном приложении.',
+      description: 'Проверяйте условия, распознавайте небо по фото, моделируйте созвездия и планируйте с картами светового загрязнения и Млечного Пути.',
+    },
+    features: {
+      eyebrow: 'Полный набор астрономических инструментов',
+      title: 'От прогноза до планирования на месте',
+      subtitle: 'Для начинающих, наблюдателей и астрофотографов, которым важно выбрать правильное время и место.',
+    },
+  },
+};
+
+const mergeCurrentCopy = (target: Record<string, any>, source: Record<string, any>) => {
+  for (const [key, value] of Object.entries(source)) {
+    if (
+      value &&
+      typeof value === 'object' &&
+      !Array.isArray(value) &&
+      target[key] &&
+      typeof target[key] === 'object' &&
+      !Array.isArray(target[key])
+    ) {
+      mergeCurrentCopy(target[key], value);
+    } else {
+      target[key] = value;
+    }
+  }
+};
+
+const currentLocalizedDetails: Record<string, any> = {
+  de: {
+    features: {
+      stats: {
+        bortle: { value: 'Lichtverschmutzung', label: 'Dark-Sky-Planung' },
+        seeing: { value: 'Mehrere Modelle', label: 'Stündliche Prognose' },
+        tracker: { value: 'Sky Solve', label: 'Fotoerkennung' },
+        ar: { value: 'Sternkarte + AR', label: 'Echte Simulation' },
+      },
+      satellite: {
+        title: 'Planungskarten',
+        description: 'Kombiniere Lichtverschmutzung, Wetter, Aurora, Sonne, Mond und Milchstraße, um Ort und Zeit zu wählen.',
+      },
+      weather: {
+        title: 'Beobachtungsprognose',
+        description: 'Beobachtungsindex, Wolken, Seeing, Transparenz, Mondlicht und detaillierte stündliche Mehrmodell-Prognosen.',
+      },
+      meteor: {
+        title: 'Meteore & Aurora',
+        description: 'Meteorschauer-Kalender, Peak-Prognosen, Aurora-Hinweise und wichtige Himmelsereignisse.',
+      },
+      starMap: {
+        title: 'Reale Sternkarte',
+        description: 'Simuliere Sternbilder, Horizont, Gelände, Satelliten, Milchstraße, AR und Bildfeld-Overlays.',
+      },
+      solar: {
+        title: '3D-Mond & Sonnensystem',
+        description: 'Mondphasen, Mondlandmarken, Finsternisse, Sichtbarkeit von Sonne und Mond sowie Planetenpositionen.',
+      },
+      deepSpace: {
+        title: 'Himmelsguide & Ziele',
+        description: 'Simulation und Empfehlungen für Planeten, Deep-Sky-Objekte, Ereignisse und heutige Bedingungen.',
+      },
+      tools: {
+        title: 'Astrofotografie-Tools',
+        description: 'Bildfeld, Kamera- und Teleskop-Framing, Mosaikplanung, äquivalente Brennweite und Guiding-Genauigkeit.',
+      },
+      free: {
+        title: 'Tägliche Astronomiebilder',
+        description: 'Ausgewählte Weltraumbilder und eine kompakte Himmelsreferenz für jeden Tag.',
+      },
+    },
+    download: {
+      title: 'Plane deine nächste Nacht leichter',
+      subtitle: 'Lade Stargazing Hub herunter und nimm Prognosen, Karten, Sternsimulation und Fototools mit.',
+      bullets: ['Kostenlos starten', 'Globale Himmelsdaten', 'Für Handy und Tablet'],
+    },
+    footer: {
+      description: 'Eine komplette Astronomie-App für Prognosen, Sternkarten, Lichtverschmutzung, Fotoerkennung und Astrofotografie.',
+    },
+  },
+  es: {
+    features: {
+      stats: {
+        bortle: { value: 'Contaminación', label: 'Cielo oscuro' },
+        seeing: { value: 'Multi-modelo', label: 'Pronóstico horario' },
+        tracker: { value: 'Sky Solve', label: 'Reconocimiento' },
+        ar: { value: 'Mapa + AR', label: 'Simulación real' },
+      },
+      satellite: {
+        title: 'Mapas de planificación',
+        description: 'Combina contaminación lumínica, clima, aurora, Sol, Luna y Vía Láctea para elegir lugar y hora.',
+      },
+      weather: {
+        title: 'Pronóstico de observación',
+        description: 'Índice de observación, nubes, seeing, transparencia, luz lunar y pronóstico horario multi-modelo.',
+      },
+      meteor: {
+        title: 'Meteoros y auroras',
+        description: 'Calendarios de lluvias de meteoros, picos, alertas de aurora y eventos celestes importantes.',
+      },
+      starMap: {
+        title: 'Mapa del cielo real',
+        description: 'Simula constelaciones, horizonte, terreno, satélites, Vía Láctea, AR y marcos de encuadre.',
+      },
+      solar: {
+        title: 'Luna 3D y sistema solar',
+        description: 'Fases lunares, lugares de la Luna, eclipses, visibilidad del Sol y la Luna y posiciones planetarias.',
+      },
+      deepSpace: {
+        title: 'Guía del cielo y objetivos',
+        description: 'Simulación y recomendaciones para planetas, cielo profundo, eventos y condiciones de esta noche.',
+      },
+      tools: {
+        title: 'Herramientas de astrofotografía',
+        description: 'Campo de visión, cámara y telescopio, mosaicos, focal equivalente y precisión de guiado.',
+      },
+      free: {
+        title: 'Imagen astronómica diaria',
+        description: 'Imágenes espaciales seleccionadas y una referencia del cielo para consultar cada día.',
+      },
+    },
+    download: {
+      title: 'Planifica mejor tu próxima noche',
+      subtitle: 'Descarga Stargazing Hub y lleva pronósticos, mapas, simulación del cielo y herramientas de foto.',
+      bullets: ['Empieza gratis', 'Datos globales', 'Móvil y tablet'],
+    },
+    footer: {
+      description: 'Una app completa de astronomía para pronósticos, mapas del cielo, contaminación lumínica, reconocimiento y astrofotografía.',
+    },
+  },
+  fr: {
+    features: {
+      stats: {
+        bortle: { value: 'Pollution lumineuse', label: 'Planification ciel noir' },
+        seeing: { value: 'Multi-modèle', label: 'Prévision horaire' },
+        tracker: { value: 'Sky Solve', label: 'Reconnaissance photo' },
+        ar: { value: 'Carte + AR', label: 'Simulation réelle' },
+      },
+      satellite: {
+        title: 'Cartes de planification',
+        description: 'Superposez pollution lumineuse, météo, aurore, Soleil, Lune et Voie lactée pour choisir lieu et heure.',
+      },
+      weather: {
+        title: 'Prévision d’observation',
+        description: 'Indice d’observation, nuages, seeing, transparence, clair de Lune et prévisions horaires multi-modèles.',
+      },
+      meteor: {
+        title: 'Météores et aurores',
+        description: 'Calendriers de pluies de météores, pics, alertes d’aurore et grands événements du ciel.',
+      },
+      starMap: {
+        title: 'Carte du ciel réelle',
+        description: 'Simulez constellations, horizon, terrain, satellites, Voie lactée, AR et cadres de prise de vue.',
+      },
+      solar: {
+        title: 'Lune 3D et système solaire',
+        description: 'Phases, repères lunaires, éclipses, visibilité du Soleil et de la Lune et positions des planètes.',
+      },
+      deepSpace: {
+        title: 'Guide du ciel et cibles',
+        description: 'Simulation et recommandations pour planètes, ciel profond, événements et conditions du soir.',
+      },
+      tools: {
+        title: 'Outils d’astrophotographie',
+        description: 'Champ de vision, cadrage caméra/télescope, mosaïques, focale équivalente et précision de guidage.',
+      },
+      free: {
+        title: 'Image astro quotidienne',
+        description: 'Images spatiales sélectionnées et référence du ciel à garder dans la poche.',
+      },
+    },
+    download: {
+      title: 'Planifiez plus facilement votre prochaine nuit',
+      subtitle: 'Téléchargez Stargazing Hub avec prévisions, cartes, simulation du ciel et outils photo.',
+      bullets: ['Démarrer gratuitement', 'Données mondiales', 'Téléphone et tablette'],
+    },
+    footer: {
+      description: 'Une app d’astronomie complète pour prévisions, cartes du ciel, pollution lumineuse, reconnaissance du ciel et astrophotographie.',
+    },
+  },
+  it: {
+    features: {
+      stats: {
+        bortle: { value: 'Inquinamento', label: 'Cieli bui' },
+        seeing: { value: 'Multi-modello', label: 'Previsioni orarie' },
+        tracker: { value: 'Sky Solve', label: 'Riconoscimento' },
+        ar: { value: 'Mappa + AR', label: 'Simulazione reale' },
+      },
+      satellite: {
+        title: 'Mappe di pianificazione',
+        description: 'Unisci inquinamento luminoso, meteo, aurora, Sole, Luna e Via Lattea per scegliere luogo e ora.',
+      },
+      weather: {
+        title: 'Previsioni per osservare',
+        description: 'Indice di osservazione, nuvole, seeing, trasparenza, luce lunare e previsioni orarie multi-modello.',
+      },
+      meteor: {
+        title: 'Meteore e aurore',
+        description: 'Calendari degli sciami meteorici, picchi, avvisi aurora ed eventi celesti importanti.',
+      },
+      starMap: {
+        title: 'Mappa del cielo reale',
+        description: 'Simula costellazioni, orizzonte, terreno, satelliti, Via Lattea, AR e cornici di inquadratura.',
+      },
+      solar: {
+        title: 'Luna 3D e sistema solare',
+        description: 'Fasi lunari, punti della Luna, eclissi, visibilità Sole/Luna e posizioni dei pianeti.',
+      },
+      deepSpace: {
+        title: 'Guida cielo e obiettivi',
+        description: 'Simulazione e consigli per pianeti, deep sky, eventi e condizioni della notte.',
+      },
+      tools: {
+        title: 'Strumenti per astrofoto',
+        description: 'Campo visivo, camera e telescopio, mosaici, focale equivalente e precisione di guida.',
+      },
+      free: {
+        title: 'Immagine astronomica quotidiana',
+        description: 'Immagini spaziali curate e una piccola guida del cielo sempre con te.',
+      },
+    },
+    download: {
+      title: 'Pianifica meglio la prossima notte',
+      subtitle: 'Scarica Stargazing Hub con previsioni, mappe, simulazione del cielo e strumenti fotografici.',
+      bullets: ['Inizia gratis', 'Dati globali', 'Telefono e tablet'],
+    },
+    footer: {
+      description: 'Un’app astronomica completa per previsioni, mappe del cielo, inquinamento luminoso, riconoscimento e astrofotografia.',
+    },
+  },
+  ja: {
+    features: {
+      stats: {
+        bortle: { value: '光害', label: '暗い空の計画' },
+        seeing: { value: '複数モデル', label: '時間別予報' },
+        tracker: { value: '星空認識', label: '写真解析' },
+        ar: { value: '星図 + AR', label: 'リアルな再現' },
+      },
+      satellite: {
+        title: '計画マップ',
+        description: '光害、天気、オーロラ、太陽、月、天の川を重ねて場所と時間を選べます。',
+      },
+      weather: {
+        title: '星空観察予報',
+        description: '観星指数、雲量、シーイング、透明度、月明かり、複数モデルの時間別予報。',
+      },
+      meteor: {
+        title: '流星とオーロラ',
+        description: '流星群カレンダー、ピーク予測、オーロラ通知、注目の天体イベント。',
+      },
+      starMap: {
+        title: 'リアル星図',
+        description: '星座、地平線、地形、衛星、天の川、AR、撮影フレームをシミュレーション。',
+      },
+      solar: {
+        title: '3D 月と太陽系',
+        description: '月相、月面地名、食、太陽と月の見え方、惑星位置を確認できます。',
+      },
+      deepSpace: {
+        title: '天空ガイドとおすすめ対象',
+        description: '惑星、ディープスカイ天体、イベント、今夜の条件に合わせて対象を提案します。',
+      },
+      tools: {
+        title: '天体撮影ツール',
+        description: '視野角、カメラと望遠鏡、モザイク計画、換算焦点距離、ガイド精度を計算。',
+      },
+      free: {
+        title: '毎日の天文画像',
+        description: '厳選した宇宙画像と日々使える星空リファレンス。',
+      },
+    },
+    download: {
+      title: '次の星空観察を計画しやすく',
+      subtitle: 'Stargazing Hub で予報、地図、星図シミュレーション、撮影ツールを持ち歩けます。',
+      bullets: ['無料で開始', '世界中の空データ', 'スマホとタブレット対応'],
+    },
+    footer: {
+      description: '予報、星図、光害計画、星空認識、天体撮影ツールを備えた総合天文アプリです。',
+    },
+  },
+  ko: {
+    features: {
+      stats: {
+        bortle: { value: '광공해', label: '어두운 하늘 계획' },
+        seeing: { value: '다중 모델', label: '시간별 예보' },
+        tracker: { value: '하늘 인식', label: '사진 분석' },
+        ar: { value: '별 지도 + AR', label: '실제 시뮬레이션' },
+      },
+      satellite: {
+        title: '계획 지도',
+        description: '광공해, 날씨, 오로라, 태양, 달, 은하수 레이어로 장소와 시간을 선택하세요.',
+      },
+      weather: {
+        title: '관측 예보',
+        description: '관측 지수, 구름, 시상, 투명도, 달빛 영향과 다중 모델 시간별 예보를 제공합니다.',
+      },
+      meteor: {
+        title: '유성우와 오로라',
+        description: '유성우 달력, 극대 예측, 오로라 알림과 중요한 천문 이벤트를 확인하세요.',
+      },
+      starMap: {
+        title: '실제 별 지도',
+        description: '별자리, 지평선, 지형, 위성, 은하수, AR, 촬영 프레임을 시뮬레이션합니다.',
+      },
+      solar: {
+        title: '3D 달과 태양계',
+        description: '월상, 달 지형, 식 현상, 태양과 달의 가시성, 행성 위치를 확인하세요.',
+      },
+      deepSpace: {
+        title: '하늘 가이드와 추천 대상',
+        description: '행성, 심우주 천체, 이벤트와 오늘 밤 조건에 맞는 관측 대상을 추천합니다.',
+      },
+      tools: {
+        title: '천체사진 도구',
+        description: '시야각, 카메라와 망원경 프레임, 모자이크 계획, 환산 초점거리, 가이드 정확도 계산.',
+      },
+      free: {
+        title: '매일 천문 이미지',
+        description: '엄선한 우주 이미지와 매일 참고할 수 있는 하늘 자료를 제공합니다.',
+      },
+    },
+    download: {
+      title: '다음 관측 밤을 더 쉽게 계획하세요',
+      subtitle: 'Stargazing Hub로 예보, 지도, 하늘 시뮬레이션과 촬영 도구를 함께 가져가세요.',
+      bullets: ['무료로 시작', '전 세계 하늘 데이터', '폰과 태블릿 지원'],
+    },
+    footer: {
+      description: '예보, 별 지도, 광공해 계획, 하늘 인식과 천체사진 도구를 갖춘 종합 천문 앱입니다.',
+    },
+  },
+  nl: {
+    features: {
+      stats: {
+        bortle: { value: 'Lichtvervuiling', label: 'Donkere hemel' },
+        seeing: { value: 'Multi-model', label: 'Uurvoorspelling' },
+        tracker: { value: 'Sky Solve', label: 'Fotoherkenning' },
+        ar: { value: 'Kaart + AR', label: 'Echte simulatie' },
+      },
+      satellite: {
+        title: 'Planningskaarten',
+        description: 'Combineer lichtvervuiling, weer, aurora, Zon, Maan en Melkweg om plaats en tijd te kiezen.',
+      },
+      weather: {
+        title: 'Sterrenkijkvoorspelling',
+        description: 'Observatie-index, wolken, seeing, transparantie, maanlicht en gedetailleerde uurvoorspellingen.',
+      },
+      meteor: {
+        title: 'Meteoren en aurora',
+        description: 'Meteorenkalenders, piekvoorspellingen, aurorawaarschuwingen en belangrijke hemelgebeurtenissen.',
+      },
+      starMap: {
+        title: 'Echte sterrenkaart',
+        description: 'Simuleer sterrenbeelden, horizon, terrein, satellieten, Melkweg, AR en framing-overlays.',
+      },
+      solar: {
+        title: '3D Maan en zonnestelsel',
+        description: 'Maanfasen, maanlandmarks, verduisteringen, zichtbaarheid van Zon en Maan en planeetposities.',
+      },
+      deepSpace: {
+        title: 'Hemelgids en doelen',
+        description: 'Simulatie en aanbevelingen voor planeten, deep-sky objecten, events en condities van vanavond.',
+      },
+      tools: {
+        title: 'Astrofotografie-tools',
+        description: 'Beeldveld, camera- en telescoopframing, mozaïeken, equivalente brandpuntsafstand en guiding-nauwkeurigheid.',
+      },
+      free: {
+        title: 'Dagelijkse astronomiefoto',
+        description: 'Geselecteerde ruimtebeelden en een compacte hemelreferentie voor elke dag.',
+      },
+    },
+    download: {
+      title: 'Plan je volgende nacht eenvoudiger',
+      subtitle: 'Download Stargazing Hub met voorspellingen, kaarten, hemelsimulatie en fototools.',
+      bullets: ['Gratis starten', 'Wereldwijde data', 'Telefoon en tablet'],
+    },
+    footer: {
+      description: 'Een complete astronomie-app voor voorspellingen, sterrenkaarten, lichtvervuiling, fotoherkenning en astrofotografie.',
+    },
+  },
+  pl: {
+    features: {
+      stats: {
+        bortle: { value: 'Zanieczyszczenie', label: 'Ciemne niebo' },
+        seeing: { value: 'Wiele modeli', label: 'Prognoza godzinowa' },
+        tracker: { value: 'Sky Solve', label: 'Rozpoznawanie zdjęć' },
+        ar: { value: 'Mapa + AR', label: 'Realna symulacja' },
+      },
+      satellite: {
+        title: 'Mapy planowania',
+        description: 'Łącz zanieczyszczenie światłem, pogodę, zorzę, Słońce, Księżyc i Drogę Mleczną.',
+      },
+      weather: {
+        title: 'Prognoza obserwacyjna',
+        description: 'Indeks obserwacji, chmury, seeing, przejrzystość, światło Księżyca i prognozy godzinowe.',
+      },
+      meteor: {
+        title: 'Meteory i zorze',
+        description: 'Kalendarze rojów meteorów, prognozy maksimum, alerty zorzy i ważne wydarzenia nieba.',
+      },
+      starMap: {
+        title: 'Realna mapa nieba',
+        description: 'Symuluj gwiazdozbiory, horyzont, teren, satelity, Drogę Mleczną, AR i kadrowanie.',
+      },
+      solar: {
+        title: 'Księżyc 3D i Układ Słoneczny',
+        description: 'Fazy Księżyca, punkty na Księżycu, zaćmienia, widoczność Słońca i Księżyca oraz planety.',
+      },
+      deepSpace: {
+        title: 'Przewodnik i cele',
+        description: 'Symulacja i rekomendacje planet, obiektów głębokiego nieba, wydarzeń i warunków tej nocy.',
+      },
+      tools: {
+        title: 'Narzędzia astrofoto',
+        description: 'Pole widzenia, kadrowanie aparatu i teleskopu, mozaiki, ogniskowa równoważna i dokładność guidingu.',
+      },
+      free: {
+        title: 'Codzienne zdjęcie astronomiczne',
+        description: 'Wybrane obrazy kosmosu i podręczna referencja nieba na co dzień.',
+      },
+    },
+    download: {
+      title: 'Łatwiej zaplanuj kolejną noc',
+      subtitle: 'Pobierz Stargazing Hub z prognozami, mapami, symulacją nieba i narzędziami foto.',
+      bullets: ['Start za darmo', 'Dane globalne', 'Telefon i tablet'],
+    },
+    footer: {
+      description: 'Kompletna aplikacja astronomiczna do prognoz, map nieba, zanieczyszczenia światłem, rozpoznawania zdjęć i astrofoto.',
+    },
+  },
+  ru: {
+    features: {
+      stats: {
+        bortle: { value: 'Световое загрязнение', label: 'План темного неба' },
+        seeing: { value: 'Много моделей', label: 'Почасовой прогноз' },
+        tracker: { value: 'Sky Solve', label: 'Распознавание фото' },
+        ar: { value: 'Карта + AR', label: 'Реальная симуляция' },
+      },
+      satellite: {
+        title: 'Карты планирования',
+        description: 'Сочетайте световое загрязнение, погоду, сияния, Солнце, Луну и Млечный Путь для выбора места и времени.',
+      },
+      weather: {
+        title: 'Прогноз наблюдений',
+        description: 'Индекс наблюдений, облака, seeing, прозрачность, лунный свет и подробные почасовые прогнозы.',
+      },
+      meteor: {
+        title: 'Метеоры и сияния',
+        description: 'Календари метеорных потоков, пики, предупреждения о сияниях и важные события неба.',
+      },
+      starMap: {
+        title: 'Реальная карта неба',
+        description: 'Моделируйте созвездия, горизонт, рельеф, спутники, Млечный Путь, AR и рамки кадра.',
+      },
+      solar: {
+        title: '3D Луна и Солнечная система',
+        description: 'Фазы Луны, лунные ориентиры, затмения, видимость Солнца и Луны и положения планет.',
+      },
+      deepSpace: {
+        title: 'Гид по небу и цели',
+        description: 'Симуляция и рекомендации для планет, deep-sky объектов, событий и условий этой ночи.',
+      },
+      tools: {
+        title: 'Инструменты астрофото',
+        description: 'Поле зрения, кадрирование камеры и телескопа, мозаики, эквивалентный фокус и точность гидирования.',
+      },
+      free: {
+        title: 'Ежедневное астрономическое фото',
+        description: 'Подборка космических изображений и удобный справочник неба на каждый день.',
+      },
+    },
+    download: {
+      title: 'Планируйте следующую ночь проще',
+      subtitle: 'Скачайте Stargazing Hub с прогнозами, картами, симуляцией неба и фотоинструментами.',
+      bullets: ['Начать бесплатно', 'Глобальные данные', 'Телефон и планшет'],
+    },
+    footer: {
+      description: 'Полное астрономическое приложение для прогнозов, карт неба, светового загрязнения, распознавания фото и астрофото.',
+    },
+  },
+};
+
+for (const [language, copy] of Object.entries(currentLocalizedDetails)) {
+  currentProductCopy[language] ||= {};
+  mergeCurrentCopy(currentProductCopy[language], copy);
+}
+
+for (const [language, copy] of Object.entries(currentProductCopy)) {
+  if (translations[language]) {
+    mergeCurrentCopy(translations[language], copy);
+  }
+}
 
 export type Language = keyof typeof translations;
 export type TranslationKey = typeof translations.en;

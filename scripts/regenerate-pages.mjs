@@ -18,7 +18,7 @@ const lang = '${lang}';
 const t = translations[lang];
 ---
 
-<Layout title="Stargazing Hub - Sky Live | Explore the Universe" lang={lang}>
+<Layout title={t.meta?.title || 'Stargazing Hub: Sky Map, Light Pollution & Aurora Forecast'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

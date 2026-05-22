@@ -11,7 +11,7 @@ const lang = 'de';
 const t = translations[lang];
 ---
 
-<Layout title="Beste kostenlose Sternen-App: Sternenkarte & Lichtverschmutzung" lang={lang} description="Kostenlose Sternen-App mit Echtzeit-Sternenkarte, Lichtverschmutzungskarte, ISS-Tracker & Astronomiewetter. AR-Sternenansicht zur Identifikation.">
+<Layout title={t.meta?.title || 'Stargazing Hub: Sternkarte, Lichtverschmutzung & Aurora'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

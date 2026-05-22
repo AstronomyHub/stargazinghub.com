@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "sync:promo-screenshots": "node scripts/sync-localized-promo-screenshots.mjs",
     "astro": "astro"
   },
   "dependencies": {

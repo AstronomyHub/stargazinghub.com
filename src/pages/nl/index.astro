@@ -11,7 +11,7 @@ const lang = 'nl';
 const t = translations[lang];
 ---
 
-<Layout title="Beste gratis sterrenkijker-app: sterrenkaart & lichtvervuiling" lang={lang} description="Beste gratis sterrenkijker-app met real-time sterrenkaart, lichtvervuilingskaart, ISS-tracker & astronomieweerver. AR sterrenkaart voor sterrenidentificatie.">
+<Layout title={t.meta?.title || 'Stargazing Hub: sterrenkaart, lichtvervuiling en aurora'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

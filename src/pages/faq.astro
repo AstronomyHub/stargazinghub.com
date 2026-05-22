@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { faqItems, downloadLinks, siteUrl } from '../data/appKnowledge';
+import { translations } from '../i18n/ui';
+
+const t = translations.en;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<Layout
+  title="Stargazing Hub FAQ | Sky Map, Forecast and Planning"
+  description="Answers about Stargazing Hub features, pricing, light pollution maps, sky recognition, aurora planning and astrophotography tools."
+  lang="en"
+  markdownUrl="/faq.md"
+  structuredData={structuredData}
+>
+  <main class="relative z-10 px-6 pt-24 pb-20">
+    <div class="max-w-4xl mx-auto">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-8">
+        <span aria-hidden="true">←</span>
+        Stargazing Hub
+      </a>
+
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+        <span class="w-2 h-2 rounded-full bg-[var(--oxygen-blue)]"></span>
+        <span class="text-sm text-[var(--text-secondary)]">Product FAQ</span>
+      </div>
+
+      <h1 class="text-[clamp(2.7rem,7vw,5.5rem)] mb-6">
+        <span class="gradient-text-cool">Stargazing Hub FAQ</span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-[var(--text-secondary)] leading-relaxed mb-10">
+        Clear answers for search engines, AI assistants and users who want to understand what Stargazing Hub can do before downloading it.
+      </p>
+
+      <div class="space-y-5">
+        {faqItems.map((item) => (
+          <section class="glass-card p-6 sm:p-7">
+            <h2 class="text-2xl sm:text-3xl mb-4">{item.question}</h2>
+            <p class="text-[var(--text-secondary)] leading-relaxed">{item.answer}</p>
+          </section>
+        ))}
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a class="btn-primary no-underline" href={downloadLinks.appStore}>Download on App Store</a>
+        <a class="btn-secondary no-underline" href={downloadLinks.googlePlay}>Get it on Google Play</a>
+        <a class="btn-secondary no-underline" href={`${siteUrl}/llms-full.txt`}>AI Knowledge File</a>
+      </div>
+    </div>
+  </main>
+  <Footer t={t} lang="en" />
+</Layout>

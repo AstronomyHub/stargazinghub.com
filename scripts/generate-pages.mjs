@@ -19,6 +19,7 @@ const pageTemplate = (lang) => `---
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Features from '../../components/Features.astro';
+import Testimonials from '../../components/Testimonials.astro';
 import DownloadSection from '../../components/DownloadSection.astro';
 import Footer from '../../components/Footer.astro';
 import { translations } from '../../i18n/ui';
@@ -27,10 +28,11 @@ const lang = '${lang}';
 const t = translations[lang];
 ---
 
-<Layout title="Stargazing Hub - Sky Live | Explore the Universe" lang={lang}>
+<Layout title={t.meta?.title || 'Stargazing Hub: Sky Map, Light Pollution & Aurora Forecast'} lang={lang} description={t.meta?.description}>
   <main>
-    <Hero t={t} />
+    <Hero t={t} lang={lang} />
     <Features t={t} />
+    <Testimonials t={t} />
     <DownloadSection t={t} />
   </main>
   <Footer t={t} lang={lang} />

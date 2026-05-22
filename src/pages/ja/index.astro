@@ -11,7 +11,7 @@ const lang = 'ja';
 const t = translations[lang];
 ---
 
-<Layout title="最高の無料観星アプリ：星図と光害マップ" lang={lang} description="最高の無料観星アプリ。リアルタイム星図、光害マップ、ISSトラッカーと天文天気。AR空の図で星を識別、彗星と衛星を追跡。今夜のベスト観測時間、シーイングと透明度、月齢カレンダー。無料観星アプリ。">
+<Layout title={t.meta?.title || 'Stargazing Hub：星図・光害マップ・オーロラ予報'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
     <Features t={t} />

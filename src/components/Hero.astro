@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import googleplayScreenshotsConfig from '../googleplay-screenshots.config.json';
+import { getAppStoreRating } from '../lib/appStoreRating';
 
 // Import logo
 import iconImage from '../assets/icon.webp';
@@ -14,8 +15,12 @@ interface Props {
 }
 
 const { t, lang = 'en' } = Astro.props;
+const appStoreRating = await getAppStoreRating(lang);
+const ratingLabel = appStoreRating.displayCount
+  ? `App Store · ${t.hero.stats?.rating?.label} · ${appStoreRating.displayCount}`
+  : `App Store · ${t.hero.stats?.rating?.label}`;
 
-// 使用 Google Play 截图
+// 使用当前商店宣传图
 const gpConfig = googleplayScreenshotsConfig[lang as keyof typeof googleplayScreenshotsConfig];
 const screenshotPaths = gpConfig?.files || [];
 
@@ -37,9 +42,9 @@ const screenshots = screenshotPaths.map((path: string) => ({
 // 截图数量（用于 JavaScript）
 const screenshotCount = screenshots.length;
 
-// 容器尺寸 - Google Play: 662x1440 (比例 0.46) -> 宽度 280px, 高度 ~609px
+// 容器尺寸 - 当前宣传图: 1080x1920 (9:16)
 const containerWidth = 280;
-const containerHeight = 609;
+const containerHeight = 498;
 const padding = 16;
 const outerWidth = containerWidth + (padding * 2);
 ---
@@ -137,9 +142,9 @@ const outerWidth = containerWidth + (padding * 2);
               <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
               </svg>
-              <span class="text-2xl font-bold gradient-text-cool">{t.hero.stats?.rating?.value}</span>
+              <span class="text-2xl font-bold gradient-text-cool">{appStoreRating.displayValue || t.hero.stats?.rating?.value}</span>
             </div>
-            <div class="text-xs text-[var(--text-muted)]">{t.hero.stats?.rating?.label}</div>
+            <div class="text-xs text-[var(--text-muted)]">{ratingLabel}</div>
           </div>
           <div class="glass px-4 py-3 rounded-xl flex items-center gap-3">
             <div class="text-2xl font-bold gradient-text">{t.hero.stats?.languages?.value}</div>
@@ -154,7 +159,7 @@ const outerWidth = containerWidth + (padding * 2);
         <div id="hero-mobile-gallery" class="lg:hidden w-full overflow-x-auto pb-8 snap-x snap-mandatory flex gap-4 px-4 no-scrollbar scroll-smooth">
           {
             screenshots.map((item: any, index: number) => (
-              <div class="snap-center shrink-0 w-[70vw] sm:w-[50vw] relative aspect-[9/19.5] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
+              <div class="snap-center shrink-0 w-[70vw] sm:w-[50vw] relative aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
                 <Image
                   src={item.src}
                   alt={`${t.brand?.name} ${index + 1}`}
@@ -200,7 +205,7 @@ const outerWidth = containerWidth + (padding * 2);
         </script>
 
         <!-- 桌面端：扇形画廊 -->
-        <div class="hidden lg:block gallery-container relative transform scale-100 origin-right" style="width: 100%; max-width: 1200px; height: 600px;">
+        <div class="hidden lg:block gallery-container relative transform scale-100 origin-right" style="width: 100%; max-width: 1200px; height: 520px;">
           <!-- 背景光晕 -->
           <div class="absolute inset-0 bg-gradient-to-r from-[var(--hydrogen-pink)] via-[var(--carbon-purple)] to-[var(--nitrogen-cyan)] rounded-[3rem] blur-3xl opacity-15"></div>
 
@@ -234,7 +239,7 @@ const outerWidth = containerWidth + (padding * 2);
                       z-index: ${zIndex};
                     `}
                   >
-                    <div class="card-frame w-[280px] h-[609px] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
+                    <div class="card-frame w-[280px] h-[498px] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
                       <Image
                         src={item.src}
                         alt={`${t.brand?.name} ${index + 1}`}
@@ -334,47 +339,50 @@ const outerWidth = containerWidth + (padding * 2);
       if (isMobile) return; // JS logic is now Desktop only
 
       cardOrder.forEach((cardIndex, position) => {
+        const card = document.querySelector(`#gallery-card-${cardIndex}`);
+        if (!card) return;
+
+        const img = card.querySelector('img');
+
         if (position >= maxDisplay) {
-          // 超出显示范围的卡片隐藏
-          const card = document.querySelector(`#gallery-card-${cardIndex}`);
-          if (card) {
-            const img = card.querySelector('img');
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          card.setAttribute('tabindex', '-1');
+          card.removeAttribute('role');
+          card.setAttribute('aria-hidden', 'true');
+          return;
+        }
 
-            let xOffset, scale, opacity, blur, zIndex;
+        // 桌面端：扇形展开模式
+        const xOffset = position === 0 ? 0 : 65 + (position - 1) * 40;
+        const scale = position === 0 ? 1 : 0.96 - (position - 1) * 0.06;
+        const opacity = position === 0 ? 1 : 0.93 - (position - 1) * 0.12;
+        const blur = position === 0 ? 0 : (position - 1) * 0.15;
+        const zIndex = 100 - position;
 
-            // 桌面端：扇形展开模式
-            card.style.top = '0px'; 
-            card.style.marginLeft = '0px'; 
+        card.style.top = '0px';
+        card.style.marginLeft = '0px';
+        card.style.left = `${xOffset}px`;
+        card.style.transform = `scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.filter = `blur(${blur}px)`;
+        card.style.zIndex = zIndex;
+        card.style.pointerEvents = 'auto';
 
-            xOffset = position === 0 ? 0 : 65 + (position - 1) * 40;
-            scale = position === 0 ? 1 : 0.96 - (position - 1) * 0.06;
-            opacity = position === 0 ? 1 : 0.93 - (position - 1) * 0.12;
-            blur = position === 0 ? 0 : (position - 1) * 0.15;
-            zIndex = 100 - position;
-            
-            card.style.left = `${xOffset}px`;
-
-            card.style.transform = `scale(${scale})`;
-            card.style.opacity = opacity;
-            card.style.filter = `blur(${blur}px)`;
-            card.style.zIndex = zIndex;
-            card.style.pointerEvents = 'auto';
-
-            // Accessibility: Only top card is interactive
-            if (position === 0) {
-              card.setAttribute('tabindex', '0');
-              card.setAttribute('role', 'button');
-              card.setAttribute('aria-hidden', 'false');
-              if (img) img.classList.remove('grayscale');
-            } else {
-              card.setAttribute('tabindex', '-1');
-              card.removeAttribute('role'); 
-              card.setAttribute('aria-hidden', 'true');
-              if (img) img.classList.add('grayscale');
-            }
-          }
-        });
-      }
+        // Accessibility: Only top card is interactive
+        if (position === 0) {
+          card.setAttribute('tabindex', '0');
+          card.setAttribute('role', 'button');
+          card.setAttribute('aria-hidden', 'false');
+          if (img) img.classList.remove('grayscale');
+        } else {
+          card.setAttribute('tabindex', '-1');
+          card.removeAttribute('role');
+          card.setAttribute('aria-hidden', 'true');
+          if (img) img.classList.add('grayscale');
+        }
+      });
+    }
 
     // 监听窗口大小变化
     window.addEventListener('resize', () => {
