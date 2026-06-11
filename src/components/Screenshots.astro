@@ -1,38 +1,35 @@
 ---
+import { Image } from 'astro:assets';
+import googleplayScreenshotsConfig from '../googleplay-screenshots.config.json';
+
 interface ScreenshotMeta {
-  src: string;
   alt: string;
   title: string;
   description: string;
 }
 
-const screenshots: ScreenshotMeta[] = [
+const screenshotMeta: ScreenshotMeta[] = [
   {
-    src: '/images/screenshots/en-googleplay/googleplay-1.webp',
     alt: 'Stargazing Hub home screen with stargazing index, sunrise and sunset glow forecast, Moon phase, and hourly conditions',
     title: 'Stargazing Index and Golden Hour Forecast',
     description: 'Check whether tonight is worth going out before you pack your gear'
   },
   {
-    src: '/images/screenshots/en-googleplay/googleplay-2.webp',
     alt: 'Night sky photo recognition result screen showing identified stars and constellation information',
     title: 'Night Sky Photo Recognition',
     description: 'Take a photo of the sky and resolve the real star field'
   },
   {
-    src: '/images/screenshots/en-googleplay/googleplay-3.webp',
     alt: 'Real star chart screen with visible constellations, Milky Way simulation, horizon, and framing tools',
     title: 'Real Sky Map and AR Star Chart',
     description: 'Simulate the sky with constellations, horizon, satellites, Milky Way and framing overlays'
   },
   {
-    src: '/images/screenshots/en-googleplay/googleplay-4.webp',
     alt: 'Planning map screen with light pollution layer and night-sky planning overlays',
     title: 'Light Pollution and Planning Maps',
     description: 'Choose better sites using light pollution, weather, aurora, Sun, Moon and Milky Way layers'
   },
   {
-    src: '/images/screenshots/en-googleplay/googleplay-5.webp',
     alt: 'Aurora forecast detail page showing readiness information and forecast data',
     title: 'Aurora Alerts and Details',
     description: 'See aurora forecasts early and know when conditions are worth watching'
@@ -45,6 +42,23 @@ interface Props {
 }
 
 const { t, lang = 'en' } = Astro.props;
+
+const allScreenshots = import.meta.glob<{ default: ImageMetadata }>('/src/assets/screenshots/**/*.{webp,png,jpg}', { eager: true });
+const gpConfig =
+  googleplayScreenshotsConfig[lang as keyof typeof googleplayScreenshotsConfig] ||
+  googleplayScreenshotsConfig.en;
+
+const getScreenshotImage = (imagePath: string) => allScreenshots[imagePath]?.default;
+
+const screenshots = gpConfig.files
+  .slice(0, screenshotMeta.length)
+  .map((imagePath, index) => ({
+    ...screenshotMeta[index],
+    imagePath,
+    src: getScreenshotImage(imagePath),
+  }))
+  .filter((screenshot) => screenshot.src);
+const screenshotCount = screenshots.length;
 ---
 
 <!-- JSON-LD 结构化数据 for SEO -->
@@ -59,7 +73,7 @@ const { t, lang = 'en' } = Astro.props;
     "price": "0",
     "priceCurrency": "USD"
   },
-  "screenshot": screenshots.map(s => s.src),
+  "screenshot": screenshots.map(s => s.src?.src).filter(Boolean),
   "featureList": [
     "Stargazing index and multi-model hourly forecast",
     "Night sky photo recognition",
@@ -115,7 +129,7 @@ const { t, lang = 'en' } = Astro.props;
                       style={`animation-delay: ${index * 0}s;`}
                       id={`screenshot-${index}`}
                     >
-                      <img
+                      <Image
                         src={screenshot.src}
                         alt={screenshot.alt}
                         title={screenshot.title}
@@ -172,9 +186,9 @@ const { t, lang = 'en' } = Astro.props;
   </div>
 </section>
 
-<script>
+<script define:vars={{ screenshotCount }}>
   let currentScreenshot = 0;
-  const totalScreenshots = 5;
+  const totalScreenshots = screenshotCount;
 
   function showScreenshot(index) {
     // Hide all

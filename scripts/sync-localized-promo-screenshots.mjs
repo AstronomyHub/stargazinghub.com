@@ -3,6 +3,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
+if (process.env.ALLOW_LOCAL_PROMO_SCREENSHOTS !== '1') {
+  console.error([
+    'Refusing to overwrite Google Play-derived website screenshots.',
+    'This script renders local promo overlays and writes into src/assets/screenshots/*-googleplay.',
+    'Set ALLOW_LOCAL_PROMO_SCREENSHOTS=1 only when intentionally replacing the checked-in Google Play assets.',
+  ].join('\n'));
+  process.exit(1);
+}
+
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(scriptDir, '..');
 
