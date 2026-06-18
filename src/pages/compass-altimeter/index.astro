@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Footer from '../../components/Footer.astro';
+import CompassLanding from '../../components/CompassLanding.astro';
+import { translations } from '../../i18n/ui';
+import { getCompass, compassLinks, compassAlternateLinks } from '../../data/compassContent';
+import { siteUrl } from '../../data/appKnowledge';
+
+const lang = 'en';
+const t = translations[lang];
+const c = getCompass(lang);
+
+// 已生成的语言(随本地化推进逐步加入)
+const builtLocales = ['en'];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Compass Altimeter: Sun & Moon',
+  operatingSystem: 'iOS, Android',
+  applicationCategory: 'NavigationApplication',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  description: c.meta.description,
+  url: `${siteUrl}/compass-altimeter/`,
+  downloadUrl: [compassLinks.appStore, compassLinks.googlePlay],
+  author: { '@type': 'Organization', name: 'Stargazing Hub', url: siteUrl },
+};
+---
+
+<Layout
+  title={c.meta.title}
+  description={c.meta.description}
+  image="/compass/og-compass.jpg"
+  lang={lang}
+  alternateLinks={compassAlternateLinks(builtLocales)}
+  structuredData={structuredData}
+>
+  <CompassLanding lang={lang} />
+  <Footer t={t} lang={lang} />
+</Layout>

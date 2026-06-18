@@ -1,0 +1,149 @@
+---
+import { getCompass, compassLinks } from '../data/compassContent';
+
+interface Props { lang: string }
+const { lang } = Astro.props;
+const c = getCompass(lang);
+
+// 功能图标(Lucide 风格描边 SVG inner)
+const ICONS: Record<string, string> = {
+  altitude: '<path d="M3 20h18"/><path d="m4 18 6-12 4 7 3-4 3 9"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/>',
+  sunmoon: '<circle cx="9" cy="9" r="3.2"/><path d="M9 2v1.6M9 14.4V16M2 9h1.6M14.4 9H16M4 4l1.1 1.1M12.9 12.9 14 14"/><path d="M21 14.5a5.2 5.2 0 1 1-5.5-5.5 4 4 0 0 0 5.5 5.5z"/>',
+  camera: '<path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h6l1.5 2h2A1.5 1.5 0 0 1 19 8.5v9A1.5 1.5 0 0 1 17.5 19h-13A1.5 1.5 0 0 1 3 17.5z"/><circle cx="11" cy="12.5" r="3.2"/>',
+  coords: '<circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.2 8 12 8 12s8-6.8 8-12a8 8 0 0 0-8-8z"/>',
+  pressure: '<circle cx="12" cy="12" r="9"/><path d="M12 12 15.5 8.5"/><path d="M12 3v2M21 12h-2M5 12H3"/>',
+};
+
+const STORE = {
+  apple: '<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>',
+  play: '<path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>',
+};
+
+function storeButtons(): string {
+  const btn = (href: string, glyph: string, line1: string, line2: string) =>
+    `<a href="${href}" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 px-6 py-3 rounded-2xl glass-strong hover:border-white/30 transition-all duration-300 hover:-translate-y-0.5">
+      <svg viewBox="0 0 24 24" class="w-7 h-7 fill-white flex-shrink-0">${glyph}</svg>
+      <span class="text-left leading-tight"><span class="block text-[0.62rem] uppercase tracking-wider text-[var(--text-muted)]">${line1}</span><span class="block text-[0.95rem] font-semibold text-white">${line2}</span></span>
+    </a>`;
+  return `<div class="flex flex-wrap items-center justify-center gap-3">
+    ${btn(compassLinks.appStore, STORE.apple, 'Download on the', 'App Store')}
+    ${btn(compassLinks.googlePlay, STORE.play, 'Get it on', 'Google Play')}
+  </div>`;
+}
+---
+
+<main class="relative">
+  <!-- ===================== HERO ===================== -->
+  <section class="relative px-6 pt-20 pb-16 md:pt-28 md:pb-20 overflow-hidden">
+    <div class="cosmic-nebula" aria-hidden="true"></div>
+    <img src="/compass/sky-golden.jpg" alt="" aria-hidden="true"
+      class="pointer-events-none select-none absolute -top-24 right-0 w-[60%] max-w-[640px] opacity-15 blur-[2px] rotate-3 [mask-image:radial-gradient(closest-side,black,transparent)]" />
+    <div class="relative max-w-4xl mx-auto text-center">
+      <a href="/" class="inline-flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--hydrogen-pink)] transition-colors mb-8">
+        <span aria-hidden="true">←</span> {c.backToHub}
+      </a>
+      <div class="flex justify-center mb-7">
+        <div class="relative">
+          <div class="absolute inset-0 bg-gradient-to-r from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)] rounded-[28px] blur-2xl opacity-40"></div>
+          <img src="/compass/icon.png" alt={c.title} width="104" height="104" class="relative w-26 h-26 rounded-[28px] shadow-2xl" style="width:104px;height:104px;" />
+        </div>
+      </div>
+      <span class="inline-block px-3 py-1 mb-5 rounded-full glass text-xs font-medium text-[var(--text-secondary)]">{c.eyebrow} · {c.fromTeam}</span>
+      <h1 class="font-[Outfit] font-extrabold text-4xl md:text-6xl leading-tight mb-5">
+        <span class="gradient-text-warm">{c.title}</span>
+      </h1>
+      <p class="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed mb-9">{c.subtitle}</p>
+      <Fragment set:html={storeButtons()} />
+      <div class="flex flex-wrap justify-center gap-2.5 mt-9">
+        {c.badges.map((b) => (
+          <span class="px-3 py-1.5 rounded-full glass text-xs text-[var(--text-secondary)]">{b}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="px-6 py-16 md:py-20">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="font-[Outfit] font-bold text-3xl md:text-4xl mb-3">{c.featuresTitle}</h2>
+        <p class="text-[var(--text-muted)] max-w-2xl mx-auto">{c.featuresSubtitle}</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {c.features.map((f) => (
+          <div class="glass-card p-7">
+            <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style="background:rgba(255,230,109,0.12);border:1px solid rgba(255,230,109,0.25);">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--sulfur-gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={ICONS[f.icon] || ''}></svg>
+            </div>
+            <h3 class="font-semibold text-lg text-white mb-2">{f.title}</h3>
+            <p class="text-sm text-[var(--text-secondary)] leading-relaxed">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WIDGETS ===================== -->
+  <section class="px-6 py-16 md:py-20">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="font-[Outfit] font-bold text-3xl md:text-4xl mb-3">{c.widgetsTitle}</h2>
+        <p class="text-[var(--text-muted)] max-w-2xl mx-auto">{c.widgetsSubtitle}</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {c.widgets.map((w) => (
+          <div class="glass-card p-6 flex flex-col items-center text-center">
+            <img src={w.img} alt={w.title} loading="lazy" class="w-full max-w-[260px] rounded-2xl mb-5 shadow-lg" />
+            <h3 class="font-semibold text-white mb-1.5">{w.title}</h3>
+            <p class="text-sm text-[var(--text-muted)] leading-relaxed">{w.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GOLDEN HOUR CROSS-LINK ===================== -->
+  <section class="px-6 py-10">
+    <div class="max-w-4xl mx-auto">
+      <div class="glass-card p-8 md:p-10 relative overflow-hidden">
+        <img src="/compass/sky-night.jpg" alt="" aria-hidden="true"
+          class="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-20" />
+        <div class="relative md:flex items-center justify-between gap-8">
+          <div class="mb-6 md:mb-0">
+            <h2 class="font-[Outfit] font-bold text-2xl md:text-3xl mb-3 gradient-text-warm inline-block">{c.goldenTitle}</h2>
+            <p class="text-[var(--text-secondary)] max-w-xl leading-relaxed">{c.goldenDesc}</p>
+          </div>
+          <a href={compassLinks.goldenHour} target="_blank" rel="noopener" class="btn-primary inline-block flex-shrink-0 whitespace-nowrap">{c.goldenCta} →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== USE CASES + PRIVACY ===================== -->
+  <section class="px-6 py-16 md:py-20">
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+      <div class="glass-card p-8">
+        <h2 class="font-[Outfit] font-bold text-2xl mb-5">{c.useCasesTitle}</h2>
+        <div class="flex flex-wrap gap-2.5">
+          {c.useCases.map((u) => (
+            <span class="px-3.5 py-2 rounded-xl glass text-sm text-[var(--text-secondary)]">{u}</span>
+          ))}
+        </div>
+      </div>
+      <div class="glass-card p-8">
+        <h2 class="font-[Outfit] font-bold text-2xl mb-3">{c.privacyTitle}</h2>
+        <p class="text-sm text-[var(--text-secondary)] leading-relaxed">{c.privacyDesc}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CLOSING CTA ===================== -->
+  <section class="px-6 pt-6 pb-24">
+    <div class="max-w-3xl mx-auto text-center glass-card p-10 md:p-14">
+      <h2 class="font-[Outfit] font-extrabold text-3xl md:text-4xl mb-4 gradient-text">{c.closingTitle}</h2>
+      <p class="text-[var(--text-secondary)] mb-9 max-w-xl mx-auto">{c.closingDesc}</p>
+      <Fragment set:html={storeButtons()} />
+    </div>
+  </section>
+</main>
