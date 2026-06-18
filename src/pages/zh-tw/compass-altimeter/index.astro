@@ -1,17 +1,14 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
-import CompassLanding from '../../components/CompassLanding.astro';
-import { translations } from '../../i18n/ui';
-import { getCompass, compassLinks, compassAlternateLinks, compassLocales } from '../../data/compassContent';
-import { siteUrl } from '../../data/appKnowledge';
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
+import CompassLanding from '../../../components/CompassLanding.astro';
+import { translations } from '../../../i18n/ui';
+import { getCompass, compassLinks, compassAlternateLinks, compassLocales } from '../../../data/compassContent';
+import { siteUrl } from '../../../data/appKnowledge';
 
-const lang = 'en';
-const t = translations[lang];
+const lang = 'zh-tw';
+const t = translations[lang as keyof typeof translations] || translations.en;
 const c = getCompass(lang);
-
-// 全部 12 语言已生成
-const builtLocales = compassLocales;
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -21,7 +18,7 @@ const structuredData = {
   applicationCategory: 'NavigationApplication',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   description: c.meta.description,
-  url: `${siteUrl}/compass-altimeter/`,
+  url: `${siteUrl}/zh-tw/compass-altimeter/`,
   downloadUrl: [compassLinks.appStore, compassLinks.googlePlay],
   author: { '@type': 'Organization', name: 'Stargazing Hub', url: siteUrl },
 };
@@ -32,7 +29,7 @@ const structuredData = {
   description={c.meta.description}
   image="/compass/og-compass.jpg"
   lang={lang}
-  alternateLinks={compassAlternateLinks(builtLocales)}
+  alternateLinks={compassAlternateLinks(compassLocales)}
   structuredData={structuredData}
 >
   <CompassLanding lang={lang} />
