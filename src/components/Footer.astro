@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import iconImage from '../assets/icon.webp';
+import { getCompass, compassPath } from '../data/compassContent';
 
 interface Props {
   t: any;
@@ -9,6 +10,7 @@ interface Props {
 
 const { t, lang } = Astro.props;
 const year = new Date().getFullYear();
+const compassLabel = getCompass(lang).title.split(/[:：·—]/)[0].trim();
 
 const socialLinks = [
   {
@@ -73,6 +75,12 @@ const socialLinks = [
           class="text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)] transition-colors text-sm"
         >
           {t.footer.terms}
+        </a>
+        <a
+          href={compassPath(lang)}
+          class="text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)] transition-colors text-sm"
+        >
+          {compassLabel}
         </a>
       </div>
 
