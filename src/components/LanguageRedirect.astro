@@ -70,7 +70,7 @@
       'zh-hk': { url: '/zh-tw/', name: '切換 (Switch)', title: '建議切換語言', msg: '檢測到您的瀏覽器為中文，是否切換？' },
       'zh-mo': { url: '/zh-tw/', name: '切換 (Switch)', title: '建議切換語言', msg: '檢測到您的瀏覽器為中文，是否切換？' },
       'de': { url: '/de/', name: 'Wechseln', title: 'Sprache ändern?', msg: 'Möchten Sie zu Deutsch wechseln?' },
-      'ja': { url: '/ja/', name: '切り替え', title: '言語設定', msg: '日本語サイトに切り替えますか？' },
+      'ja': { url: '/ja/', name: '切り替える', dismiss: '閉じる', title: '言語設定', msg: '日本語サイトに切り替えますか？' },
       'ko': { url: '/ko/', name: '전환', title: '언어 변경', msg: '한국어 사이트로 이동하시겠습니까?' },
       'fr': { url: '/fr/', name: 'Changer', title: 'Langue détectée', msg: 'Voulez-vous passer en français ?' },
       'es': { url: '/es/', name: 'Cambiar', title: 'Idioma detectado', msg: '¿Cambiar a español?' },
@@ -100,6 +100,7 @@
         titleEl.textContent = target.title;
         msgEl.textContent = target.msg;
         confirmBtn.textContent = target.name;
+        closeBtn.textContent = target.dismiss || 'Dismiss';
 
         // Show toast with a small animation delay for better UX
         requestAnimationFrame(function() {

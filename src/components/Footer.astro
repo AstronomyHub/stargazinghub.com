@@ -85,6 +85,7 @@ const socialLinks = [
       </div>
 
       <!-- 状态指示 -->
+      {t.footer.status && (
       <div class="flex justify-center md:justify-end">
         <div class="flex items-center gap-3 px-5 py-2.5 rounded-full glass">
           <span class="relative flex h-2 w-2">
@@ -94,6 +95,7 @@ const socialLinks = [
           <span class="text-sm text-[var(--text-secondary)]">{t.footer.status}</span>
         </div>
       </div>
+      )}
     </div>
 
     <!-- 底部版权 -->

@@ -636,15 +636,15 @@ export const translations: Record<string, any> = {
       googlePlay: 'https://play.google.com/store/apps/details?id=com.twtapp&hl=ja',
     },
     hero: {
-      title: '最高の星空観察アプリ',
-      subtitle: 'オールインワンの天文学アプリ。あなたのポケット天文台。',
-      description: '天文学的なイベントを発見し、衛星を追跡し、流星群を見逃さないようにしましょう。完璧な星空観察の夜のためのリアルタイムの天文学的予報と天気条件を取得。',
+      title: '星空観察を計画する',
+      subtitle: '星図、観測予報、光害マップ、月、オーロラを一つのアプリで。',
+      description: '雲量や月明かりを確認し、星空写真から天体を探せます。光害マップと星図を見ながら、観測する場所と時間を決められます。',
       download: '今すぐダウンロード',
       platformLabel: 'iOSとAndroidで利用可能',
       stats: {
-        downloads: { value: '300万+', label: 'ダウンロード' },
-        rating: { value: '4.7+', label: '評価' },
-        languages: { value: '12+', label: '言語' },
+        downloads: { value: '無料', label: 'ダウンロード' },
+        rating: { value: 'iOS・Android', label: '対応OS', useStoreData: false },
+        languages: { value: '12', label: '対応言語' },
       },
     },
     features: {
@@ -662,7 +662,7 @@ export const translations: Record<string, any> = {
       },
       weather: {
         title: '星空観察天気',
-        description: '光害マップ、ボートルスケール、視寧度と透明度データ。天文観察専用の天気予報。',
+        description: '光害マップ、ボートルスケール、シーイングと透明度を確認できます。天文観察向けの天気予報です。',
       },
       meteor: {
         title: '流星とオーロラ',
@@ -674,7 +674,7 @@ export const translations: Record<string, any> = {
       },
       solar: {
         title: '太陽系',
-        description: '太陽活動、月相、惑星位置、亮彗星トラッカー。完全な太陽系ガイド。',
+        description: '太陽活動、月相、惑星位置、明るい彗星を確認できます。',
       },
       deepSpace: {
         title: '深空天体',
@@ -686,31 +686,15 @@ export const translations: Record<string, any> = {
       },
       free: {
         title: '無料で利用可能',
-        description: '全機能 갖춘無料版あり。上級者向けプレミアム機能。',
+        description: '無料で始められます。一部の機能にはアプリ内課金があります。',
       },
     },
     testimonials: {
       title: 'ユーザーの声',
-      subtitle: '2026年の主要な天体イベント',
+      subtitle: '主要な天体イベント',
       reviewsLabel: 'ユーザーレビュー',
       eventsLabel: '今後のイベント',
-      reviews: [
-        {
-          name: "ポテト夜更かし",
-          location: "テキサス州, アメリカ",
-          text: "光害マップは画期的です！ついに街の近くで暗い場所を見つけました。ISSトラッカーも非常に正確です。",
-        },
-        {
-          name: "眠れないエンジニア",
-          location: "メルボルン, オーストラリア",
-          text: "彗星を見つけるのに素晴らしいです！星図はとてもスムーズで、ARビューを使えば星座の特定も簡単です。",
-        },
-        {
-          name: "仕事したくない星見たい",
-          location: "レイキャビク, アイスランド",
-          text: "天体写真の旅行を計画するのに最適です。シーイング指数と雲量の予報は常に信頼できます。",
-        }
-      ],
+      reviews: [],
       events: [
         {
           name: "木星の衝",
@@ -719,26 +703,20 @@ export const translations: Record<string, any> = {
           peak: "最大の明るさ"
         },
         {
-          name: "火星の衝",
-          date: "2月19日",
-          type: "惑星イベント",
-          peak: "最高の視認性"
-        },
-        {
           name: "皆既月食",
           date: "3月3日",
           type: "月イベント",
-          peak: "ブルッドムーン"
+          peak: "食の最大"
         },
         {
           name: "皆既日食",
           date: "8月12日",
           type: "太陽イベント",
-          peak: "世紀の奇観"
+          peak: "皆既食"
         },
         {
           name: "ペルセウス座流星群",
-          date: "8月12-13日",
+          date: "8月12日から13日",
           type: "流星群",
           peak: "活動のピーク"
         },
@@ -749,34 +727,34 @@ export const translations: Record<string, any> = {
           peak: "環の観測"
         },
         {
-          name: "四月 Lied流星群",
-          date: "4月21-22日",
+          name: "4月こと座流星群",
+          date: "4月21日から22日",
           type: "流星群",
-          peak: "极大値"
+          peak: "活動のピーク"
         },
         {
-          name: "双子座流星群",
-          date: "12月13-14日",
+          name: "ふたご座流星群",
+          date: "12月13日から14日",
           type: "流星群",
-          peak: "极大値"
+          peak: "活動のピーク"
         }
       ]
     },
     download: {
-      title: '旅を始めよう',
-      subtitle: '今日、Stargazing Hubをダウンロードして宇宙をアンロック',
-      ctaLabel: '今すぐ始める',
+      title: '次の星空観察を始めよう',
+      subtitle: 'Stargazing Hubをダウンロードして、観測の日時と場所を計画できます。',
+      ctaLabel: '無料でダウンロード',
       appStore: 'ダウンロード',
       googlePlay: '入手',
-      bullets: ['完全無料', 'グローバル対応', 'タブレット対応'],
-      platforms: 'iPad、Androidタブレット、すべてのAndroidデバイスに対応',
+      bullets: ['無料で始められる', '世界各地に対応', 'スマートフォンとタブレットに対応'],
+      platforms: 'iPhone、iPad、Androidスマートフォン、Androidタブレットに対応',
     },
     footer: {
       privacy: 'プライバシーポリシー',
       terms: '利用規約',
-      copyright: 'すべての権利予約済み。',
-      description: 'あなたの究极の星空観察パートナー。宇宙を探索し、衛星を追跡し、天体イベントを見逃さない。',
-      status: '全システム正常稼働中',
+      copyright: 'All rights reserved.',
+      description: '予報、星図、光害マップ、星空認識、天体撮影ツールをまとめた天文アプリです。',
+      status: '',
     },
     navbar: {
       home: 'ホーム',
@@ -2039,12 +2017,12 @@ const currentProductCopy: Record<string, any> = {
   ja: {
     meta: {
       title: 'Stargazing Hub：星図・光害マップ・オーロラ予報',
-      description: 'リアル星図、観星指数、光害マップ、オーロラ予報、3D 月、流星群カレンダー、星空写真認識、天体撮影ツールで観測を計画できます。',
+      description: 'リアルタイム星図、観測指数、光害マップ、オーロラ予報、3D月面、流星群カレンダー、星空写真認識、天体撮影ツールで観測を計画できます。',
     },
     hero: {
-      title: '星空の夜を計画する',
-      subtitle: '星図、予報、オーロラ、月、ディープスカイを一つのアプリで。',
-      description: '観測条件を確認し、写真から星空を認識し、星座をシミュレーション。光害と天の川マップで場所と時間を選べます。',
+      title: '星空観察を計画する',
+      subtitle: '星図、観測予報、光害マップ、月、オーロラを一つのアプリで。',
+      description: '雲量や月明かりを確認し、星空写真から天体を探せます。光害マップと星図を見ながら、観測する場所と時間を決められます。',
     },
     features: {
       eyebrow: '天文ツール一式',
@@ -2361,7 +2339,7 @@ const currentLocalizedDetails: Record<string, any> = {
         description: '星座、地平線、地形、衛星、天の川、AR、撮影フレームをシミュレーション。',
       },
       solar: {
-        title: '3D 月と太陽系',
+        title: '3D月面と太陽系',
         description: '月相、月面地名、食、太陽と月の見え方、惑星位置を確認できます。',
       },
       deepSpace: {
@@ -2378,9 +2356,11 @@ const currentLocalizedDetails: Record<string, any> = {
       },
     },
     download: {
-      title: '次の星空観察を計画しやすく',
-      subtitle: 'Stargazing Hub で予報、地図、星図シミュレーション、撮影ツールを持ち歩けます。',
-      bullets: ['無料で開始', '世界中の空データ', 'スマホとタブレット対応'],
+      title: '次の星空観察を始めよう',
+      subtitle: 'Stargazing Hubをダウンロードして、観測の日時と場所を計画できます。',
+      ctaLabel: '無料でダウンロード',
+      bullets: ['無料で始められる', '世界各地に対応', 'スマートフォンとタブレットに対応'],
+      platforms: 'iPhone、iPad、Androidスマートフォン、Androidタブレットに対応',
     },
     footer: {
       description: '予報、星図、光害計画、星空認識、天体撮影ツールを備えた総合天文アプリです。',

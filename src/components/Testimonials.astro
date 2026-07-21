@@ -7,6 +7,7 @@ const { t } = Astro.props;
 
 const testimonials = t.testimonials?.reviews || [];
 const upcomingEvents = t.testimonials?.events || [];
+const hasTestimonials = testimonials.length > 0;
 
 // Icon helper function - redesigned with better astronomical visuals
 const getIconPath = (type: string) => {
@@ -35,8 +36,9 @@ const getIconPath = (type: string) => {
 <section class="relative isolate py-16 sm:py-24 px-3 sm:px-4 overflow-hidden max-w-full before:content-[''] before:absolute before:w-[300px] before:h-[300px] sm:before:w-[500px] sm:before:h-[500px] before:bg-accent/20 before:rounded-full before:blur-[100px] before:top-1/4 before:left-[-100px] sm:before:left-[-200px] before:pointer-events-none before:-z-10 after:content-[''] after:absolute after:w-[250px] after:h-[250px] sm:after:w-[400px] sm:after:h-[400px] after:bg-accent-cyan/20 after:rounded-full after:blur-[100px] after:bottom-1/4 after:right-[-75px] sm:after:right-[-150px] after:pointer-events-none after:-z-10">
 
   <div class="relative z-10 max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-16">
+    <div class:list={['grid gap-12 lg:gap-16', hasTestimonials && 'lg:grid-cols-2']}>
       <!-- User Reviews Section -->
+      {hasTestimonials && (
       <div class="overflow-hidden">
         <div class="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass mb-4 sm:mb-6">
           <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -81,6 +83,7 @@ const getIconPath = (type: string) => {
           ))}
         </div>
       </div>
+      )}
 
       <!-- Upcoming Events Section -->
       <div class="overflow-hidden">
