@@ -123,9 +123,8 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
     <!-- End Matomo -->
   </head>
   <body class="starry-bg">
-    <a class="skip-link" href="#main-content">Skip to content</a>
     <LanguageRedirect />
-    <div id="main-content" class="min-h-screen flex flex-col" tabindex="-1">
+    <div class="min-h-screen flex flex-col">
       <slot />
     </div>
   </body>

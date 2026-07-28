@@ -16,12 +16,6 @@ Included files
 - stargazinghub-sky-recognition.webp
 - stargazinghub-star-chart.webp
 - stargazinghub-light-pollution-map.webp
-- editorial/: lossless editorial PNG compositions
-- kit/: facts, captions, and usage guidance
-
-Product sequence
-A silent 40-second editorial sequence is available separately:
-https://stargazinghub.com/press/stargazinghub-field-workflow-2026.mp4
 
 Editorial use
 These images may be used to illustrate editorial coverage, app reviews, and

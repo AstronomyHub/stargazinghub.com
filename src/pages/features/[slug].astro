@@ -15,64 +15,6 @@ const { feature } = Astro.props;
 const t = translations.en;
 const featureUrl = new URL(`/features/${feature.slug}/`, siteUrl).toString();
 const markdownUrl = `/features/${feature.slug}.md`;
-
-const featureImages: Record<string, { src: string; label: string }> = {
-  'stargazing-forecast': {
-    src: '/press/stargazinghub-observing-forecast.webp',
-    label: 'Multi-model observing forecast',
-  },
-  'sky-recognition': {
-    src: '/press/stargazinghub-sky-recognition.webp',
-    label: 'Recognized night-sky photograph',
-  },
-  'sky-map': {
-    src: '/press/stargazinghub-star-chart.webp',
-    label: 'Terrain-aware star chart',
-  },
-  'light-pollution-map': {
-    src: '/press/stargazinghub-light-pollution-map.webp',
-    label: 'Light-pollution planning map',
-  },
-  'aurora-forecast': {
-    src: '/images/screenshots/en-googleplay/googleplay-5.webp',
-    label: 'Aurora forecast',
-  },
-  '3d-moon': {
-    src: '/images/screenshots/en-googleplay/googleplay-6.webp',
-    label: 'Interactive 3D Moon',
-  },
-  'meteor-shower-calendar': {
-    src: '/images/screenshots/en-googleplay/googleplay-5.webp',
-    label: 'Sky event planning',
-  },
-  'astrophotography-tools': {
-    src: '/images/screenshots/en-googleplay/googleplay-7.webp',
-    label: 'Astrophotography planning',
-  },
-};
-
-const image = featureImages[feature.slug] || featureImages['sky-map'];
-const isRecognition = feature.slug === 'sky-recognition';
-const summary = isRecognition
-  ? 'Import a real wide-field night-sky photograph and see which region you captured. Recognition runs on the device, so the original image does not need to be uploaded.'
-  : feature.summary;
-const capabilities = isRecognition
-  ? [
-      'Start from a real wide-field night-sky photograph',
-      'See constellation and notable-object context over the image',
-      'Keep the original photograph on the device',
-      'Open the recognized field in the app’s star chart',
-    ]
-  : feature.capabilities;
-const useCases = isRecognition
-  ? [
-      'Review a field after an observing session',
-      'Learn which constellations appear in a casual sky photograph',
-      'Compare the intended field with what the camera captured',
-      'Continue exploring the same region in the star chart',
-    ]
-  : feature.useCases;
-
 const structuredData = [
   {
     '@context': 'https://schema.org',
@@ -86,7 +28,7 @@ const structuredData = [
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'iOS, Android',
       description: feature.citableSummary,
-      featureList: capabilities,
+      featureList: feature.capabilities,
       installUrl: [downloadLinks.appStore, downloadLinks.googlePlay],
     },
   },
@@ -114,632 +56,97 @@ const structuredData = [
 <Layout
   title={`${feature.title} | Stargazing Hub`}
   description={feature.metaDescription}
-  image={image.src}
   lang="en"
   markdownUrl={markdownUrl}
   structuredData={structuredData}
 >
-  <main class="feature-main">
-    <section class="feature-hero" aria-labelledby="feature-title">
-      <div class="feature-shell">
-        <header class="feature-nav">
-          <a href="/">
-            <span aria-hidden="true">←</span>
-            Stargazing Hub
-          </a>
-          <span>Feature guide / {feature.shortTitle}</span>
-        </header>
+  <main class="relative z-10">
+    <section class="relative isolate px-6 pt-24 pb-16 overflow-hidden">
+      <div class="cosmic-nebula nebula-1 opacity-20"></div>
+      <div class="max-w-6xl mx-auto">
+        <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-8">
+          <span aria-hidden="true">←</span>
+          Stargazing Hub
+        </a>
 
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <p class="eyebrow">{isRecognition ? 'ON-DEVICE / FIELD REVIEW' : 'PRODUCT GUIDE'}</p>
-            <h1 id="feature-title">{feature.title}</h1>
-            <p class="hero-summary">{summary}</p>
-            <div class="hero-actions">
-              <a class="primary-action" href={downloadLinks.appStore}>View on the App Store</a>
-              <a class="text-action" href={downloadLinks.googlePlay}>
-                Google Play
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-
-          <figure class="hero-media">
-            <div class="media-datum">
-              <span>01 / CURRENT INTERFACE</span>
-              <span>{image.label}</span>
-            </div>
-            <img src={image.src} alt={`Stargazing Hub: ${image.label}`} width="1080" height="1920" />
-            <figcaption>
-              {isRecognition
-                ? 'Recognition result from a real wide-field photograph. The original image stays on the device.'
-                : feature.citableSummary}
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="capability-section" aria-labelledby="capability-title">
-      <div class="feature-shell">
-        <header class="section-heading">
-          <p class="eyebrow">{isRecognition ? 'WHAT THE USER SEES' : 'CORE CAPABILITIES'}</p>
-          <h2 id="capability-title">
-            {isRecognition ? 'From photograph to an understandable sky.' : 'Built around a clear observing task.'}
-          </h2>
-          <p>
-            {isRecognition
-              ? 'The interface presents the result, useful sky context, and a direct path into the star chart. It does not ask the user to understand the analysis behind it.'
-              : feature.citableSummary}
-          </p>
-        </header>
-
-        <ol class="capability-list">
-          {capabilities.map((item: string, index: number) => (
-            <li>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <p>{item}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    {isRecognition && (
-      <section class="privacy-section" aria-labelledby="privacy-title">
-        <div class="feature-shell privacy-grid">
-          <p class="privacy-number">LOCAL</p>
+        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-start">
           <div>
-            <p class="eyebrow">DESIGNED FOR THE FIELD</p>
-            <h2 id="privacy-title">Useful when reception is not.</h2>
-            <p>
-              A remote observing site should not become a dead end. Sky-photo
-              recognition is designed to work on the device, keeping the original
-              photograph private and the review workflow available away from a
-              network connection.
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
+              <span class="w-2 h-2 rounded-full bg-[var(--oxygen-blue)]"></span>
+              <span class="text-sm text-[var(--text-secondary)]">Feature guide</span>
+            </div>
+
+            <h1 class="text-[clamp(2.7rem,7vw,5.5rem)] mb-6">
+              <span class="gradient-text-cool">{feature.title}</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed mb-8">
+              {feature.summary}
             </p>
+
+            <div class="flex flex-wrap gap-3">
+              <a class="btn-primary no-underline" href={downloadLinks.appStore}>Download on App Store</a>
+              <a class="btn-secondary no-underline" href={downloadLinks.googlePlay}>Get it on Google Play</a>
+              <a class="btn-secondary no-underline" href={markdownUrl}>Markdown</a>
+            </div>
           </div>
-          <aside>
-            <span>Original photo</span>
-            <strong>Stays on device</strong>
-            <span>Recognition workflow</span>
-            <strong>Available offline</strong>
-            <span>Next step</span>
-            <strong>Open the same sky</strong>
+
+          <aside class="glass-card p-6 sm:p-8">
+            <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] mb-4">Citable Summary</p>
+            <blockquote class="text-xl sm:text-2xl leading-snug text-white">
+              {feature.citableSummary}
+            </blockquote>
+            <div class="mt-6 flex flex-wrap gap-2">
+              {feature.keywords.map((keyword: string) => (
+                <span class="text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[var(--text-secondary)]">
+                  {keyword}
+                </span>
+              ))}
+            </div>
           </aside>
         </div>
-      </section>
-    )}
-
-    <section class="use-section" aria-labelledby="use-title">
-      <div class="feature-shell use-grid">
-        <header>
-          <p class="eyebrow">FIELD USE</p>
-          <h2 id="use-title">Where it earns its place.</h2>
-        </header>
-        <div class="use-list">
-          {useCases.map((item: string, index: number) => (
-            <article>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h3>{item}</h3>
-            </article>
-          ))}
-        </div>
       </div>
     </section>
 
-    <section class="related-section" aria-labelledby="related-title">
-      <div class="feature-shell related-grid">
-        <div>
-          <p class="eyebrow">CONTINUE EXPLORING</p>
-          <h2 id="related-title">One tool, connected to the night.</h2>
+    <section class="px-6 pb-20">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
+        <div class="glass-card p-6 sm:p-7">
+          <h2 class="text-2xl sm:text-3xl mb-5">Core Capabilities</h2>
+          <ul class="space-y-3 text-[var(--text-secondary)]">
+            {feature.capabilities.map((item: string) => (
+              <li class="flex gap-3">
+                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--hydrogen-pink)] shrink-0"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul>
-          {feature.relatedTools.map((item: string, index: number) => (
-            <li>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div class="related-actions">
-          <a class="primary-action" href={downloadLinks.appStore}>View on the App Store</a>
-          {isRecognition && <a class="text-action" href="/press/">Editorial brief <span aria-hidden="true">→</span></a>}
+
+        <div class="glass-card p-6 sm:p-7">
+          <h2 class="text-2xl sm:text-3xl mb-5">Use Cases</h2>
+          <ul class="space-y-3 text-[var(--text-secondary)]">
+            {feature.useCases.map((item: string) => (
+              <li class="flex gap-3">
+                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--oxygen-blue)] shrink-0"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="glass-card p-6 sm:p-7">
+          <h2 class="text-2xl sm:text-3xl mb-5">Related Tools</h2>
+          <ul class="space-y-3 text-[var(--text-secondary)]">
+            {feature.relatedTools.map((item: string) => (
+              <li class="flex gap-3">
+                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--sulfur-gold)] shrink-0"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
   </main>
   <Footer t={t} lang="en" />
 </Layout>
-
-<style>
-  .feature-main {
-    position: relative;
-    z-index: 1;
-  }
-
-  .feature-shell {
-    width: min(var(--shell), calc(100% - (var(--space-page) * 2)));
-    margin: 0 auto;
-  }
-
-  .feature-hero {
-    padding: 28px 0 clamp(88px, 11vw, 148px);
-  }
-
-  .feature-nav {
-    min-height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .feature-nav a {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--mist);
-    font-size: 13px;
-    text-decoration: none;
-  }
-
-  .feature-nav > span {
-    color: var(--quiet);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 32px;
-    padding-top: clamp(58px, 8vw, 104px);
-  }
-
-  .hero-copy {
-    grid-column: 1 / span 7;
-    align-self: center;
-  }
-
-  .eyebrow {
-    margin-bottom: 22px;
-    color: var(--brass);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    max-width: 840px;
-    margin: 0;
-    font-size: clamp(4rem, 7vw, 7.5rem);
-    line-height: 0.91;
-    letter-spacing: -0.052em;
-  }
-
-  .hero-summary {
-    max-width: 59ch;
-    margin-top: 34px;
-    color: var(--mist);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
-  }
-
-  .hero-actions,
-  .related-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
-    margin-top: 36px;
-  }
-
-  .primary-action,
-  .text-action {
-    min-height: 48px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition:
-      transform 160ms var(--ease-observatory),
-      color 180ms var(--ease-observatory),
-      background-color 180ms var(--ease-observatory);
-  }
-
-  .primary-action {
-    padding: 0 19px;
-    border-radius: var(--radius-sm);
-    background: var(--brass);
-    color: var(--canvas);
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .text-action {
-    gap: 22px;
-    color: var(--mist);
-    font-size: 13px;
-  }
-
-  .hero-media {
-    grid-column: 9 / -1;
-    margin: 0;
-  }
-
-  .media-datum {
-    min-height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    border-bottom: 1px solid var(--hairline);
-    color: var(--quiet);
-    font-size: 9px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-  }
-
-  .hero-media img {
-    width: 100%;
-    height: auto;
-    outline: 1px solid oklch(0.93 0.012 86 / 0.12);
-    outline-offset: -1px;
-  }
-
-  .hero-media figcaption {
-    padding: 18px 0;
-    border-bottom: 1px solid var(--hairline);
-    color: var(--quiet);
-    font-size: 12px;
-    line-height: 1.6;
-  }
-
-  .capability-section,
-  .privacy-section,
-  .use-section,
-  .related-section {
-    padding: var(--section-space) 0;
-    border-top: 1px solid var(--hairline);
-  }
-
-  .section-heading {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 24px;
-    align-items: end;
-  }
-
-  .section-heading .eyebrow {
-    grid-column: 1 / span 3;
-    align-self: start;
-  }
-
-  .section-heading h2 {
-    grid-column: 4 / span 6;
-  }
-
-  .section-heading > p:last-child {
-    grid-column: 10 / -1;
-    color: var(--mist);
-    font-size: 15px;
-    line-height: 1.68;
-  }
-
-  .section-heading h2,
-  .privacy-grid h2,
-  .use-grid h2,
-  .related-grid h2 {
-    margin: 0;
-    font-size: clamp(3rem, 5.5vw, 5.8rem);
-    line-height: 0.96;
-    letter-spacing: -0.046em;
-  }
-
-  .capability-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin: clamp(64px, 8vw, 104px) 0 0;
-    padding: 0;
-    border-top: 1px solid var(--hairline);
-    border-bottom: 1px solid var(--hairline);
-    list-style: none;
-  }
-
-  .capability-list li {
-    min-height: 168px;
-    display: grid;
-    grid-template-columns: 54px 1fr;
-    gap: 22px;
-    padding: 26px 24px;
-  }
-
-  .capability-list li:nth-child(even) {
-    border-left: 1px solid var(--hairline);
-  }
-
-  .capability-list li:nth-child(n + 3) {
-    border-top: 1px solid var(--hairline);
-  }
-
-  .capability-list span {
-    color: var(--brass);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-  }
-
-  .capability-list p {
-    align-self: end;
-    max-width: 34ch;
-    color: var(--limestone);
-    font-size: clamp(1.2rem, 2vw, 1.55rem);
-    line-height: 1.35;
-    letter-spacing: -0.012em;
-  }
-
-  .privacy-section {
-    background: var(--limestone);
-    color: var(--canvas);
-  }
-
-  .privacy-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 28px;
-    align-items: end;
-  }
-
-  .privacy-number {
-    grid-column: 1 / span 3;
-    color: oklch(0.13 0.018 258 / 0.18);
-    font-size: clamp(3.5rem, 7vw, 7rem);
-    font-weight: 600;
-    letter-spacing: -0.06em;
-    line-height: 0.85;
-  }
-
-  .privacy-grid > div {
-    grid-column: 4 / span 6;
-  }
-
-  .privacy-grid .eyebrow {
-    color: var(--brass-deep);
-  }
-
-  .privacy-grid h2 {
-    color: var(--canvas);
-  }
-
-  .privacy-grid > div > p:last-child {
-    max-width: 58ch;
-    margin-top: 30px;
-    color: oklch(0.28 0.018 258);
-    font-size: 16px;
-    line-height: 1.72;
-  }
-
-  .privacy-grid aside {
-    grid-column: 10 / -1;
-    display: grid;
-    grid-template-columns: 1fr;
-    border-top: 1px solid oklch(0.13 0.018 258 / 0.18);
-  }
-
-  .privacy-grid aside span {
-    margin-top: 16px;
-    color: oklch(0.38 0.018 258);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .privacy-grid aside strong {
-    padding: 5px 0 16px;
-    border-bottom: 1px solid oklch(0.13 0.018 258 / 0.12);
-    color: var(--canvas);
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  .use-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 28px;
-  }
-
-  .use-grid > header {
-    grid-column: 1 / span 5;
-  }
-
-  .use-list {
-    grid-column: 7 / -1;
-  }
-
-  .use-list article {
-    display: grid;
-    grid-template-columns: 54px 1fr;
-    gap: 20px;
-    padding: 25px 0 29px;
-    border-top: 1px solid var(--hairline);
-  }
-
-  .use-list article:last-child {
-    border-bottom: 1px solid var(--hairline);
-  }
-
-  .use-list span {
-    color: var(--brass);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-  }
-
-  .use-list h3 {
-    margin: 0;
-    font-size: clamp(1.25rem, 2vw, 1.7rem);
-    line-height: 1.25;
-  }
-
-  .related-section {
-    background: var(--canvas-raised);
-  }
-
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 28px;
-    align-items: start;
-  }
-
-  .related-grid > div:first-child {
-    grid-column: 1 / span 7;
-  }
-
-  .related-grid ul {
-    grid-column: 9 / -1;
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid var(--hairline);
-    list-style: none;
-  }
-
-  .related-grid li {
-    min-height: 50px;
-    display: grid;
-    grid-template-columns: 42px 1fr;
-    align-items: center;
-    border-bottom: 1px solid var(--hairline);
-    color: var(--mist);
-    font-size: 13px;
-  }
-
-  .related-grid li span {
-    color: var(--quiet);
-    font-size: 10px;
-    letter-spacing: 0.08em;
-  }
-
-  .related-actions {
-    grid-column: 9 / -1;
-    margin-top: 18px;
-  }
-
-  @media (hover: hover) {
-    .feature-nav a:hover,
-    .text-action:hover {
-      color: var(--limestone);
-    }
-
-    .primary-action:hover {
-      background: var(--limestone);
-    }
-  }
-
-  @media (max-width: 920px) {
-    .hero-grid,
-    .section-heading,
-    .privacy-grid,
-    .use-grid,
-    .related-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-copy,
-    .hero-media,
-    .section-heading .eyebrow,
-    .section-heading h2,
-    .section-heading > p:last-child,
-    .privacy-number,
-    .privacy-grid > div,
-    .privacy-grid aside,
-    .use-grid > header,
-    .use-list,
-    .related-grid > div:first-child,
-    .related-grid ul,
-    .related-actions {
-      grid-column: auto;
-    }
-
-    .hero-media {
-      width: min(560px, 100%);
-      justify-self: end;
-      margin-top: 20px;
-    }
-
-    .section-heading > p:last-child {
-      max-width: 58ch;
-    }
-
-    .privacy-number {
-      margin-bottom: 20px;
-    }
-
-    .privacy-grid aside {
-      max-width: 560px;
-      margin-top: 32px;
-    }
-
-    .use-list,
-    .related-grid ul,
-    .related-actions {
-      margin-top: 32px;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .feature-shell {
-      width: min(100% - 40px, var(--shell));
-    }
-
-    .feature-nav > span {
-      display: none;
-    }
-
-    .hero-grid {
-      padding-top: 52px;
-    }
-
-    h1 {
-      font-size: clamp(3.5rem, 15vw, 5rem);
-      letter-spacing: -0.043em;
-    }
-
-    .hero-media {
-      justify-self: start;
-    }
-
-    .section-heading h2,
-    .privacy-grid h2,
-    .use-grid h2,
-    .related-grid h2 {
-      font-size: clamp(3rem, 13vw, 4.2rem);
-    }
-
-    .capability-list {
-      grid-template-columns: 1fr;
-    }
-
-    .capability-list li:nth-child(even) {
-      border-left: 0;
-    }
-
-    .capability-list li + li {
-      border-top: 1px solid var(--hairline);
-    }
-
-    .capability-list li {
-      min-height: 130px;
-      padding-right: 0;
-      padding-left: 0;
-    }
-  }
-</style>
