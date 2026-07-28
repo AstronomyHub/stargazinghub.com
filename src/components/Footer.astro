@@ -76,6 +76,14 @@ const socialLinks = [
         >
           {t.footer.terms}
         </a>
+        {lang === 'en' && (
+          <a
+            href="/press/"
+            class="text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)] transition-colors text-sm"
+          >
+            Press
+          </a>
+        )}
         <a
           href={compassPath(lang)}
           class="text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)] transition-colors text-sm"
