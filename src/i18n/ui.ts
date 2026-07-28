@@ -136,7 +136,7 @@ export const translations: Record<string, any> = {
     },
     download: {
       title: 'Start Exploring Today',
-      subtitle: 'Join over 3 million stargazers who\'ve already discovered the cosmos',
+      subtitle: 'Bring forecasts, maps, sky recognition, and field tools with you.',
       ctaLabel: 'Get Started Today',
       appStore: 'Download on the',
       googlePlay: 'Get it on',

@@ -1,248 +1,374 @@
 ---
+import { Image } from 'astro:assets';
+import googleplayScreenshotsConfig from '../googleplay-screenshots.config.json';
+import { getMarketingCopy } from '../i18n/marketingCopy';
+
+const allScreenshots = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/screenshots/**/*.{webp,png,jpg}',
+  { eager: true },
+);
+
 interface Props {
   t: any;
+  lang?: string;
 }
 
-const { t } = Astro.props;
+const { t, lang = 'en' } = Astro.props;
+const screenshotPaths =
+  googleplayScreenshotsConfig[lang as keyof typeof googleplayScreenshotsConfig]?.files || [];
+const screenshots = screenshotPaths
+  .map((path: string) => allScreenshots[path]?.default)
+  .filter(Boolean);
 
-const features = [
+const marketingCopy = getMarketingCopy(lang);
+
+const workflow = [
   {
-    key: 'starMap',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
-    </svg>`,
-    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]'
+    number: '01',
+    title: t.features.weather.title,
+    description: t.features.weather.description,
+    image: screenshots[0] || screenshots[3],
   },
   {
-    key: 'weather',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M17.5 19c0-3.037-2.463-5.5-5.5-5.5S6.5 15.963 6.5 19"/>
-      <circle cx="12" cy="10" r="3"/>
-      <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-      <path d="M12 2v2"/>
-      <path d="M4.22 5.22l1.42 1.42"/>
-      <path d="M1 12h2"/>
-      <path d="M19.78 5.22l-1.42 1.42"/>
-      <path d="M21 12h2"/>
-    </svg>`,
-    gradient: 'from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)]'
+    number: '02',
+    title: marketingCopy.recognitionTitle,
+    description: marketingCopy.recognitionDescription,
+    image: screenshots[1] || screenshots[0],
   },
   {
-    key: 'solar',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="4"/>
-      <path d="M12 2v2"/>
-      <path d="M12 20v2"/>
-      <path d="M2 12h2"/>
-      <path d="M20 12h2"/>
-      <path d="M4.93 4.93l1.41 1.41"/>
-      <path d="M17.66 17.66l1.41 1.41"/>
-      <path d="M4.93 19.07l1.41-1.41"/>
-      <path d="M17.66 6.34l1.41-1.41"/>
-    </svg>`,
-    gradient: 'from-[var(--sulfur-gold)] to-[var(--oxygen-blue)]'
+    number: '03',
+    title: t.features.starMap.title,
+    description: t.features.starMap.description,
+    image: screenshots[2] || screenshots[1],
   },
   {
-    key: 'deepSpace',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="12" cy="12" rx="10" ry="6"/>
-      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(60 12 12)"/>
-      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(120 12 12)"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
-    </svg>`,
-    gradient: 'from-[var(--carbon-purple)] to-[var(--nitrogen-cyan)]'
+    number: '04',
+    title: t.features.stats?.bortle?.label || t.features.stats?.bortle?.value,
+    description: marketingCopy.lightPollutionDescription,
+    image: screenshots[3] || screenshots[0],
   },
-  {
-    key: 'meteor',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 12l10 10 10-10L12 2z"/>
-      <path d="M12 2v20"/>
-      <path d="M2 12h20"/>
-      <circle cx="12" cy="12" r="3" fill="currentColor"/>
-      <path d="M12 9l3-3"/>
-      <path d="M12 9l-3-3"/>
-      <path d="M12 15l3 3"/>
-      <path d="M12 15l-3 3"/>
-    </svg>`,
-    gradient: 'from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)]'
-  },
-  {
-    key: 'satellite',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      <path d="M2 12h20"/>
-    </svg>`,
-    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]'
-  },
-  {
-    key: 'tools',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M12 2v4"/>
-      <path d="M12 18v4"/>
-      <path d="M4.93 4.93l2.83 2.83"/>
-      <path d="M16.24 16.24l2.83 2.83"/>
-      <path d="M2 12h4"/>
-      <path d="M18 12h4"/>
-      <path d="M4.93 19.07l2.83-2.83"/>
-      <path d="M16.24 7.76l2.83-2.83"/>
-    </svg>`,
-    gradient: 'from-[var(--hydrogen-pink)] to-[var(--sulfur-gold)]'
-  },
-  {
-    key: 'free',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      <path d="M12 22V12"/>
-      <path d="M17 8.5L12 5l-5 3.5"/>
-    </svg>`,
-    gradient: 'from-[var(--nitrogen-cyan)] to-[var(--oxygen-blue)]'
-  }
 ];
+
+const toolIndex = ['satellite', 'meteor', 'solar', 'tools'];
 ---
 
-<section class="relative py-20 px-6 overflow-hidden">
-  <div class="max-w-7xl mx-auto">
-    <!-- 区域标题 -->
-    <div class="text-center mb-12">
-      <!-- 装饰标签 -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass mb-6 max-w-full">
-        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-[var(--oxygen-blue)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-        <span class="text-xs md:text-sm text-[var(--text-secondary)] truncate">{t.features.eyebrow || 'Powerful Features'}</span>
-      </div>
+<section class="workflow-section" aria-labelledby="workflow-title">
+  <div class="section-shell">
+    <header class="section-heading">
+      <p class="eyebrow">{t.features.eyebrow}</p>
+      <h2 id="workflow-title">{t.features.title}</h2>
+      <p>{t.features.subtitle}</p>
+    </header>
 
-      <h2 class="mb-4">
-        <span class="gradient-text-cool">{t.features.title}</span>
-      </h2>
-
-      <p class="text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-        {t.features.subtitle}
-      </p>
+    <div class="workflow-bays">
+      {workflow.map((item) => (
+        <article class="workflow-bay">
+          <div class="bay-copy">
+            <span class="bay-number">{item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+          {item.image && (
+            <figure>
+              <Image
+                src={item.image}
+                alt={`${t.brand?.name}: ${item.title}`}
+                loading="lazy"
+                format="webp"
+              />
+            </figure>
+          )}
+        </article>
+      ))}
     </div>
 
-    <!-- 功能卡片网格 -->
-    <!-- Desktop: Grid Layout -->
-    <div class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {
-        features.map((feature, index) => (
-          <div
-            class={`group relative glass-card p-6 overflow-hidden`}
-            style={`animation-delay: ${index * 0.1}s;`}
-          >
-            <!-- 背景渐变光晕 -->
-            <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
-            <!-- 内容 -->
-            <div class="relative">
-              <!-- 图标 -->
-              <div class={`w-12 h-12 mb-4 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                <div class="text-white" set:html={feature.icon} />
-              </div>
-
-              <!-- 标题 -->
-              <h3 class="text-lg font-bold mb-2 text-white group-hover:text-[var(--hydrogen-pink)] transition-colors duration-300">
-                {t.features[feature.key].title}
-              </h3>
-
-              <!-- 描述 -->
-              <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
-                {t.features[feature.key].description}
-              </p>
+    <div class="tool-index">
+      <div class="index-heading">
+        <span>05-08</span>
+        <p>{t.features.eyebrow}</p>
+      </div>
+      <div class="index-list">
+        {toolIndex.map((key, index) => (
+          <article>
+            <span>{String(index + 5).padStart(2, '0')}</span>
+            <div>
+              <h3>{t.features[key].title}</h3>
+              <p>{t.features[key].description}</p>
             </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- Mobile: Grid Scroll (Auto Play) -->
-    <div id="features-mobile-gallery" class="lg:hidden grid grid-rows-2 grid-flow-col gap-4 overflow-x-auto pb-6 snap-x snap-mandatory no-scrollbar -mx-6 px-6 scroll-smooth">
-      {
-        features.map((feature, index) => (
-          <div class="snap-start w-[70vw] sm:w-[300px] relative glass-card p-5 overflow-hidden flex flex-col justify-center h-full">
-             <!-- 背景渐变光晕 -->
-             <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-5 transition-opacity duration-500`}></div>
-
-             <!-- 内容 -->
-             <div class="relative flex items-start gap-4">
-               <!-- 图标 (Smaller) -->
-               <div class={`w-10 h-10 shrink-0 bg-gradient-to-br ${feature.gradient} rounded-lg flex items-center justify-center shadow-lg`}>
-                 <div class="text-white transform scale-75" set:html={feature.icon} />
-               </div>
- 
-               <div>
-                 <!-- 标题 -->
-                 <h3 class="text-base font-bold mb-1 text-white leading-tight">
-                   {t.features[feature.key].title}
-                 </h3>
-   
-                 <!-- 描述 (Truncated) -->
-                 <p class="text-[var(--text-secondary)] text-xs leading-relaxed line-clamp-2">
-                   {t.features[feature.key].description}
-                 </p>
-               </div>
-             </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <script is:inline>
-      (function() {
-        const gallery = document.getElementById('features-mobile-gallery');
-        if (!gallery) return;
-
-        let interval;
-        // In grid-flow-col, width depends on column width. 
-        // We approximate it to scroll one "page" (which is one column width)
-        
-        function startAutoPlay() {
-          interval = setInterval(() => {
-            const scrollAmount = gallery.clientWidth * 0.8; // Scroll most of the screen width
-
-            // If at end, scroll to start
-            if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
-              gallery.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-              gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-          }, 4000); // Slower than hero
-        }
-
-        function stopAutoPlay() {
-          clearInterval(interval);
-        }
-
-        // Start
-        startAutoPlay();
-
-        // Pause on interaction
-        gallery.addEventListener('touchstart', stopAutoPlay, { passive: true });
-        gallery.addEventListener('touchend', () => setTimeout(startAutoPlay, 5000), { passive: true });
-      })();
-    </script>
-
-    <!-- 底部统计 -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.bortle?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.bortle?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-cool mb-1">{t.features.stats?.seeing?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.seeing?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text mb-1">{t.features.stats?.tracker?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.tracker?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.ar?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.ar?.label}</div>
+          </article>
+        ))}
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .workflow-section {
+    padding: var(--section-space) var(--space-page);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .section-shell {
+    width: min(var(--shell), 100%);
+    margin: 0 auto;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: end;
+    padding-bottom: clamp(56px, 7vw, 92px);
+  }
+
+  .eyebrow {
+    grid-column: 1 / span 3;
+    align-self: start;
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .section-heading h2 {
+    grid-column: 4 / span 6;
+    margin: 0;
+    font-size: clamp(3rem, 5.4vw, 5.7rem);
+    line-height: 0.96;
+    letter-spacing: -0.044em;
+  }
+
+  .section-heading > p:last-child {
+    grid-column: 10 / span 3;
+    max-width: 31ch;
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .workflow-bays {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .workflow-bay {
+    min-width: 0;
+    display: grid;
+    grid-template-rows: minmax(245px, auto) 1fr;
+    padding: 28px 24px 0;
+  }
+
+  .workflow-bay + .workflow-bay {
+    border-left: 1px solid var(--hairline);
+  }
+
+  .bay-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bay-number {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    margin-bottom: 28px;
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .bay-copy h3 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.12;
+  }
+
+  .bay-copy p {
+    max-width: 29ch;
+    margin-top: 14px;
+    color: var(--mist);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .workflow-bay figure {
+    align-self: end;
+    margin: 34px 0 0;
+    overflow: hidden;
+    background: var(--canvas-raised);
+  }
+
+  .workflow-bay img {
+    width: 100%;
+    height: auto;
+    outline: 1px solid oklch(0.93 0.012 86 / 0.1);
+    outline-offset: -1px;
+    transition:
+      transform 520ms var(--ease-observatory),
+      filter 520ms var(--ease-observatory);
+  }
+
+  .tool-index {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    padding-top: clamp(72px, 9vw, 124px);
+  }
+
+  .index-heading {
+    grid-column: 1 / span 3;
+    color: var(--quiet);
+  }
+
+  .index-heading span {
+    color: var(--brass);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .index-heading p {
+    max-width: 18ch;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+
+  .index-list {
+    grid-column: 4 / -1;
+  }
+
+  .index-list article {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 20px;
+    padding: 24px 0 27px;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .index-list article:last-child {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .index-list article > span {
+    padding-top: 3px;
+    color: var(--quiet);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+
+  .index-list h3 {
+    margin: 0;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+  }
+
+  .index-list p {
+    max-width: 66ch;
+    margin-top: 8px;
+    color: var(--mist);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  @media (hover: hover) {
+    .workflow-bay:hover img {
+      transform: scale(1.012);
+      filter: brightness(1.05);
+    }
+  }
+
+  @media (max-width: 980px) {
+    .section-heading {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .eyebrow,
+    .section-heading h2,
+    .section-heading > p:last-child {
+      grid-column: auto;
+    }
+
+    .section-heading > p:last-child {
+      max-width: 58ch;
+    }
+
+    .workflow-bays {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .workflow-bay:nth-child(3) {
+      border-left: 0;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .workflow-bay:nth-child(4) {
+      border-top: 1px solid var(--hairline);
+    }
+
+    .tool-index {
+      grid-template-columns: 1fr;
+    }
+
+    .index-heading,
+    .index-list {
+      grid-column: auto;
+    }
+
+    .index-heading p {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .section-heading h2 {
+      font-size: clamp(2.8rem, 13vw, 4rem);
+    }
+
+    .workflow-bays {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-bay {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      grid-template-rows: auto;
+      gap: 18px;
+      align-items: end;
+      padding: 28px 0 0;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .workflow-bay:first-child {
+      border-top: 0;
+    }
+
+    .workflow-bay + .workflow-bay {
+      border-left: 0;
+    }
+
+    .bay-copy {
+      align-self: start;
+      padding-bottom: 28px;
+    }
+
+    .bay-number {
+      margin-bottom: 22px;
+    }
+
+    .bay-copy p {
+      font-size: 13px;
+    }
+
+    .workflow-bay figure {
+      margin-top: 0;
+    }
+
+    .index-list article {
+      grid-template-columns: 42px 1fr;
+    }
+  }
+</style>

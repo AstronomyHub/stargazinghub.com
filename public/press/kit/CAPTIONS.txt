@@ -1,0 +1,15 @@
+01 - Observing forecast
+Stargazing Hub combines a stargazing index, Moon context, hourly conditions, and
+multiple forecast models to help users choose an observing window.
+
+02 - On-device sky recognition
+A real wide-field night-sky photograph shown with recognized constellation and
+notable-object context. The original photograph does not need to be uploaded.
+
+03 - Terrain-aware star chart
+The Stargazing Hub star chart combines constellations, horizon, terrain, and
+observing context in the same view.
+
+04 - Light-pollution planning
+The light-pollution map helps users compare locations alongside night-sky
+planning layers and observing time.

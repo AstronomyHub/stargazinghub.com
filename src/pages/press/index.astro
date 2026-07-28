@@ -8,155 +8,330 @@ const t = translations.en;
 const pressUrl = new URL('/press/', siteUrl).toString();
 const media = [
   {
+    number: '01',
     title: 'Observing forecast',
-    description: 'Multi-model observing conditions, Moon context, and hourly planning.',
+    description: 'Multi-model conditions, Moon context, and hourly planning.',
     src: '/press/stargazinghub-observing-forecast.webp',
+    png: '/press/editorial/stargazinghub-observing-forecast.png',
     alt: 'Stargazing Hub observing forecast with stargazing index, Moon phase, and hourly conditions',
   },
   {
-    title: 'Offline sky recognition',
-    description: 'A real wide-field night-sky photo resolved locally on the device.',
+    number: '02',
+    title: 'On-device recognition',
+    description: 'A real wide-field night-sky photograph identified on the device.',
     src: '/press/stargazinghub-sky-recognition.webp',
-    alt: 'Stargazing Hub sky recognition result showing constellations over a night-sky photo',
+    png: '/press/editorial/stargazinghub-sky-recognition.png',
+    alt: 'Stargazing Hub recognition result with constellations over a real night-sky photograph',
   },
   {
+    number: '03',
     title: 'Terrain-aware star chart',
-    description: 'Constellations, horizon, terrain, and observing context in the same view.',
+    description: 'The identified sky continued in a chart with horizon and terrain context.',
     src: '/press/stargazinghub-star-chart.webp',
+    png: '/press/editorial/stargazinghub-star-chart.png',
     alt: 'Stargazing Hub star chart showing a constellation above a realistic horizon',
   },
   {
-    title: 'Light-pollution map',
-    description: 'Location comparison using light pollution and night-sky planning layers.',
+    number: '04',
+    title: 'Light-pollution planning',
+    description: 'Location comparison using sky brightness and observing layers.',
     src: '/press/stargazinghub-light-pollution-map.webp',
+    png: '/press/editorial/stargazinghub-light-pollution-map.png',
     alt: 'Stargazing Hub light-pollution map with observing overlays and timeline',
   },
 ];
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'Stargazing Hub Press and Editorial Resources',
+  name: 'Stargazing Hub App Store editorial brief',
   description:
-    'Official product facts, editorial images, a short workflow demo, and media contact information for Stargazing Hub.',
+    'Editorial brief for Stargazing Hub, including the August 2026 release focus, product workflow, downloadable assets, and review contact.',
   url: pressUrl,
   about: {
     '@type': 'SoftwareApplication',
-    name: 'Stargazing Hub',
-    operatingSystem: 'iOS, Android',
+    name: 'Stargazing Hub - Sky Live',
+    operatingSystem: 'iOS, iPadOS',
     applicationCategory: 'EducationalApplication',
-    installUrl: [downloadLinks.appStore, downloadLinks.googlePlay],
+    installUrl: downloadLinks.appStore,
   },
 };
 ---
 
 <Layout
-  title="Stargazing Hub Press & Editorial Resources"
-  description="Official Stargazing Hub product facts, downloadable editorial images, a short workflow demo, and media contact information."
+  title="Stargazing Hub | App Store Editorial Brief"
+  description="The August 2026 editorial brief for Stargazing Hub: on-device sky-photo recognition, multi-model observing forecasts, a terrain-aware star chart, and planning maps."
   image="/press/stargazinghub-field-workflow-poster.jpg"
   lang="en"
   structuredData={structuredData}
 >
-  <main class="relative z-10">
-    <section class="press-hero">
-      <div class="press-shell">
-        <a class="press-back" href="/">
-          <span aria-hidden="true">←</span>
-          Stargazing Hub
-        </a>
-
-        <div class="press-eyebrow">PRESS &amp; EDITORIAL RESOURCES</div>
-        <h1>From planning the night<br />to understanding the photograph.</h1>
-        <p class="press-lead">
-          Stargazing Hub is an observing and astrophotography companion for iPhone,
-          iPad, and Android. It combines multi-model forecasts, offline sky-photo
-          recognition, a multilingual terrain-aware star chart, and light-pollution
-          planning tools.
-        </p>
-
-        <div class="press-actions">
-          <a class="press-primary" href="#demo">Watch the 60-second workflow</a>
-          <a class="press-secondary" href="/press/stargazinghub-press-kit-2026.zip" download>
-            Download the media kit
+  <main class="editorial-main">
+    <section class="editorial-hero" aria-labelledby="editorial-title">
+      <div class="editorial-shell">
+        <header class="editorial-nav">
+          <a href="/">
+            <span aria-hidden="true">←</span>
+            Stargazing Hub
           </a>
+          <span>App Store editorial brief</span>
+        </header>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">AUGUST 2026 / APP ENHANCEMENT</p>
+            <h1 id="editorial-title">A photographed sky, understood offline.</h1>
+            <p class="hero-lead">
+              The August release connects on-device sky-photo recognition to the
+              same field in Stargazing Hub’s multilingual star chart, with a
+              workflow designed for review away from reception.
+            </p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#sequence">See the release sequence</a>
+              <a class="text-action" href="mailto:axxu0607@gmail.com">
+                Contact Aaron Hsu
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <figure class="hero-media">
+            <div class="media-datum">
+              <span>02 / REVIEW</span>
+              <span>Current iPhone interface</span>
+            </div>
+            <img
+              src="/press/stargazinghub-sky-recognition.webp"
+              alt="Stargazing Hub recognizing constellations in a real wide-field night-sky photograph"
+              width="1080"
+              height="1920"
+            />
+            <figcaption>
+              A wide-field photograph remains on the device while the app identifies
+              the captured sky.
+            </figcaption>
+          </figure>
         </div>
 
-        <dl class="press-facts">
+        <dl class="release-facts">
+          <div>
+            <dt>Release window</dt>
+            <dd>August 18-28, 2026</dd>
+          </div>
           <div>
             <dt>Platforms</dt>
-            <dd>iPhone, iPad, Android</dd>
+            <dd>iPhone and iPad</dd>
           </div>
           <div>
-            <dt>Availability</dt>
-            <dd>Free download, optional ad-free support</dd>
+            <dt>Review access</dt>
+            <dd>TestFlight and promo code</dd>
           </div>
           <div>
-            <dt>Media contact</dt>
+            <dt>Editorial contact</dt>
             <dd><a href="mailto:axxu0607@gmail.com">Aaron Hsu</a></dd>
           </div>
         </dl>
       </div>
     </section>
 
-    <section class="press-section" id="demo">
-      <div class="press-shell press-grid">
-        <div>
-          <div class="press-eyebrow">FIELD WORKFLOW</div>
-          <h2>A useful answer before and after the shutter.</h2>
+    <section class="sequence-section" id="sequence" aria-labelledby="sequence-title">
+      <div class="editorial-shell">
+        <header class="section-heading">
+          <p class="eyebrow">THE RELEASE IN THREE MOVES</p>
+          <h2 id="sequence-title">The photograph becomes a place in the sky.</h2>
           <p>
-            The workflow starts with deciding whether a night is worth the trip,
-            continues through location and sky planning, and ends by identifying
-            the field captured in a real photograph. The demo uses current English
-            product screens and contains no simulated interface.
+            The editorial focus is continuity. A user can begin with the image they
+            captured, understand it without relying on reception, and continue
+            exploring the same field instead of starting over.
           </p>
-          <ul class="press-list">
-            <li>Compare hourly and 15-day observing conditions.</li>
-            <li>Import and identify a wide-field sky photo on-device.</li>
-            <li>Open the same field in the multilingual star chart.</li>
-            <li>Consider terrain and directional light pollution.</li>
-          </ul>
+        </header>
+
+        <ol class="sequence-list">
+          <li>
+            <span>01</span>
+            <div>
+              <h3>Bring in a real photograph</h3>
+              <p>
+                Start with a wide-field night-sky image from an observing session,
+                rather than a catalogue search.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>Identify it on-device</h3>
+              <p>
+                Review the captured field and constellation context without
+                uploading the original photograph.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>Continue in the same sky</h3>
+              <p>
+                Open the recognized field in the multilingual star chart with
+                horizon, terrain, and observing context.
+              </p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="sequence-media">
+          <figure>
+            <img
+              src="/press/stargazinghub-sky-recognition.webp"
+              alt="Recognized night-sky photograph in Stargazing Hub"
+              width="1080"
+              height="1920"
+              loading="lazy"
+            />
+            <figcaption><span>02</span> Recognized photograph</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/press/stargazinghub-star-chart.webp"
+              alt="The same sky explored in the Stargazing Hub star chart"
+              width="1080"
+              height="1920"
+              loading="lazy"
+            />
+            <figcaption><span>03</span> Continued in the star chart</figcaption>
+          </figure>
         </div>
-        <div class="press-video-frame">
+      </div>
+    </section>
+
+    <section class="planning-section" aria-labelledby="planning-title">
+      <div class="editorial-shell planning-grid">
+        <header>
+          <p class="eyebrow">BEFORE THE SHUTTER</p>
+          <h2 id="planning-title">A night worth leaving home for.</h2>
+          <p>
+            The same app supports the decisions before the photograph. Users can
+            compare hourly and 15-day observing conditions across multiple forecast
+            models, then consider location, Moon, terrain, and light pollution.
+          </p>
+          <p class="boundary-note">
+            Forecasts and maps are planning guidance, not visibility guarantees.
+          </p>
+        </header>
+        <figure class="planning-media planning-media-large">
+          <img
+            src="/press/stargazinghub-observing-forecast.webp"
+            alt="Stargazing Hub observing forecast"
+            width="1080"
+            height="1920"
+            loading="lazy"
+          />
+          <figcaption><span>01</span> Multi-model observing context</figcaption>
+        </figure>
+        <figure class="planning-media">
+          <img
+            src="/press/stargazinghub-light-pollution-map.webp"
+            alt="Stargazing Hub light-pollution planning map"
+            width="1080"
+            height="1920"
+            loading="lazy"
+          />
+          <figcaption><span>04</span> Location and sky brightness</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="demo-section" aria-labelledby="demo-title">
+      <div class="editorial-shell demo-grid">
+        <header>
+          <p class="eyebrow">PRODUCT SEQUENCE</p>
+          <h2 id="demo-title">Forty seconds, four field decisions.</h2>
+          <p>
+            A concise overview of the connected experience: location, conditions,
+            on-device recognition, and the star chart.
+          </p>
+          <a href="/press/stargazinghub-field-workflow-2026.mp4" download>
+            Download MP4
+            <span aria-hidden="true">↓</span>
+          </a>
+        </header>
+        <div class="video-frame">
           <video
             controls
             playsinline
             preload="metadata"
             poster="/press/stargazinghub-field-workflow-poster.jpg"
-            aria-label="A 60-second Stargazing Hub product workflow"
+            aria-label="Stargazing Hub product sequence"
           >
             <source src="/press/stargazinghub-field-workflow-2026.mp4" type="video/mp4" />
-            <a href="/press/stargazinghub-field-workflow-2026.mp4">Download the demo video</a>
+            <a href="/press/stargazinghub-field-workflow-2026.mp4">Download the product video</a>
           </video>
-          <div class="press-video-meta">
-            <span>60 seconds · 1080p · captions on screen</span>
-            <a href="/press/stargazinghub-field-workflow-2026.mp4" download>Download MP4</a>
+          <div>
+            <span>40 seconds</span>
+            <span>1080p</span>
+            <span>On-screen captions</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="press-section press-section-soft">
-      <div class="press-shell">
-        <div class="press-section-heading">
-          <div>
-            <div class="press-eyebrow">DOWNLOADABLE IMAGES</div>
-            <h2>Four views of the core experience.</h2>
-          </div>
-          <p>
-            Each image is 1080 × 1920. Editorial cropping is permitted; visible
-            interface text and values should not be altered.
+    <section class="story-section" aria-labelledby="story-title">
+      <div class="editorial-shell story-grid">
+        <div class="story-number">2018</div>
+        <article>
+          <p class="eyebrow">WHY IT EXISTS</p>
+          <h2 id="story-title">Built after a forecast disappeared.</h2>
+          <p class="story-lead">
+            “I was planning a planetary-imaging session when 7Timer became
+            unavailable. I wanted a tool my observing friends and I could still rely
+            on in the field, so I began designing one.”
           </p>
-        </div>
+          <p>
+            Aaron Hsu is an amateur astronomer, product manager, and independent
+            developer. Observing trips with friends continue to shape Stargazing Hub
+            around practical decisions rather than a catalogue of isolated features.
+          </p>
+        </article>
+        <aside>
+          <h3>Editorial notes</h3>
+          <ul>
+            <li>Night-sky photographs can be recognized locally.</li>
+            <li>The star chart is developed for multilingual field use.</li>
+            <li>Alternate-language screenshots are available on request.</li>
+            <li>TestFlight and promotional access are available to editors.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
 
-        <div class="press-media-grid">
+    <section class="assets-section" aria-labelledby="assets-title">
+      <div class="editorial-shell">
+        <header class="assets-heading">
+          <div>
+            <p class="eyebrow">EDITORIAL ASSETS</p>
+            <h2 id="assets-title">Four current product views.</h2>
+          </div>
+          <div>
+            <a class="primary-action" href="/press/stargazinghub-press-kit-2026.zip" download>
+              Download media kit
+            </a>
+            <p>PNG and WebP, captions and usage notes included.</p>
+          </div>
+        </header>
+
+        <div class="asset-list">
           {media.map((item) => (
-            <article class="press-media-card">
-              <a href={item.src} target="_blank">
+            <article>
+              <a class="asset-image" href={item.png}>
                 <img src={item.src} alt={item.alt} width="1080" height="1920" loading="lazy" />
               </a>
-              <div>
+              <div class="asset-copy">
+                <span>{item.number}</span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <a href={item.src} download>Download original</a>
+                <div>
+                  <a href={item.png} download>PNG</a>
+                  <a href={item.src} download>WebP</a>
+                </div>
               </div>
             </article>
           ))}
@@ -164,56 +339,27 @@ const structuredData = {
       </div>
     </section>
 
-    <section class="press-section">
-      <div class="press-shell press-story-grid">
-        <article>
-          <div class="press-eyebrow">WHY IT EXISTS</div>
-          <h2>Built from a missed observing plan.</h2>
-          <p>
-            Aaron Hsu is an amateur astronomer, product manager, and independent
-            developer. He began building Stargazing Hub in 2018 after 7Timer became
-            unavailable while he was planning a planetary-imaging session. Observing
-            trips with friends continue to shape the product around practical field
-            decisions rather than a catalogue of isolated features.
-          </p>
-        </article>
-
-        <aside class="press-note">
-          <h3>Editorial notes</h3>
-          <ul class="press-list">
-            <li>Night-sky photos can be recognized locally without being uploaded.</li>
-            <li>Forecasts and maps are planning guidance, not visibility guarantees.</li>
-            <li>Promo codes and TestFlight access are available to editors on request.</li>
-            <li>High-resolution or alternate-language materials can be supplied.</li>
-          </ul>
-        </aside>
-      </div>
-    </section>
-
-    <section class="press-section press-contact">
-      <div class="press-shell">
+    <section class="contact-section" aria-labelledby="contact-title">
+      <div class="editorial-shell contact-grid">
         <div>
-          <div class="press-eyebrow">CONTACT &amp; LINKS</div>
-          <h2>Review access and additional materials.</h2>
+          <p class="eyebrow">EDITORIAL CONTACT</p>
+          <h2 id="contact-title">Review access and additional materials.</h2>
         </div>
-        <div class="press-contact-links">
-          <a href="mailto:axxu0607@gmail.com">
-            <span>Editorial contact</span>
-            <strong>Aaron Hsu · axxu0607@gmail.com</strong>
-          </a>
+        <address>
+          <strong>Aaron Hsu</strong>
+          <a href="mailto:axxu0607@gmail.com">axxu0607@gmail.com</a>
+          <span>For editorial enquiries only</span>
+        </address>
+        <nav aria-label="Editorial links">
           <a href={downloadLinks.appStore}>
-            <span>iPhone and iPad</span>
-            <strong>View on the App Store</strong>
-          </a>
-          <a href={downloadLinks.googlePlay}>
-            <span>Android</span>
-            <strong>View on Google Play</strong>
+            View on the App Store
+            <span aria-hidden="true">↗</span>
           </a>
           <a href="/features/sky-recognition/">
-            <span>Feature guide</span>
-            <strong>Read about sky-photo recognition</strong>
+            Read the recognition guide
+            <span aria-hidden="true">→</span>
           </a>
-        </div>
+        </nav>
       </div>
     </section>
   </main>
@@ -222,338 +368,874 @@ const structuredData = {
 </Layout>
 
 <style>
-  .press-shell {
-    width: min(1180px, calc(100% - 40px));
+  .editorial-main {
+    position: relative;
+    z-index: 1;
+  }
+
+  .editorial-shell {
+    width: min(var(--shell), calc(100% - (var(--space-page) * 2)));
     margin: 0 auto;
   }
 
-  .press-hero {
-    padding: 72px 0 54px;
+  .editorial-hero {
+    padding: 28px 0 0;
   }
 
-  .press-back {
+  .editorial-nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .editorial-nav a {
+    min-height: 44px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    color: var(--text-secondary);
-    font-size: 14px;
+    color: var(--mist);
+    font-size: 13px;
     text-decoration: none;
-    margin-bottom: 72px;
   }
 
-  .press-back:hover,
-  .press-media-card a:hover,
-  .press-video-meta a:hover {
-    color: white;
+  .editorial-nav > span {
+    color: var(--quiet);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
-  .press-eyebrow {
-    color: var(--nitrogen-cyan);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    margin-bottom: 18px;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 32px;
+    padding: clamp(64px, 8vw, 112px) 0 0;
+  }
+
+  .hero-copy {
+    grid-column: 1 / span 7;
+    align-self: center;
+    padding-bottom: 48px;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
 
   h1 {
-    max-width: 1050px;
-    font-size: clamp(3rem, 7vw, 6.8rem);
-    line-height: 0.98;
-    letter-spacing: -0.055em;
+    max-width: 850px;
     margin: 0;
+    font-size: clamp(4rem, 7vw, 7.7rem);
+    line-height: 0.91;
+    letter-spacing: -0.054em;
   }
 
-  h2 {
-    font-size: clamp(2rem, 4vw, 4rem);
-    line-height: 1.02;
-    letter-spacing: -0.04em;
-    margin-bottom: 24px;
+  .hero-lead {
+    max-width: 60ch;
+    margin-top: 34px;
+    color: var(--mist);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.68;
   }
 
-  .press-lead,
-  .press-section p {
-    color: var(--text-secondary);
-    font-size: 18px;
-    line-height: 1.65;
-  }
-
-  .press-lead {
-    max-width: 780px;
-    margin-top: 32px;
-  }
-
-  .press-actions {
+  .hero-actions {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 38px;
+    gap: 24px;
+    margin-top: 36px;
   }
 
-  .press-primary,
-  .press-secondary {
+  .primary-action,
+  .text-action {
     min-height: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0 22px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
     text-decoration: none;
+    transition:
+      transform 160ms var(--ease-observatory),
+      color 180ms var(--ease-observatory),
+      background-color 180ms var(--ease-observatory);
   }
 
-  .press-primary {
-    color: #030014;
-    background: white;
-  }
-
-  .press-secondary {
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .press-facts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1px;
-    margin-top: 72px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    overflow: hidden;
-  }
-
-  .press-facts div {
-    padding: 24px;
-    background: rgba(3, 0, 20, 0.92);
-  }
-
-  .press-facts dt,
-  .press-contact-links span {
-    color: var(--text-muted);
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 6px;
-  }
-
-  .press-facts dd {
-    color: white;
-    font-size: 16px;
+  .primary-action {
+    padding: 0 19px;
+    border-radius: var(--radius-sm);
+    background: var(--brass);
+    color: var(--canvas);
+    font-size: 14px;
     font-weight: 600;
   }
 
-  .press-facts a {
-    color: white;
+  .text-action {
+    gap: 22px;
+    color: var(--mist);
+    font-size: 13px;
   }
 
-  .press-section {
-    padding: 88px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  .primary-action:active,
+  .text-action:active {
+    transform: scale(0.97);
   }
 
-  .press-section-soft {
-    background: rgba(255, 255, 255, 0.025);
+  .hero-media {
+    grid-column: 9 / -1;
+    margin: 0;
   }
 
-  .press-grid,
-  .press-story-grid {
-    display: grid;
-    grid-template-columns: 0.78fr 1.22fr;
-    align-items: center;
-    gap: 70px;
-  }
-
-  .press-list {
-    display: grid;
-    gap: 12px;
-    margin-top: 28px;
-    color: var(--text-secondary);
-  }
-
-  .press-list li {
-    position: relative;
-    padding-left: 20px;
-  }
-
-  .press-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.78em;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--nitrogen-cyan);
-  }
-
-  .press-video-frame {
-    padding: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .press-video-frame video {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #030014;
-    border-radius: 10px;
-  }
-
-  .press-video-meta {
+  .media-datum {
+    min-height: 42px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    padding: 12px 4px 2px;
-    color: var(--text-muted);
+    gap: 12px;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--quiet);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: auto;
+    outline: 1px solid oklch(0.93 0.012 86 / 0.12);
+    outline-offset: -1px;
+  }
+
+  .hero-media figcaption {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--quiet);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .release-facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: clamp(52px, 7vw, 92px);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .release-facts > div {
+    min-height: 106px;
+    padding: 22px 20px;
+  }
+
+  .release-facts > div + div {
+    border-left: 1px solid var(--hairline);
+  }
+
+  .release-facts dt {
+    color: var(--quiet);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .release-facts dd {
+    margin-top: 16px;
+    color: var(--limestone);
+    font-size: 14px;
+  }
+
+  .release-facts a {
+    text-decoration: none;
+  }
+
+  .sequence-section,
+  .planning-section,
+  .demo-section,
+  .story-section,
+  .assets-section,
+  .contact-section {
+    padding: var(--section-space) 0;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .sequence-section {
+    border-top: 0;
+  }
+
+  .section-heading {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 24px;
+    align-items: end;
+  }
+
+  .section-heading .eyebrow {
+    grid-column: 1 / span 3;
+    align-self: start;
+  }
+
+  .section-heading h2 {
+    grid-column: 4 / span 6;
+    margin: 0;
+    font-size: clamp(3rem, 5.7vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.046em;
+  }
+
+  .section-heading > p:last-child {
+    grid-column: 10 / -1;
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.68;
+  }
+
+  .sequence-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: clamp(64px, 8vw, 104px) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    list-style: none;
+  }
+
+  .sequence-list li {
+    min-height: 242px;
+    padding: 25px 24px 32px;
+  }
+
+  .sequence-list li + li {
+    border-left: 1px solid var(--hairline);
+  }
+
+  .sequence-list li > span {
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .sequence-list li > div {
+    margin-top: 62px;
+  }
+
+  .sequence-list h3 {
+    margin: 0;
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+  }
+
+  .sequence-list p {
+    max-width: 34ch;
+    margin-top: 14px;
+    color: var(--mist);
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .sequence-media {
+    display: grid;
+    grid-template-columns: 1.18fr 0.82fr;
+    gap: clamp(24px, 4vw, 58px);
+    align-items: end;
+    padding-top: clamp(72px, 10vw, 132px);
+  }
+
+  .sequence-media figure {
+    margin: 0;
+  }
+
+  .sequence-media figure:first-child {
+    max-width: 650px;
+  }
+
+  .sequence-media figure:last-child {
+    max-width: 470px;
+    justify-self: end;
+  }
+
+  .sequence-media img,
+  .planning-media img {
+    width: 100%;
+    height: auto;
+    outline: 1px solid oklch(0.93 0.012 86 / 0.12);
+    outline-offset: -1px;
+  }
+
+  .sequence-media figcaption,
+  .planning-media figcaption {
+    display: flex;
+    gap: 18px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--hairline);
+    color: var(--mist);
     font-size: 12px;
   }
 
-  .press-video-meta a {
-    color: var(--nitrogen-cyan);
+  .sequence-media figcaption span,
+  .planning-media figcaption span {
+    color: var(--brass);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
   }
 
-  .press-section-heading {
+  .planning-section {
+    background: var(--canvas-raised);
+  }
+
+  .planning-grid {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 30px;
     align-items: end;
-    gap: 60px;
-    margin-bottom: 42px;
   }
 
-  .press-media-grid {
+  .planning-grid > header {
+    grid-column: 1 / span 5;
+    align-self: start;
+    padding-right: clamp(0px, 4vw, 54px);
+  }
+
+  .planning-grid h2,
+  .demo-grid h2,
+  .story-grid h2,
+  .assets-heading h2,
+  .contact-grid h2 {
+    margin: 0;
+    font-size: clamp(3rem, 5.2vw, 5.6rem);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+  }
+
+  .planning-grid header > p:not(.eyebrow, .boundary-note) {
+    max-width: 48ch;
+    margin-top: 28px;
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .boundary-note {
+    max-width: 43ch;
+    margin-top: 48px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    color: var(--quiet);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .planning-media {
+    grid-column: span 3;
+    margin: 0;
+  }
+
+  .planning-media-large {
+    grid-column: 6 / span 4;
+  }
+
+  .demo-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .press-media-card {
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.035);
-  }
-
-  .press-media-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    background: #030014;
-  }
-
-  .press-media-card > div {
-    padding: 18px;
-  }
-
-  .press-media-card h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-  }
-
-  .press-media-card p {
-    font-size: 14px;
-    line-height: 1.5;
-    min-height: 64px;
-  }
-
-  .press-media-card a {
-    display: inline-block;
-    color: var(--nitrogen-cyan);
-    font-size: 13px;
-    margin-top: 12px;
-  }
-
-  .press-story-grid {
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 30px;
     align-items: start;
   }
 
-  .press-note {
-    padding: 28px;
-    border-left: 3px solid var(--nitrogen-cyan);
-    background: rgba(34, 211, 238, 0.06);
+  .demo-grid > header {
+    grid-column: 1 / span 4;
   }
 
-  .press-note h3 {
-    font-size: 24px;
+  .demo-grid header > p:not(.eyebrow) {
+    margin-top: 26px;
+    color: var(--mist);
+    font-size: 15px;
+    line-height: 1.68;
   }
 
-  .press-contact .press-shell {
-    display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 70px;
-  }
-
-  .press-contact-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .press-contact-links a {
-    min-height: 112px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    color: white;
+  .demo-grid header > a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    margin-top: 28px;
+    color: var(--limestone);
+    font-size: 13px;
     text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.035);
   }
 
-  .press-contact-links a:hover {
-    border-color: rgba(34, 211, 238, 0.45);
+  .video-frame {
+    grid-column: 6 / -1;
+    padding: 12px;
+    background: var(--canvas-raised);
+    outline: 1px solid var(--hairline);
+    outline-offset: -1px;
   }
 
-  .press-contact-links strong {
+  .video-frame video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--canvas);
+  }
+
+  .video-frame > div {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--quiet);
+    font-size: 10px;
+    letter-spacing: 0.06em;
+  }
+
+  .story-section {
+    background: var(--limestone);
+    color: var(--canvas);
+  }
+
+  .story-section .eyebrow {
+    color: var(--brass-deep);
+  }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .story-number {
+    grid-column: 1 / span 3;
+    color: oklch(0.13 0.018 258 / 0.22);
+    font-size: clamp(4rem, 8vw, 8rem);
+    font-weight: 600;
+    letter-spacing: -0.06em;
+    line-height: 0.8;
+  }
+
+  .story-grid article {
+    grid-column: 4 / span 6;
+  }
+
+  .story-grid h2 {
+    color: var(--canvas);
+  }
+
+  .story-lead {
+    margin-top: 38px;
+    color: var(--canvas);
+    font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
+    font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+    line-height: 1.42;
+  }
+
+  .story-grid article > p:last-child {
+    max-width: 57ch;
+    margin-top: 28px;
+    color: oklch(0.24 0.018 258);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .story-grid aside {
+    grid-column: 10 / -1;
+    align-self: end;
+    padding-top: 20px;
+    border-top: 1px solid oklch(0.13 0.018 258 / 0.2);
+  }
+
+  .story-grid aside h3 {
+    color: var(--canvas);
     font-size: 15px;
   }
 
-  @media (max-width: 900px) {
-    .press-grid,
-    .press-story-grid,
-    .press-section-heading,
-    .press-contact .press-shell {
-      grid-template-columns: 1fr;
-      gap: 36px;
+  .story-grid ul {
+    display: grid;
+    gap: 10px;
+    margin: 18px 0 0;
+    padding: 0;
+    color: oklch(0.28 0.018 258);
+    font-size: 13px;
+    line-height: 1.55;
+    list-style: none;
+  }
+
+  .story-grid li {
+    padding-top: 10px;
+    border-top: 1px solid oklch(0.13 0.018 258 / 0.12);
+  }
+
+  .assets-heading {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px;
+    align-items: end;
+  }
+
+  .assets-heading > div:first-child {
+    grid-column: 1 / span 8;
+  }
+
+  .assets-heading > div:last-child {
+    grid-column: 10 / -1;
+  }
+
+  .assets-heading > div:last-child p {
+    margin-top: 14px;
+    color: var(--quiet);
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  .asset-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: clamp(64px, 8vw, 104px);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .asset-list article {
+    min-width: 0;
+    padding: 24px 20px 28px;
+  }
+
+  .asset-list article + article {
+    border-left: 1px solid var(--hairline);
+  }
+
+  .asset-image {
+    display: block;
+    overflow: hidden;
+    background: var(--canvas-raised);
+  }
+
+  .asset-image img {
+    width: 100%;
+    height: auto;
+    outline: 1px solid oklch(0.93 0.012 86 / 0.1);
+    outline-offset: -1px;
+    transition: transform 500ms var(--ease-observatory);
+  }
+
+  .asset-copy {
+    padding-top: 22px;
+  }
+
+  .asset-copy > span {
+    color: var(--brass);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+  }
+
+  .asset-copy h3 {
+    margin-top: 20px;
+    font-size: 1.25rem;
+  }
+
+  .asset-copy p {
+    min-height: 66px;
+    margin-top: 10px;
+    color: var(--mist);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .asset-copy > div {
+    display: flex;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .asset-copy a {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--limestone);
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .contact-section {
+    background: var(--canvas-raised);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px;
+    align-items: end;
+  }
+
+  .contact-grid > div {
+    grid-column: 1 / span 7;
+  }
+
+  .contact-grid address {
+    grid-column: 9 / -1;
+    display: grid;
+    gap: 4px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline);
+    font-style: normal;
+  }
+
+  .contact-grid address strong {
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .contact-grid address a {
+    color: var(--mist);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .contact-grid address span {
+    margin-top: 8px;
+    color: var(--quiet);
+    font-size: 11px;
+  }
+
+  .contact-grid nav {
+    grid-column: 9 / -1;
+    display: grid;
+    gap: 0;
+    margin-top: 28px;
+  }
+
+  .contact-grid nav a {
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-top: 1px solid var(--hairline);
+    color: var(--mist);
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .contact-grid nav a:last-child {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  @media (hover: hover) {
+    .editorial-nav a:hover,
+    .text-action:hover,
+    .demo-grid header > a:hover,
+    .contact-grid a:hover {
+      color: var(--limestone);
     }
 
-    .press-media-grid {
+    .primary-action:hover {
+      background: var(--limestone);
+    }
+
+    .asset-image:hover img {
+      transform: scale(1.012);
+    }
+  }
+
+  @media (max-width: 940px) {
+    .hero-grid,
+    .section-heading,
+    .planning-grid,
+    .demo-grid,
+    .story-grid,
+    .assets-heading,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy,
+    .hero-media,
+    .section-heading .eyebrow,
+    .section-heading h2,
+    .section-heading > p:last-child,
+    .planning-grid > header,
+    .planning-media,
+    .planning-media-large,
+    .demo-grid > header,
+    .video-frame,
+    .story-number,
+    .story-grid article,
+    .story-grid aside,
+    .assets-heading > div:first-child,
+    .assets-heading > div:last-child,
+    .contact-grid > div,
+    .contact-grid address,
+    .contact-grid nav {
+      grid-column: auto;
+    }
+
+    .hero-media {
+      width: min(560px, 100%);
+      justify-self: end;
+    }
+
+    .release-facts {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .release-facts > div:nth-child(3) {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
+    }
+
+    .release-facts > div:nth-child(4) {
+      border-top: 1px solid var(--hairline);
+    }
+
+    .section-heading > p:last-child {
+      max-width: 58ch;
+    }
+
+    .planning-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .planning-grid > header {
+      grid-column: 1 / -1;
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+
+    .video-frame {
+      margin-top: 28px;
+    }
+
+    .story-grid aside {
+      max-width: 560px;
+      margin-top: 30px;
+    }
+
+    .assets-heading > div:last-child {
+      margin-top: 12px;
+    }
+
+    .asset-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .asset-list article:nth-child(3) {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
+    }
+
+    .asset-list article:nth-child(4) {
+      border-top: 1px solid var(--hairline);
+    }
+
+    .contact-grid address {
+      max-width: 520px;
+      margin-top: 26px;
+    }
+
+    .contact-grid nav {
+      max-width: 520px;
     }
   }
 
   @media (max-width: 620px) {
-    .press-hero {
-      padding-top: 36px;
+    .editorial-shell {
+      width: min(100% - 40px, var(--shell));
     }
 
-    .press-back {
-      margin-bottom: 48px;
+    .editorial-nav > span {
+      display: none;
     }
 
-    .press-facts,
-    .press-media-grid,
-    .press-contact-links {
+    .hero-grid {
+      padding-top: 52px;
+    }
+
+    .hero-copy {
+      padding-bottom: 0;
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 15vw, 5rem);
+      letter-spacing: -0.043em;
+    }
+
+    .hero-media {
+      justify-self: start;
+    }
+
+    .hero-actions .text-action {
+      display: none;
+    }
+
+    .release-facts {
       grid-template-columns: 1fr;
     }
 
-    .press-section {
-      padding: 64px 0;
+    .release-facts > div + div {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
     }
 
-    .press-video-meta {
-      flex-direction: column;
-      gap: 4px;
+    .section-heading h2,
+    .planning-grid h2,
+    .demo-grid h2,
+    .story-grid h2,
+    .assets-heading h2,
+    .contact-grid h2 {
+      font-size: clamp(3rem, 13vw, 4.2rem);
     }
 
-    .press-media-card p {
-      min-height: 0;
+    .sequence-list {
+      grid-template-columns: 1fr;
+    }
+
+    .sequence-list li {
+      min-height: auto;
+    }
+
+    .sequence-list li + li {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
+    }
+
+    .sequence-list li > div {
+      margin-top: 34px;
+    }
+
+    .sequence-media {
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 16px;
+    }
+
+    .planning-grid {
+      grid-template-columns: 1.18fr 0.82fr;
+      gap: 16px;
+    }
+
+    .planning-grid > header {
+      grid-column: 1 / -1;
+    }
+
+    .asset-list {
+      grid-template-columns: 1fr;
+    }
+
+    .asset-list article + article {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
+    }
+
+    .asset-copy p {
+      min-height: auto;
     }
   }
 </style>

@@ -1,13 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import googleplayScreenshotsConfig from '../googleplay-screenshots.config.json';
-import { getAppStoreRating } from '../lib/appStoreRating';
-
-// Import logo
 import iconImage from '../assets/icon.webp';
+import { getMarketingCopy } from '../i18n/marketingCopy';
 
-// Import all screenshots from src/assets (eagerly loaded)
-const allScreenshots = import.meta.glob<{ default: ImageMetadata }>('/src/assets/screenshots/**/*.{webp,png,jpg}', { eager: true });
+const allScreenshots = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/screenshots/**/*.{webp,png,jpg}',
+  { eager: true },
+);
 
 interface Props {
   t: any;
@@ -15,466 +15,515 @@ interface Props {
 }
 
 const { t, lang = 'en' } = Astro.props;
-const useStoreRating = t.hero.stats?.rating?.useStoreData !== false;
-const appStoreRating = useStoreRating ? await getAppStoreRating(lang) : null;
-const ratingValue = useStoreRating
-  ? appStoreRating?.displayValue || t.hero.stats?.rating?.value
-  : t.hero.stats?.rating?.value;
-const ratingLabel = useStoreRating
-  ? appStoreRating?.displayCount
-    ? `App Store · ${t.hero.stats?.rating?.label} · ${appStoreRating.displayCount}`
-    : `App Store · ${t.hero.stats?.rating?.label}`
-  : t.hero.stats?.rating?.label;
+const screenshotPaths =
+  googleplayScreenshotsConfig[lang as keyof typeof googleplayScreenshotsConfig]?.files || [];
+const screenshots = screenshotPaths
+  .map((path: string) => allScreenshots[path]?.default)
+  .filter(Boolean);
 
-// 使用当前商店宣传图
-const gpConfig = googleplayScreenshotsConfig[lang as keyof typeof googleplayScreenshotsConfig];
-const screenshotPaths = gpConfig?.files || [];
-
-// Helper to resolve JSON path to ImageMetadata
-const getScreenshotImage = (path: string) => {
-  const mod = allScreenshots[path];
-  if (!mod) {
-    // console.warn(`[Hero] Image not found for path: ${path}`);
-    return undefined;
-  }
-  return mod.default;
-};
-
-const screenshots = screenshotPaths.map((path: string) => ({
-  src: getScreenshotImage(path),
-  altPath: path
-})).filter((s: any) => s.src);
-
-// 截图数量（用于 JavaScript）
-const screenshotCount = screenshots.length;
-
-// 容器尺寸 - 当前宣传图: 1080x1920 (9:16)
-const containerWidth = 280;
-const containerHeight = 498;
-const padding = 16;
-const outerWidth = containerWidth + (padding * 2);
+const recognitionImage = screenshots[1] || screenshots[0];
+const forecastImage = screenshots[0] || screenshots[1];
+const marketingCopy = getMarketingCopy(lang);
+const recognitionLabel = marketingCopy.recognitionTitle;
 ---
 
-<section class="relative flex items-center min-h-screen px-6 py-12 md:py-16 overflow-hidden max-w-full">
-  <!-- 流动星云背景 -->
-  <div class="cosmic-nebula nebula-1"></div>
-  <div class="cosmic-nebula nebula-2"></div>
-  <div class="cosmic-nebula nebula-3"></div>
+<section class="home-hero" aria-labelledby="home-title">
+  <div class="hero-shell">
+    <header class="hero-nav">
+      <a class="brand" href="/" aria-label={`${t.brand?.name} home`}>
+        <Image src={iconImage} alt="" width={44} height={44} />
+        <span>
+          <strong>{t.brand?.name}</strong>
+          <small>{t.hero.platformLabel}</small>
+        </span>
+      </a>
 
-  <div class="relative z-10 max-w-7xl mx-auto w-full">
-    <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-      <!-- 左侧内容区 -->
-      <div class="flex-1 text-left lg:pr-8">
-        <!-- 品牌头部 - Logo + 名称 + 标签 -->
-        <div class="flex items-center gap-4 mb-6 animate-reveal" style="animation-delay: 0.05s;">
-          <div class="relative group">
-            <!-- Logo发光效果 -->
-            <div class="absolute -inset-2 bg-gradient-to-r from-[var(--hydrogen-pink)] via-[var(--carbon-purple)] to-[var(--nitrogen-cyan)] rounded-2xl blur-lg opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
-            <!-- Logo图标容器 -->
-            <div class="relative glass-strong rounded-xl overflow-hidden">
-              <Image src={iconImage} alt="Stargazing Hub" class="w-12 h-12" />
-            </div>
-          </div>
-          <!-- 应用名称 + 平台标签 -->
-          <div class="flex flex-col">
-            <span class="text-2xl font-bold tracking-tight">{t.brand?.name}</span>
-            <div class="inline-flex items-center gap-2 mt-1 px-2.5 py-0.5 rounded-full glass">
-              <span class="relative flex h-1.5 w-1.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--hydrogen-pink)] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--hydrogen-pink)]"></span>
-              </span>
-              <span class="text-[10px] text-[var(--text-muted)] tracking-wider">{t.hero.platformLabel}</span>
-            </div>
-          </div>
-        </div>
+      {lang === 'en' && (
+        <a class="editorial-link" href="/press/">
+          Editorial brief
+          <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </header>
 
-        <!-- 主标题 -->
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-reveal" style="animation-delay: 0.1s;">
-          <span class="gradient-text">{t.hero.title}</span>
-        </h1>
-
-        <!-- 副标题 -->
-        <p class="text-xl md:text-2xl text-[var(--text-secondary)] mb-4 max-w-lg animate-reveal" style="animation-delay: 0.2s;">
-          {t.hero.subtitle}
-        </p>
-
-        <!-- 描述 -->
-        <p class="text-sm md:text-base text-[var(--text-muted)] mb-8 max-w-lg leading-relaxed animate-reveal" style="animation-delay: 0.3s;">
-          {t.hero.description}
-        </p>
-
-        <!-- 下载按钮组 -->
-        <div class="flex flex-col sm:flex-row gap-4 mb-8 animate-reveal" style="animation-delay: 0.4s;">
-          <a
-            href={t.links?.appStore}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary group flex items-center gap-4 text-lg px-10 py-5"
-          >
-            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-            </svg>
-            <div class="text-left">
-              <div class="text-xs opacity-80">{t.download.appStore}</div>
-              <div class="font-bold">App Store</div>
-            </div>
-          </a>
-
-          <a
-            href={t.links?.googlePlay}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary group flex items-center gap-4 text-lg px-10 py-5"
-            style="--gradient-nebula: linear-gradient(135deg, #4ECDC4 0%, #22D3EE 50%, #A855F7 100%);"
-          >
-            <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-            </svg>
-            <div class="text-left">
-              <div class="text-xs opacity-80">{t.download.googlePlay}</div>
-              <div class="font-bold">Google Play</div>
-            </div>
-          </a>
-        </div>
-
-        <!-- 统计数据 - 紧凑卡片 -->
-        <div class="flex flex-wrap gap-4 animate-reveal" style="animation-delay: 0.5s;">
-          <div class="glass px-4 py-3 rounded-xl flex items-center gap-3">
-            <div class="text-2xl font-bold gradient-text-warm">{t.hero.stats?.downloads?.value}</div>
-            <div class="text-xs text-[var(--text-muted)]">{t.hero.stats?.downloads?.label}</div>
-          </div>
-          <div class="glass px-4 py-3 rounded-xl flex items-center gap-3">
-            <div class="flex items-center gap-1">
-              {useStoreRating && (
-                <svg class="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
-              )}
-              <span class="text-2xl font-bold gradient-text-cool">{ratingValue}</span>
-            </div>
-            <div class="text-xs text-[var(--text-muted)]">{ratingLabel}</div>
-          </div>
-          <div class="glass px-4 py-3 rounded-xl flex items-center gap-3">
-            <div class="text-2xl font-bold gradient-text">{t.hero.stats?.languages?.value}</div>
-            <div class="text-xs text-[var(--text-muted)]">{t.hero.stats?.languages?.label}</div>
-          </div>
-        </div>
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">{t.features?.eyebrow}</p>
+        <h1 id="home-title">{t.hero.title}</h1>
+        <p class="hero-subtitle">{t.hero.subtitle}</p>
+        <p class="hero-description">{t.hero.description}</p>
       </div>
 
-      <!-- 右侧截图区 - 响应式设计 -->
-      <div class="flex-1 flex justify-center lg:justify-end items-center w-full" style="animation-delay: 0.3s;">
-        <!-- 移动端：横向滚动轮播 (Snap Scroll + Auto Play) -->
-        <div id="hero-mobile-gallery" class="lg:hidden w-full overflow-x-auto pb-8 snap-x snap-mandatory flex gap-4 px-4 no-scrollbar scroll-smooth">
-          {
-            screenshots.map((item: any, index: number) => (
-              <div class="snap-center shrink-0 w-[70vw] sm:w-[50vw] relative aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
-                <Image
-                  src={item.src}
-                  alt={`${t.brand?.name} ${index + 1}`}
-                  class="w-full h-full object-cover"
-                  loading={index < 2 ? 'eager' : 'lazy'}
-                  format="webp"
-                />
-              </div>
-            ))
-          }
-        </div>
-
-        <script is:inline>
-          (function() {
-            const gallery = document.getElementById('hero-mobile-gallery');
-            if (!gallery) return;
-
-            let interval;
-            const scrollAmount = gallery.offsetWidth * 0.75; // Approx card width + gap
-
-            function startAutoPlay() {
-              interval = setInterval(() => {
-                // If at end, scroll to start
-                if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
-                  gallery.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                  gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-              }, 3000);
-            }
-
-            function stopAutoPlay() {
-              clearInterval(interval);
-            }
-
-            // Start
-            startAutoPlay();
-
-            // Pause on interaction
-            gallery.addEventListener('touchstart', stopAutoPlay, { passive: true });
-            gallery.addEventListener('touchend', () => setTimeout(startAutoPlay, 5000), { passive: true });
-          })();
-        </script>
-
-        <!-- 桌面端：扇形画廊 -->
-        <div class="hidden lg:block gallery-container relative transform scale-100 origin-right" style="width: 100%; max-width: 1200px; height: 520px;">
-          <!-- 背景光晕 -->
-          <div class="absolute inset-0 bg-gradient-to-r from-[var(--hydrogen-pink)] via-[var(--carbon-purple)] to-[var(--nitrogen-cyan)] rounded-[3rem] blur-3xl opacity-15"></div>
-
-          <!-- 扇形卡片容器 -->
-          <div class="relative w-full h-full flex items-center justify-start pl-0" id="fan-gallery">
-            {
-              screenshots.map((item: any, index: number) => {
-                // 左侧主卡片 + 右侧堆叠（7张卡片）
-                const maxDisplay = 7;
-                const pos = index % maxDisplay;
-                const xOffset = pos === 0 ? 0 : 65 + (pos - 1) * 40;
-                const scale = pos === 0 ? 1 : 0.96 - (pos - 1) * 0.06;
-                const opacity = pos === 0 ? 1 : 0.93 - (pos - 1) * 0.12;
-                const blur = pos === 0 ? 0 : (pos - 1) * 0.15;
-                const zIndex = 100 - pos;
-
-                return (
-                  <div
-                    class="gallery-card absolute cursor-pointer transition-all duration-500 ease-out"
-                    id={`gallery-card-${index}`}
-                    data-index={index}
-                    role="button"
-                    tabindex={pos === 0 ? "0" : "-1"}
-                    aria-hidden={pos === 0 ? "false" : "true"}
-                    aria-label={`View screenshot ${index + 1}`}
-                    style={`
-                      left: ${xOffset}px;
-                      transform: scale(${scale});
-                      opacity: ${opacity};
-                      filter: blur(${blur}px);
-                      z-index: ${zIndex};
-                    `}
-                  >
-                    <div class="card-frame w-[280px] h-[498px] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-[var(--cosmic-void)]">
-                      <Image
-                        src={item.src}
-                        alt={`${t.brand?.name} ${index + 1}`}
-                        class={`w-full h-full object-cover ${pos !== 0 ? 'grayscale' : ''}`}
-                        loading="eager"
-                        format="webp"
-                      />
-                    </div>
-                  </div>
-                )
-              })
-            }
+      {recognitionImage && (
+        <figure class="hero-visual">
+          <div class="visual-datum" aria-hidden="true">
+            <span>01</span>
+            <span>FIELD / REVIEW</span>
           </div>
-        </div>
+          <div class="visual-well">
+            {forecastImage && (
+              <Image
+                class="visual-secondary"
+                src={forecastImage}
+                alt=""
+                aria-hidden="true"
+                loading="eager"
+                format="webp"
+              />
+            )}
+            <Image
+              class="visual-primary"
+              src={recognitionImage}
+              alt={`${t.brand?.name}: ${recognitionLabel}`}
+              loading="eager"
+              format="webp"
+            />
+          </div>
+          <figcaption>
+            <span>{recognitionLabel}</span>
+            <span>{t.features?.weather?.title}</span>
+          </figcaption>
+        </figure>
+      )}
+
+      <div class="hero-actions" aria-label="Download Stargazing Hub">
+        <a
+          class="store-primary"
+          href={t.links?.appStore}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          <span>
+            <small>{t.download.appStore}</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+        <a
+          class="store-secondary"
+          href={t.links?.googlePlay}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>
+            <small>{t.download.googlePlay}</small>
+            <strong>Google Play</strong>
+          </span>
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
   </div>
-
-  <!-- 滚动指示器 -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
-    <svg class="w-6 h-6 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-    </svg>
-  </div>
 </section>
 
-<script is:inline>
-  // 扇形画廊轮播
-  (function() {
-    let cardOrder = [];
-    let autoPlayInterval = null;
-    const maxDisplay = 7; // 同时显示 7 张卡片
-
-    // 初始化扇形画廊
-    function initFanGallery() {
-      const cards = document.querySelectorAll('.gallery-card');
-      const totalCards = cards.length;
-
-      if (totalCards === 0) return;
-
-      // 初始化卡片顺序
-      cardOrder = Array.from({ length: totalCards }, (_, idx) => idx);
-
-      // 为每张卡片添加点击事件
-      cards.forEach((card) => {
-        card.addEventListener('click', function() {
-          const clickedIndex = parseInt(this.getAttribute('data-index'));
-          if (!isNaN(clickedIndex)) {
-            bringToCenter(clickedIndex);
-          }
-        });
-
-        // Keyboard support
-        card.addEventListener('keydown', function(e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            const clickedIndex = parseInt(this.getAttribute('data-index'));
-            if (!isNaN(clickedIndex)) {
-              bringToCenter(clickedIndex);
-            }
-          }
-          if (e.key === 'ArrowRight') {
-            nextCard();
-          }
-        });
-
-        // 悬停暂停
-        card.addEventListener('mouseenter', () => {
-          if (autoPlayInterval) {
-            clearInterval(autoPlayInterval);
-            autoPlayInterval = null;
-          }
-        });
-
-        card.addEventListener('mouseleave', () => {
-          startAutoPlay();
-        });
-      });
-
-      // 启动自动播放
-      updateCards(); // Set initial state
-      startAutoPlay();
-    }
-
-    // 将指定卡片移到中心
-    function bringToCenter(cardIndex) {
-      cardOrder = cardOrder.filter(i => i !== cardIndex);
-      cardOrder.unshift(cardIndex);
-      updateCards();
-    }
-
-    // 更新所有卡片的位置
-    function updateCards() {
-      const cards = document.querySelectorAll('.gallery-card');
-      const isMobile = window.innerWidth < 1024; // 检查是否为移动端 (Actually ignored by CSS hidden class now)
-      
-      if (isMobile) return; // JS logic is now Desktop only
-
-      cardOrder.forEach((cardIndex, position) => {
-        const card = document.querySelector(`#gallery-card-${cardIndex}`);
-        if (!card) return;
-
-        const img = card.querySelector('img');
-
-        if (position >= maxDisplay) {
-          card.style.opacity = '0';
-          card.style.pointerEvents = 'none';
-          card.setAttribute('tabindex', '-1');
-          card.removeAttribute('role');
-          card.setAttribute('aria-hidden', 'true');
-          return;
-        }
-
-        // 桌面端：扇形展开模式
-        const xOffset = position === 0 ? 0 : 65 + (position - 1) * 40;
-        const scale = position === 0 ? 1 : 0.96 - (position - 1) * 0.06;
-        const opacity = position === 0 ? 1 : 0.93 - (position - 1) * 0.12;
-        const blur = position === 0 ? 0 : (position - 1) * 0.15;
-        const zIndex = 100 - position;
-
-        card.style.top = '0px';
-        card.style.marginLeft = '0px';
-        card.style.left = `${xOffset}px`;
-        card.style.transform = `scale(${scale})`;
-        card.style.opacity = opacity;
-        card.style.filter = `blur(${blur}px)`;
-        card.style.zIndex = zIndex;
-        card.style.pointerEvents = 'auto';
-
-        // Accessibility: Only top card is interactive
-        if (position === 0) {
-          card.setAttribute('tabindex', '0');
-          card.setAttribute('role', 'button');
-          card.setAttribute('aria-hidden', 'false');
-          if (img) img.classList.remove('grayscale');
-        } else {
-          card.setAttribute('tabindex', '-1');
-          card.removeAttribute('role');
-          card.setAttribute('aria-hidden', 'true');
-          if (img) img.classList.add('grayscale');
-        }
-      });
-    }
-
-    // 监听窗口大小变化
-    window.addEventListener('resize', () => {
-       updateCards();
-    });
-
-    // 下一张
-    function nextCard() {
-      if (cardOrder.length > 1) {
-        const firstCard = cardOrder.shift();
-        cardOrder.push(firstCard);
-        updateCards();
-      }
-    }
-
-    // 启动自动播放
-    function startAutoPlay() {
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-      }
-      autoPlayInterval = setInterval(nextCard, 3000);
-    }
-
-    // 初始化
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initFanGallery);
-    } else {
-      initFanGallery();
-    }
-  })();
-</script>
-
-<style define:vars={{ containerWidth, containerHeight }}>
-  /* Hero 区域特定动画 */
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.5; }
+<style>
+  .home-hero {
+    min-height: 100svh;
+    padding: 28px var(--space-page) clamp(72px, 8vw, 112px);
   }
 
-  /* 堆叠轮播容器 */
-  .stack-carousel-container {
-    overflow: visible;
+  .hero-shell {
+    width: min(var(--shell), 100%);
+    margin: 0 auto;
   }
 
-  /* 堆叠卡片 */
-  .stack-card {
-    will-change: left, z-index, transform, opacity, filter;
+  .hero-nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 13px;
+    color: var(--limestone);
+    text-decoration: none;
+  }
+
+  .brand img {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    outline: 1px solid var(--hairline-strong);
+    outline-offset: -1px;
+  }
+
+  .brand span {
+    display: grid;
+    gap: 1px;
+  }
+
+  .brand strong {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+  }
+
+  .brand small {
+    color: var(--quiet);
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  .editorial-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--mist);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+      color 180ms var(--ease-observatory),
+      transform 180ms var(--ease-observatory);
+  }
+
+  .editorial-link:active {
+    transform: scale(0.97);
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-areas:
+      'copy copy copy copy copy visual visual visual visual visual visual visual'
+      'actions actions actions actions actions visual visual visual visual visual visual visual';
+    gap: 32px;
+    padding-top: clamp(64px, 8vw, 112px);
+  }
+
+  .hero-copy {
+    grid-area: copy;
+    align-self: end;
+    padding-bottom: 22px;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 690px;
+    margin: 0;
+    font-size: clamp(3.9rem, 7vw, 7.2rem);
+    letter-spacing: -0.052em;
+    line-height: 0.92;
+  }
+
+  .hero-subtitle {
+    max-width: 560px;
+    margin-top: 34px;
+    color: var(--limestone);
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.28;
+    letter-spacing: -0.012em;
+  }
+
+  .hero-description {
+    max-width: 58ch;
+    margin-top: 18px;
+    color: var(--mist);
+    font-size: 16px;
+    line-height: 1.72;
+  }
+
+  .hero-visual {
+    grid-area: visual;
+    width: 100%;
+    max-width: 590px;
+    justify-self: end;
+    margin: 0;
+  }
+
+  .visual-datum,
+  .hero-visual figcaption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    color: var(--quiet);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+  }
+
+  .visual-datum {
+    min-height: 42px;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .visual-well {
+    position: relative;
+    height: min(69vw, 720px);
+    min-height: 610px;
+    overflow: hidden;
+    background: var(--canvas-raised);
+  }
+
+  .visual-well::before,
+  .visual-well::after {
     position: absolute;
-    transform-origin: center left;
+    z-index: 3;
+    content: '';
+    pointer-events: none;
+    background: var(--hairline);
   }
 
-  /* 截图卡片 */
-  .screenshot-card {
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    background: #1a1a2e;
+  .visual-well::before {
+    top: 0;
+    bottom: 0;
+    left: 20%;
+    width: 1px;
   }
 
-  /* 截图图片 */
-  .screenshot-img {
-    transition: filter 0.7s ease;
+  .visual-well::after {
+    top: 22%;
+    right: 0;
+    left: 0;
+    height: 1px;
   }
 
-  /* 画廊容器 */
-  .gallery-container {
-    perspective: 1200px;
-  }
-
-  /* 画廊卡片 */
-  .gallery-card {
-    will-change: transform, opacity, filter;
+  .visual-primary,
+  .visual-secondary {
     position: absolute;
-    transform-style: preserve-3d;
+    width: auto;
+    height: auto;
+    outline: 1px solid oklch(0.93 0.012 86 / 0.16);
+    outline-offset: -1px;
   }
 
-  /* 卡片边框 */
-  .card-frame {
-    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  .visual-primary {
+    z-index: 2;
+    top: 7%;
+    right: 7%;
+    width: 72%;
+    max-height: 88%;
+    object-fit: contain;
   }
 
-  /* 悬停效果 */
-  .gallery-card:hover .card-frame {
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8),
-                0 0 25px rgba(224, 64, 128, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.02);
+  .visual-secondary {
+    z-index: 1;
+    bottom: 8%;
+    left: 5%;
+    width: 39%;
+    opacity: 0.44;
+    filter: saturate(0.72);
+  }
+
+  .hero-visual figcaption {
+    min-height: 52px;
+    border-top: 1px solid var(--hairline);
+    letter-spacing: 0.04em;
+  }
+
+  .hero-visual figcaption span:last-child {
+    color: var(--mist);
+    text-align: right;
+  }
+
+  .hero-actions {
+    grid-area: actions;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 22px;
+    border-top: 1px solid var(--hairline);
+  }
+
+  .store-primary,
+  .store-secondary {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition:
+      transform 160ms var(--ease-observatory),
+      background-color 200ms var(--ease-observatory),
+      color 200ms var(--ease-observatory);
+  }
+
+  .store-primary {
+    gap: 12px;
+    padding: 0 20px;
+    border-radius: var(--radius-sm);
+    background: var(--brass);
+    color: var(--canvas);
+  }
+
+  .store-primary svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .store-primary span,
+  .store-secondary span:first-child {
+    display: grid;
+    gap: 0;
+  }
+
+  .store-primary small,
+  .store-secondary small {
+    font-size: 10px;
+    line-height: 1.2;
+    opacity: 0.72;
+  }
+
+  .store-primary strong,
+  .store-secondary strong {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .store-secondary {
+    gap: 28px;
+    padding: 0 4px 0 0;
+    color: var(--mist);
+  }
+
+  .store-primary:active,
+  .store-secondary:active {
+    transform: scale(0.97);
+  }
+
+  @media (hover: hover) {
+    .editorial-link:hover,
+    .store-secondary:hover {
+      color: var(--limestone);
+    }
+
+    .editorial-link:hover {
+      transform: translateY(-1px);
+    }
+
+    .store-primary:hover {
+      background: var(--limestone);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .home-hero {
+      padding-top: 18px;
+    }
+
+    .hero-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'copy'
+        'visual'
+        'actions';
+      gap: 36px;
+      padding-top: 56px;
+    }
+
+    .hero-copy {
+      padding-bottom: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(3.6rem, 12vw, 6.8rem);
+    }
+
+    .hero-visual {
+      max-width: 650px;
+      justify-self: start;
+    }
+
+    .visual-well {
+      height: min(112vw, 720px);
+      min-height: 570px;
+    }
+
+    .visual-primary {
+      right: 3%;
+      width: 76%;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero-nav {
+      min-height: 64px;
+    }
+
+    .brand small {
+      max-width: 180px;
+    }
+
+    .editorial-link {
+      font-size: 0;
+    }
+
+    .editorial-link span {
+      font-size: 18px;
+    }
+
+    .hero-grid {
+      padding-top: 48px;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 15vw, 4.7rem);
+      letter-spacing: -0.042em;
+    }
+
+    .hero-subtitle {
+      margin-top: 28px;
+      font-size: 1.3rem;
+    }
+
+    .hero-description {
+      font-size: 15px;
+    }
+
+    .visual-well {
+      height: 126vw;
+      min-height: 480px;
+      max-height: 620px;
+    }
+
+    .visual-primary {
+      top: 5%;
+      right: 2%;
+      width: 82%;
+    }
+
+    .visual-secondary {
+      bottom: 5%;
+      left: 1%;
+      width: 43%;
+    }
+
+    .hero-visual figcaption {
+      align-items: flex-start;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      padding: 10px 0;
+    }
+
+    .hero-visual figcaption span:last-child {
+      text-align: left;
+    }
+
+    .hero-actions {
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
 </style>

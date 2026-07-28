@@ -1,38 +1,117 @@
 ---
-// 首页"姊妹 App"入口:链到 Compass Altimeter 产品页(本地化)
 import { getCompass, compassPath } from '../data/compassContent';
 
-interface Props { lang: string }
+interface Props {
+  lang: string;
+}
+
 const { lang } = Astro.props;
 const c = getCompass(lang);
 const label = c.title.split(/[:：·—]/)[0].trim();
 const href = compassPath(lang);
 ---
 
-<section class="px-6 py-10">
-  <div class="max-w-5xl mx-auto">
-    <a
-      href={href}
-      class="glass-card group flex items-center gap-5 p-6 md:p-7"
-      style="text-decoration:none;"
-    >
-      <img
-        src="/compass/icon.png"
-        alt={label}
-        width="64"
-        height="64"
-        class="flex-shrink-0 rounded-2xl"
-        style="width:64px;height:64px;box-shadow:0 8px 24px rgba(255,194,75,0.18);"
-      />
-      <div class="min-w-0 flex-1">
-        <span class="text-xs font-medium text-[var(--sulfur-gold)]">{c.eyebrow}</span>
-        <h3 class="mt-0.5 mb-1 text-lg md:text-xl font-bold text-white">{label}</h3>
-        <p class="text-sm text-[var(--text-muted)] leading-relaxed">{c.subtitle}</p>
-      </div>
-      <span
-        class="flex-shrink-0 text-2xl text-[var(--text-muted)] transition-all group-hover:text-[var(--hydrogen-pink)] group-hover:translate-x-1"
-        aria-hidden="true"
-      >→</span>
-    </a>
-  </div>
-</section>
+<aside class="sister-product">
+  <a href={href}>
+    <img src="/compass/icon.png" alt="" width="44" height="44" loading="lazy" />
+    <span>
+      <small>{c.eyebrow}</small>
+      <strong>{label}</strong>
+      <p>{c.subtitle}</p>
+    </span>
+    <span class="arrow" aria-hidden="true">↗</span>
+  </a>
+</aside>
+
+<style>
+  .sister-product {
+    padding: 0 var(--space-page);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .sister-product > a {
+    width: min(var(--shell), 100%);
+    min-height: 112px;
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 18px;
+    align-items: center;
+    margin: 0 auto;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 180ms var(--ease-observatory);
+  }
+
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 9px;
+    outline: 1px solid var(--hairline);
+    outline-offset: -1px;
+  }
+
+  span:not(.arrow) {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(120px, 0.35fr) minmax(160px, 0.6fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: baseline;
+  }
+
+  small {
+    color: var(--brass);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: var(--limestone);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  p {
+    overflow: hidden;
+    color: var(--quiet);
+    font-size: 13px;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .arrow {
+    justify-self: end;
+    font-size: 17px;
+  }
+
+  @media (hover: hover) {
+    .sister-product > a:hover {
+      color: var(--limestone);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .sister-product > a {
+      min-height: 104px;
+      grid-template-columns: 40px minmax(0, 1fr) 32px;
+      gap: 14px;
+    }
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+
+    span:not(.arrow) {
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+
+    p {
+      margin-top: 4px;
+      white-space: normal;
+    }
+  }
+</style>

@@ -6,85 +6,256 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section class="relative py-20 px-6 overflow-hidden">
-  <!-- 背景星云 -->
-  <div class="absolute inset-0 overflow-hidden max-w-full">
-    <div class="cosmic-nebula nebula-1" style="top: -10%; left: -10%;"></div>
-    <div class="cosmic-nebula nebula-2" style="bottom: -10%; right: -10%;"></div>
-  </div>
-
-  <div class="relative z-10 max-w-5xl mx-auto text-center">
-    <!-- 标签 -->
-    <div class="inline-flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 rounded-full glass mb-8 max-w-full">
-      <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-[var(--hydrogen-pink)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-      </svg>
-      <span class="text-xs md:text-sm font-medium text-[var(--text-secondary)] truncate">{t.download.ctaLabel}</span>
+<section class="download-section" aria-labelledby="download-title">
+  <div class="download-shell">
+    <div class="download-heading">
+      <p class="eyebrow">{t.download.ctaLabel}</p>
+      <h2 id="download-title">{t.download.title}</h2>
+      <p class="subtitle">{t.download.subtitle}</p>
     </div>
 
-    <!-- 主标题 -->
-    <h2 class="mb-6">
-      <span class="gradient-text">{t.download.title}</span>
-    </h2>
-
-    <!-- 副标题 -->
-    <p class="text-xl text-[var(--text-secondary)] mb-12 max-w-2xl mx-auto">
-      {t.download.subtitle}
-    </p>
-
-    <!-- 特性列表 -->
-    <div class="flex flex-wrap justify-center gap-6 mb-12">
-      {
-        (t.download.bullets || []).map((bullet: string) => (
-          <div class="flex items-center gap-2 text-[var(--text-secondary)]">
-            <div class="w-5 h-5 rounded-full bg-gradient-to-r from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)] flex items-center justify-center">
-              <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-              </svg>
-            </div>
-            <span class="text-sm">{bullet}</span>
-          </div>
-        ))
-      }
-    </div>
-
-    <!-- 下载按钮 -->
-    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+    <div class="download-actions">
       <a
+        class="primary-action"
         href={t.links?.appStore}
         target="_blank"
         rel="noopener noreferrer"
-        class="btn-primary group flex items-center gap-4 text-lg px-10 py-5"
       >
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
         </svg>
-        <div class="text-left">
-          <div class="text-xs opacity-80">{t.download.appStore}</div>
-          <div class="font-bold">App Store</div>
-        </div>
+        <span>
+          <small>{t.download.appStore}</small>
+          <strong>App Store</strong>
+        </span>
       </a>
 
       <a
+        class="secondary-action"
         href={t.links?.googlePlay}
         target="_blank"
         rel="noopener noreferrer"
-        class="btn-primary group flex items-center gap-4 text-lg px-10 py-5"
-        style="--gradient-nebula: linear-gradient(135deg, #4ECDC4 0%, #22D3EE 50%, #A855F7 100%);"
       >
-        <svg class="w-10 h-10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z" />
-        </svg>
-        <div class="text-left">
-          <div class="text-xs opacity-80">{t.download.googlePlay}</div>
-          <div class="font-bold">Google Play</div>
-        </div>
+        <span>
+          <small>{t.download.googlePlay}</small>
+          <strong>Google Play</strong>
+        </span>
+        <span aria-hidden="true">↗</span>
       </a>
     </div>
 
-    <!-- 其他平台信息 -->
-    <p class="text-[var(--text-muted)] text-sm">
-      {t.download.platforms}
-    </p>
+    <div class="download-facts">
+      {(t.download.bullets || []).map((bullet: string, index: number) => (
+        <div>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <p>{bullet}</p>
+        </div>
+      ))}
+      <div class="platform-note">
+        <span>OS</span>
+        <p>{t.download.platforms}</p>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .download-section {
+    padding: var(--section-space) var(--space-page);
+    border-top: 1px solid var(--hairline);
+    background: var(--canvas-raised);
+  }
+
+  .download-shell {
+    width: min(var(--shell), 100%);
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 28px;
+    margin: 0 auto;
+  }
+
+  .download-heading {
+    grid-column: 1 / span 8;
+  }
+
+  .eyebrow {
+    margin-bottom: 24px;
+    color: var(--brass);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 850px;
+    margin: 0;
+    font-size: clamp(3rem, 6.2vw, 6.6rem);
+    line-height: 0.94;
+    letter-spacing: -0.048em;
+  }
+
+  .subtitle {
+    max-width: 58ch;
+    margin-top: 28px;
+    color: var(--mist);
+    font-size: 17px;
+    line-height: 1.68;
+  }
+
+  .download-actions {
+    grid-column: 9 / -1;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding-bottom: 6px;
+  }
+
+  .primary-action,
+  .secondary-action {
+    min-height: 54px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    transition:
+      transform 160ms var(--ease-observatory),
+      color 180ms var(--ease-observatory),
+      background-color 180ms var(--ease-observatory);
+  }
+
+  .primary-action {
+    gap: 12px;
+    padding: 0 20px;
+    border-radius: var(--radius-sm);
+    background: var(--limestone);
+    color: var(--canvas);
+  }
+
+  .primary-action svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .primary-action span,
+  .secondary-action span:first-child {
+    display: grid;
+  }
+
+  .primary-action small,
+  .secondary-action small {
+    font-size: 10px;
+    line-height: 1.2;
+    opacity: 0.7;
+  }
+
+  .primary-action strong,
+  .secondary-action strong {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .secondary-action {
+    gap: 32px;
+    color: var(--mist);
+  }
+
+  .primary-action:active,
+  .secondary-action:active {
+    transform: scale(0.97);
+  }
+
+  .download-facts {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: clamp(58px, 8vw, 104px);
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .download-facts > div {
+    min-height: 108px;
+    padding: 22px 20px 24px;
+  }
+
+  .download-facts > div + div {
+    border-left: 1px solid var(--hairline);
+  }
+
+  .download-facts span {
+    color: var(--brass);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .download-facts p {
+    margin-top: 14px;
+    color: var(--mist);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  @media (hover: hover) {
+    .primary-action:hover {
+      background: var(--brass);
+    }
+
+    .secondary-action:hover {
+      color: var(--limestone);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .download-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .download-heading,
+    .download-actions,
+    .download-facts {
+      grid-column: auto;
+    }
+
+    .download-actions {
+      margin-top: 18px;
+    }
+
+    .download-facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .download-facts > div:nth-child(3) {
+      border-left: 0;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .download-facts > div:nth-child(4) {
+      border-top: 1px solid var(--hairline);
+    }
+  }
+
+  @media (max-width: 520px) {
+    h2 {
+      font-size: clamp(3rem, 14vw, 4.3rem);
+    }
+
+    .download-facts {
+      grid-template-columns: 1fr;
+    }
+
+    .download-facts > div + div {
+      border-top: 1px solid var(--hairline);
+      border-left: 0;
+    }
+
+    .download-facts > div {
+      min-height: auto;
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+</style>
