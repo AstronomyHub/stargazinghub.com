@@ -1,15 +1,15 @@
 # Stargazing Hub Official Website
 
-Official landing page for **Stargazing Hub - Sky Live** (天文通海外版), built with **Bun + Astro + Tailwind CSS**.
+Official website and editorial media hub for **Stargazing Hub - Sky Live**
+(天文通海外版), built with Bun and Astro.
 
-## 🌟 Features
+## Product surfaces
 
-- **Single-page landing site** with hero, features, download, and footer sections
-- **Multi-language support** - 12 languages with automatic language detection
-- **Responsive design** - Works on desktop, tablet, and mobile devices
-- **Dark space theme** - Beautiful starry background with animated elements
-- **SEO optimized** - Proper meta tags and structured data
-- **Fast & Static** - Built with Astro for optimal performance
+- Localized product homepage in 12 languages
+- App Store editorial brief and downloadable media kit
+- Search-oriented feature guides with restrained implementation detail
+- Responsive, accessible static output
+- Structured data, sitemap, AI-readable product summaries, and legal pages
 
 ## 🌐 Supported Languages
 
@@ -88,33 +88,23 @@ bun run preview
 
 ```
 
-## 🎨 Design System
+## Design system
 
-### Colors
-
-- **Background**: `#1a1a2e` (Deep blue)
-- **Surface**: `#16213e` (Medium blue)
-- **Primary**: `#0f3460` (Light blue)
-- **Accent**: `#e94560` (Pink/red)
-- **Accent Cyan**: `#00d4ff` (Cyan)
-- **Text**: `#ffffff` (White)
-- **Text Secondary**: `#e0e0e0` (Light gray)
-
-### Typography
-
-- **Display Font**: Orbitron (Headings)
-- **Body Font**: Inter (Body text)
+The active system is documented in [DESIGN.md](./DESIGN.md). Its direction is
+an architect-designed observing station: mineral-black canvas, limestone text,
+brass wayfinding, a twelve-column datum grid, and generous negative space.
+Real product imagery leads every major surface.
 
 ## 📱 App Links
 
 - **App Store**: https://apps.apple.com/us/app/stargazing-hub-sky-live/id1478601599
 - **Google Play**: https://play.google.com/store/apps/details?id=com.twtapp
 
-## 🛠️ Tech Stack
+## Tech stack
 
 - **Runtime**: Bun
 - **Framework**: Astro 5.x
-- **Styling**: Tailwind CSS 3.x
+- **Styling**: Global design tokens and component-scoped CSS
 - **Language**: TypeScript
 
 ## 📝 Adding a New Language
