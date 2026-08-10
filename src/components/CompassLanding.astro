@@ -2,148 +2,856 @@
 import { getCompass, compassLinks } from '../data/compassContent';
 
 interface Props { lang: string }
+
 const { lang } = Astro.props;
-const c = getCompass(lang);
-
-// 功能图标(Lucide 风格描边 SVG inner)
-const ICONS: Record<string, string> = {
-  altitude: '<path d="M3 20h18"/><path d="m4 18 6-12 4 7 3-4 3 9"/>',
-  compass: '<circle cx="12" cy="12" r="9"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/>',
-  sunmoon: '<circle cx="9" cy="9" r="3.2"/><path d="M9 2v1.6M9 14.4V16M2 9h1.6M14.4 9H16M4 4l1.1 1.1M12.9 12.9 14 14"/><path d="M21 14.5a5.2 5.2 0 1 1-5.5-5.5 4 4 0 0 0 5.5 5.5z"/>',
-  camera: '<path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h2L8 5h6l1.5 2h2A1.5 1.5 0 0 1 19 8.5v9A1.5 1.5 0 0 1 17.5 19h-13A1.5 1.5 0 0 1 3 17.5z"/><circle cx="11" cy="12.5" r="3.2"/>',
-  coords: '<circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.2 8 12 8 12s8-6.8 8-12a8 8 0 0 0-8-8z"/>',
-  pressure: '<circle cx="12" cy="12" r="9"/><path d="M12 12 15.5 8.5"/><path d="M12 3v2M21 12h-2M5 12H3"/>',
-};
-
-const STORE = {
-  apple: '<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>',
-  play: '<path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>',
-};
-
-function storeButtons(): string {
-  const btn = (href: string, glyph: string, line1: string, line2: string) =>
-    `<a href="${href}" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 px-6 py-3 rounded-2xl glass-strong hover:border-white/30 transition-all duration-300 hover:-translate-y-0.5">
-      <svg viewBox="0 0 24 24" class="w-7 h-7 fill-white flex-shrink-0">${glyph}</svg>
-      <span class="text-left leading-tight"><span class="block text-[0.62rem] uppercase tracking-wider text-[var(--text-muted)]">${line1}</span><span class="block text-[0.95rem] font-semibold text-white">${line2}</span></span>
-    </a>`;
-  return `<div class="flex flex-wrap items-center justify-center gap-3">
-    ${btn(compassLinks.appStore, STORE.apple, 'Download on the', 'App Store')}
-    ${btn(compassLinks.googlePlay, STORE.play, 'Get it on', 'Google Play')}
-  </div>`;
-}
+const source = getCompass(lang);
+const c = source;
+const widgets = [...c.widgets].sort((a, b) => Number(b.img.includes('times')) - Number(a.img.includes('times')));
 ---
 
-<main class="relative">
-  <!-- ===================== HERO ===================== -->
-  <section class="relative px-6 pt-20 pb-16 md:pt-28 md:pb-20 overflow-hidden">
-    <div class="cosmic-nebula" aria-hidden="true"></div>
-    <img src="/compass/sky-golden.jpg" alt="" aria-hidden="true"
-      class="pointer-events-none select-none absolute -top-24 right-0 w-[60%] max-w-[640px] opacity-15 blur-[2px] rotate-3 [mask-image:radial-gradient(closest-side,black,transparent)]" />
-    <div class="relative max-w-4xl mx-auto text-center">
-      <a href="/" class="inline-flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--hydrogen-pink)] transition-colors mb-8">
-        <span aria-hidden="true">←</span> {c.backToHub}
+<main class="compass-page">
+  <header class="product-nav">
+    <div class="shell nav-inner">
+      <a class="product-home" href="/" aria-label={c.backToHub}>
+        <img src="/compass/icon.png" width="40" height="40" alt="" aria-hidden="true" />
+        <span>{c.title}</span>
       </a>
-      <div class="flex justify-center mb-7">
-        <div class="relative">
-          <div class="absolute inset-0 bg-gradient-to-r from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)] rounded-[28px] blur-2xl opacity-40"></div>
-          <img src="/compass/icon.png" alt={c.title} width="104" height="104" class="relative w-26 h-26 rounded-[28px] shadow-2xl" style="width:104px;height:104px;" />
+      <a class="hub-link" href="/">
+        <span aria-hidden="true">←</span>
+        <span>{c.backToHub}</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="hero" aria-labelledby="compass-title">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="hero-kicker">{c.fromTeam}</p>
+        <h1 id="compass-title" class="hero-title">{c.title}</h1>
+        <p class="hero-summary">{c.subtitle}</p>
+        <div class="store-actions" aria-label={c.ctaFree}>
+          <a
+            class="store-button"
+            href={compassLinks.appStore}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-store="app-store"
+            data-placement="compass"
+          >
+            <span>{c.storeLabels.appStore}</span>
+            <small>iOS</small>
+          </a>
+          <a
+            class="store-button"
+            href={compassLinks.googlePlay}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-store="google-play"
+            data-placement="compass"
+          >
+            <span>{c.storeLabels.googlePlay}</span>
+            <small>Android</small>
+          </a>
         </div>
       </div>
-      <span class="inline-block px-3 py-1 mb-5 rounded-full glass text-xs font-medium text-[var(--text-secondary)]">{c.eyebrow} · {c.fromTeam}</span>
-      <h1 class="font-[Outfit] font-extrabold text-4xl md:text-6xl leading-tight mb-5">
-        <span class="gradient-text-warm">{c.title}</span>
-      </h1>
-      <p class="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed mb-9">{c.subtitle}</p>
-      <Fragment set:html={storeButtons()} />
-      <div class="flex flex-wrap justify-center gap-2.5 mt-9">
-        {c.badges.map((b) => (
-          <span class="px-3 py-1.5 rounded-full glass text-xs text-[var(--text-secondary)]">{b}</span>
-        ))}
-      </div>
+
+      <figure class="hero-visual" aria-hidden="true">
+        <img
+          src="/compass/sky-night.jpg"
+          width="1080"
+          height="2400"
+          alt=""
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </figure>
     </div>
   </section>
 
-  <!-- ===================== FEATURES ===================== -->
-  <section class="px-6 py-16 md:py-20">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="font-[Outfit] font-bold text-3xl md:text-4xl mb-3">{c.featuresTitle}</h2>
-        <p class="text-[var(--text-muted)] max-w-2xl mx-auto">{c.featuresSubtitle}</p>
-      </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {c.features.map((f) => (
-          <div class="glass-card p-7">
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center mb-4" style="background:rgba(255,230,109,0.12);border:1px solid rgba(255,230,109,0.25);">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--sulfur-gold)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={ICONS[f.icon] || ''}></svg>
-            </div>
-            <h3 class="font-semibold text-lg text-white mb-2">{f.title}</h3>
-            <p class="text-sm text-[var(--text-secondary)] leading-relaxed">{f.desc}</p>
-          </div>
-        ))}
-      </div>
+  <section class="fact-strip" aria-label={c.featuresTitle}>
+    <div class="shell fact-grid">
+      {c.badges.map((badge) => <p>{badge}</p>)}
     </div>
   </section>
 
-  <!-- ===================== WIDGETS ===================== -->
-  <section class="px-6 py-16 md:py-20">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="font-[Outfit] font-bold text-3xl md:text-4xl mb-3">{c.widgetsTitle}</h2>
-        <p class="text-[var(--text-muted)] max-w-2xl mx-auto">{c.widgetsSubtitle}</p>
+  <section class="feature-section" aria-labelledby="feature-title">
+    <div class="shell">
+      <div class="section-heading">
+        <h2 id="feature-title">{c.featuresTitle}</h2>
       </div>
-      <div class="grid sm:grid-cols-3 gap-6">
-        {c.widgets.map((w) => (
-          <div class="glass-card p-6 flex flex-col items-center text-center">
-            <img src={w.img} alt={w.title} loading="lazy" class="w-full max-w-[260px] rounded-2xl mb-5 shadow-lg" />
-            <h3 class="font-semibold text-white mb-1.5">{w.title}</h3>
-            <p class="text-sm text-[var(--text-muted)] leading-relaxed">{w.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
 
-  <!-- ===================== GOLDEN HOUR CROSS-LINK ===================== -->
-  <section class="px-6 py-10">
-    <div class="max-w-4xl mx-auto">
-      <div class="glass-card p-8 md:p-10 relative overflow-hidden">
-        <img src="/compass/sky-night.jpg" alt="" aria-hidden="true"
-          class="pointer-events-none absolute inset-0 w-full h-full object-cover opacity-20" />
-        <div class="relative md:flex items-center justify-between gap-8">
-          <div class="mb-6 md:mb-0">
-            <h2 class="font-[Outfit] font-bold text-2xl md:text-3xl mb-3 gradient-text-warm inline-block">{c.goldenTitle}</h2>
-            <p class="text-[var(--text-secondary)] max-w-xl leading-relaxed">{c.goldenDesc}</p>
-          </div>
-          <a href={compassLinks.goldenHour} target="_blank" rel="noopener" class="btn-primary inline-block flex-shrink-0 whitespace-nowrap">{c.goldenCta} →</a>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="feature-layout">
+        <figure class="field-photo" aria-hidden="true">
+          <img src="/compass/snow-mountain.jpg" width="1080" height="2400" alt="" loading="lazy" decoding="async" />
+        </figure>
 
-  <!-- ===================== USE CASES + PRIVACY ===================== -->
-  <section class="px-6 py-16 md:py-20">
-    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
-      <div class="glass-card p-8">
-        <h2 class="font-[Outfit] font-bold text-2xl mb-5">{c.useCasesTitle}</h2>
-        <div class="flex flex-wrap gap-2.5">
-          {c.useCases.map((u) => (
-            <span class="px-3.5 py-2 rounded-xl glass text-sm text-[var(--text-secondary)]">{u}</span>
+        <div class="feature-list">
+          {c.features.map((feature) => (
+            <article class="feature-item">
+              <h3>{feature.title}</h3>
+              <p>{feature.desc}</p>
+            </article>
           ))}
         </div>
       </div>
-      <div class="glass-card p-8">
-        <h2 class="font-[Outfit] font-bold text-2xl mb-3">{c.privacyTitle}</h2>
-        <p class="text-sm text-[var(--text-secondary)] leading-relaxed">{c.privacyDesc}</p>
+    </div>
+  </section>
+
+  <section class="widget-section" aria-labelledby="widget-title">
+    <div class="shell">
+      <div class="section-heading section-heading-narrow">
+        <h2 id="widget-title">{c.widgetsTitle}</h2>
+        <p>{c.widgetsSubtitle}</p>
+      </div>
+
+      <div class="widget-grid">
+        {widgets.map((widget) => (
+          <figure class:list={['widget-item', { 'widget-item-wide': widget.img.includes('times') }]}>
+            <div class="widget-media">
+              <img src={widget.img} alt={widget.title} loading="lazy" decoding="async" />
+            </div>
+            <figcaption>
+              <h3>{widget.title}</h3>
+              <p>{widget.desc}</p>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ===================== CLOSING CTA ===================== -->
-  <section class="px-6 pt-6 pb-24">
-    <div class="max-w-3xl mx-auto text-center glass-card p-10 md:p-14">
-      <h2 class="font-[Outfit] font-extrabold text-3xl md:text-4xl mb-4 gradient-text">{c.closingTitle}</h2>
-      <p class="text-[var(--text-secondary)] mb-9 max-w-xl mx-auto">{c.closingDesc}</p>
-      <Fragment set:html={storeButtons()} />
+  <section class="golden-section" aria-labelledby="golden-title">
+    <div class="shell golden-layout">
+      <figure class="golden-photo" aria-hidden="true">
+        <img src="/compass/sky-golden.jpg" width="1080" height="2400" alt="" loading="lazy" decoding="async" />
+      </figure>
+      <div class="golden-copy">
+        <h2 id="golden-title">{c.goldenTitle}</h2>
+        <p>{c.goldenDesc}</p>
+        <a class="tool-link" href={compassLinks.goldenHour} target="_blank" rel="noopener noreferrer">
+          {c.goldenCta}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="outdoor-section">
+    <div class="shell outdoor-layout">
+      <div class="use-cases">
+        <h2>{c.useCasesTitle}</h2>
+        <ul>
+          {c.useCases.map((useCase) => <li>{useCase}</li>)}
+        </ul>
+      </div>
+      <aside class="privacy-note" aria-labelledby="privacy-title">
+        <h2 id="privacy-title">{c.privacyTitle}</h2>
+        <p>{c.privacyDesc}</p>
+      </aside>
     </div>
   </section>
 </main>
+
+<style>
+  .compass-page {
+    --page: #071014;
+    --surface: #0d171a;
+    --surface-strong: #111d20;
+    --line: rgba(223, 231, 225, 0.18);
+    --line-strong: rgba(223, 231, 225, 0.32);
+    --ink: #eef2ee;
+    --ink-soft: #b8c2bc;
+    --ink-muted: #87938d;
+    --accent: #d9bd76;
+    --accent-hover: #ead18f;
+    --button-ink: #101714;
+    --radius: 0.8rem;
+    position: relative;
+    z-index: 2;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    background: var(--page);
+    color: var(--ink);
+  }
+
+  .shell {
+    width: min(100% - 3rem, 78rem);
+    margin-inline: auto;
+  }
+
+  .product-nav {
+    border-bottom: 1px solid var(--line);
+    background: var(--page);
+  }
+
+  .nav-inner {
+    min-height: 4.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .product-home,
+  .hub-link {
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .product-home {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--sg-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .product-home img {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    border-radius: var(--radius);
+  }
+
+  .product-home span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .hub-link {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    transition: color 160ms ease, transform 160ms ease;
+  }
+
+  .hub-link:hover {
+    color: var(--ink);
+    transform: translateX(-2px);
+  }
+
+  .hero {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-grid {
+    min-height: min(50rem, calc(100dvh - 4.25rem));
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    padding-block: clamp(2.5rem, 7vh, 4.75rem);
+  }
+
+  .hero-copy {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-kicker {
+    margin: 0 0 1.25rem;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-title {
+    max-width: 18ch;
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--sg-sans);
+    font-size: clamp(3rem, 4.5vw, 4.2rem);
+    font-weight: 650;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .hero-summary {
+    max-width: 38rem;
+    margin: 1.6rem 0 0;
+    color: var(--ink-soft);
+    font-size: clamp(1rem, 1.6vw, 1.16rem);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .store-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    max-width: 32rem;
+    margin-top: 2rem;
+  }
+
+  .store-button {
+    min-height: 3.65rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: var(--button-ink);
+    font-size: 0.86rem;
+    font-weight: 700;
+    line-height: 1.15;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .store-button small {
+    color: rgba(16, 23, 20, 0.65);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .store-button:hover {
+    border-color: var(--accent-hover);
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+  }
+
+  .store-button:active,
+  .tool-link:active {
+    transform: translateY(1px);
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--surface);
+    aspect-ratio: 4 / 5;
+  }
+
+  .hero-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(7, 16, 20, 0.46));
+    pointer-events: none;
+  }
+
+  .hero-visual img,
+  .field-photo img,
+  .golden-photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  .hero-visual img {
+    object-position: 50% 54%;
+  }
+
+  .fact-strip {
+    border-bottom: 1px solid var(--line);
+    background: #091215;
+  }
+
+  .fact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .fact-grid p {
+    min-height: 5.5rem;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 1.25rem 1.5rem;
+    border-left: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.84rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .fact-grid p:last-child {
+    border-right: 1px solid var(--line);
+  }
+
+  .feature-section,
+  .widget-section,
+  .golden-section,
+  .outdoor-section {
+    padding-block: clamp(5rem, 10vw, 9rem);
+  }
+
+  .section-heading {
+    max-width: 48rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .section-heading h2,
+  .golden-copy h2,
+  .use-cases h2,
+  .privacy-note h2 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--sg-sans);
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .section-heading h2,
+  .golden-copy h2 {
+    font-size: clamp(2.35rem, 5vw, 4.35rem);
+    line-height: 1;
+  }
+
+  .section-heading p,
+  .golden-copy p,
+  .privacy-note p {
+    max-width: 60ch;
+    margin: 1.1rem 0 0;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+
+  .section-heading-narrow {
+    max-width: 40rem;
+  }
+
+  .feature-layout {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+    align-items: start;
+    gap: clamp(2.5rem, 7vw, 7rem);
+  }
+
+  .field-photo {
+    position: sticky;
+    top: 2rem;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    aspect-ratio: 3 / 4;
+    background: var(--surface);
+  }
+
+  .field-photo img {
+    object-position: 50% 49%;
+  }
+
+  .feature-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .feature-item {
+    padding-block: 1.55rem 1.8rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .feature-item:nth-child(-n + 2) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(9rem, 0.62fr) minmax(0, 1.38fr);
+    gap: 2rem;
+  }
+
+  .feature-item h3,
+  .widget-item h3 {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--sg-sans);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .feature-item h3 {
+    font-size: 1.15rem;
+    line-height: 1.25;
+  }
+
+  .feature-item p,
+  .widget-item p {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.91rem;
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+
+  .feature-item:not(:nth-child(-n + 2)) h3 {
+    margin-bottom: 0.65rem;
+  }
+
+  .widget-section {
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .widget-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) repeat(2, minmax(12rem, 0.7fr));
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .widget-item {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #0a1119;
+  }
+
+  .widget-media {
+    min-height: 17rem;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .widget-item img {
+    display: block;
+    width: min(100%, 15rem);
+    height: auto;
+  }
+
+  .widget-item-wide img {
+    width: min(100%, 38rem);
+  }
+
+  .widget-item figcaption {
+    margin-top: 1.35rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .widget-item h3 {
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+  }
+
+  .golden-layout {
+    display: grid;
+    grid-template-columns: minmax(17rem, 0.82fr) minmax(0, 1.18fr);
+    align-items: center;
+    gap: clamp(2.5rem, 8vw, 8rem);
+  }
+
+  .golden-photo {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius);
+    aspect-ratio: 4 / 5;
+    background: var(--surface);
+  }
+
+  .golden-photo img {
+    object-position: 50% 50%;
+  }
+
+  .tool-link {
+    min-height: 3.25rem;
+    width: fit-content;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.9rem;
+    padding: 0.8rem 1.1rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+  }
+
+  .tool-link:hover {
+    background: var(--accent);
+    color: var(--button-ink);
+    transform: translateY(-2px);
+  }
+
+  .outdoor-section {
+    border-top: 1px solid var(--line);
+    background: #091215;
+  }
+
+  .outdoor-layout {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2.5rem, 8vw, 8rem);
+    align-items: start;
+  }
+
+  .use-cases h2,
+  .privacy-note h2 {
+    font-size: clamp(1.75rem, 3.2vw, 2.7rem);
+    line-height: 1.08;
+  }
+
+  .use-cases ul {
+    display: grid;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .use-cases li {
+    padding-block: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    line-height: 1.45;
+  }
+
+  .privacy-note {
+    padding: clamp(1.75rem, 4vw, 3.5rem);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface-strong);
+  }
+
+  @media (max-width: 64rem) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.82fr);
+      gap: 2.5rem;
+    }
+
+    .store-actions {
+      grid-template-columns: 1fr;
+      max-width: 24rem;
+    }
+
+    .widget-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .widget-item-wide {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .shell {
+      width: min(100% - 2rem, 42rem);
+    }
+
+    .nav-inner {
+      min-height: 3.75rem;
+      gap: 1rem;
+    }
+
+    .product-home {
+      max-width: 54%;
+    }
+
+    .product-home img {
+      width: 2.2rem;
+      height: 2.2rem;
+    }
+
+    .product-home span {
+      font-size: 0.8rem;
+    }
+
+    .hub-link {
+      font-size: 0.8rem;
+    }
+
+    .hero-grid {
+      min-height: auto;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding-block: 3.25rem 2rem;
+    }
+
+    .hero-kicker {
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      max-width: none;
+      font-size: clamp(2.55rem, 12.5vw, 3.8rem);
+      letter-spacing: -0.045em;
+      line-height: 1;
+    }
+
+    .hero-summary {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .store-actions {
+      max-width: none;
+      margin-top: 1.6rem;
+    }
+
+    .hero-visual {
+      max-height: 29rem;
+      aspect-ratio: 4 / 5;
+    }
+
+    .fact-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .fact-grid p {
+      min-height: 4.8rem;
+      padding: 1rem;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.78rem;
+    }
+
+    .fact-grid p:nth-child(odd) {
+      border-left: 1px solid var(--line);
+    }
+
+    .fact-grid p:nth-child(even) {
+      border-right: 1px solid var(--line);
+    }
+
+    .fact-grid p:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .feature-section,
+    .widget-section,
+    .golden-section,
+    .outdoor-section {
+      padding-block: 5rem;
+    }
+
+    .section-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-heading h2,
+    .golden-copy h2 {
+      font-size: clamp(2.25rem, 11vw, 3.25rem);
+    }
+
+    .feature-layout,
+    .golden-layout,
+    .outdoor-layout {
+      grid-template-columns: 1fr;
+      gap: 2.75rem;
+    }
+
+    .field-photo {
+      position: relative;
+      top: auto;
+      aspect-ratio: 16 / 11;
+    }
+
+    .feature-list,
+    .feature-item:nth-child(-n + 2) {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-item,
+    .feature-item:nth-child(-n + 2) {
+      grid-column: auto;
+      display: block;
+    }
+
+    .feature-item h3 {
+      margin-bottom: 0.65rem;
+    }
+
+    .widget-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .widget-item-wide {
+      grid-column: auto;
+    }
+
+    .widget-media {
+      min-height: 13rem;
+    }
+
+    .golden-photo {
+      max-height: 33rem;
+      aspect-ratio: 4 / 5;
+    }
+
+    .privacy-note {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 23.5rem) {
+    .shell {
+      width: calc(100% - 2rem);
+    }
+
+    .product-home span {
+      display: none;
+    }
+
+    .product-home {
+      max-width: none;
+    }
+
+    .store-button {
+      width: 100%;
+      font-size: 0.82rem;
+    }
+
+    .fact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .fact-grid p,
+    .fact-grid p:nth-child(n) {
+      min-height: auto;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fact-grid p:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hub-link,
+    .store-button,
+    .tool-link {
+      transition: none;
+    }
+
+    .hub-link:hover,
+    .store-button:hover,
+    .store-button:active,
+    .tool-link:hover,
+    .tool-link:active {
+      transform: none;
+    }
+  }
+</style>

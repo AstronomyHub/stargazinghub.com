@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import Features from '../../components/Features.astro';
+import AstronomyEvents from '../../components/AstronomyEvents.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import DownloadSection from '../../components/DownloadSection.astro';
 import CompassPromo from '../../components/CompassPromo.astro';
@@ -15,9 +16,10 @@ const t = translations[lang];
 <Layout title={t.meta?.title || 'Stargazing Hub：星図・光害マップ・オーロラ予報'} lang={lang} description={t.meta?.description}>
   <main>
     <Hero t={t} lang={lang} />
-    <Features t={t} />
-    <Testimonials t={t} />
-    <DownloadSection t={t} />
+    <Features t={t} lang={lang} />
+    <AstronomyEvents lang={lang} />
+    <Testimonials t={t} lang={lang} />
+    <DownloadSection t={t} lang={lang} />
     <CompassPromo lang={lang} />
   </main>
   <Footer t={t} lang={lang} />

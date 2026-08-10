@@ -1,0 +1,295 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Footer from '../../../../components/Footer.astro';
+import { downloadLinks, siteUrl } from '../../../../data/appKnowledge';
+import { translations } from '../../../../i18n/ui';
+
+const lang = 'it';
+const t = translations[lang];
+const contentReviewedAt = '2026-08-10';
+const pageUrl = new URL('/it/features/light-pollution-map/', siteUrl).toString();
+const image = {
+  src: '/press/stargazinghub-light-pollution-map.webp',
+  alt: 'Schermata di Stargazing Hub con la mappa dell\'inquinamento luminoso',
+  caption: 'La mappa mostra il contesto dell\'inquinamento luminoso intorno al luogo selezionato.',
+  width: 1080,
+  height: 1920,
+};
+const imageUrl = new URL(image.src, siteUrl).toString();
+const appStoreUrl = t.links?.appStore || downloadLinks.appStore;
+const googlePlayUrl = t.links?.googlePlay || downloadLinks.googlePlay;
+const formattedUpdatedAt = new Intl.DateTimeFormat('it-IT', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${contentReviewedAt}T00:00:00Z`));
+
+const featureHighlights = [
+  'Contesto dell\'inquinamento luminoso per confrontare le località',
+  'Livelli della mappa per meteo, aurora, Sole, Luna e Via Lattea',
+  'Pianificazione per una posizione e una data selezionate',
+  'Collegamento con previsioni astronomiche e mappa del cielo',
+];
+
+const workflow = [
+  {
+    title: 'Scegli la località',
+    text: 'Apri la mappa e controlla il contesto dell\'inquinamento luminoso nei dintorni del luogo che stai valutando.',
+  },
+  {
+    title: 'Controlla le ore utili',
+    text: 'Passa alle previsioni per vedere nuvole, seeing, trasparenza e luce lunare durante la notte.',
+  },
+  {
+    title: 'Verifica Sole, Luna e Via Lattea',
+    text: 'Usa i livelli della mappa per capire come cambiano le condizioni nella data scelta.',
+  },
+  {
+    title: 'Apri la mappa del cielo',
+    text: 'Controlla direzione, orizzonte e inquadratura del soggetto prima di preparare l\'attrezzatura.',
+  },
+];
+
+const limitations = [
+  'La mappa e il terreno aiutano a pianificare, ma non possono garantire la luminosità reale del cielo in ogni punto.',
+  'Le condizioni meteo e dell\'aurora possono cambiare rapidamente. Controlla di nuovo la situazione locale prima di partire.',
+  'Simulazioni e previsioni sono strumenti di pianificazione, non dati di navigazione per decisioni che riguardano la sicurezza.',
+];
+
+const relatedFeatures = [
+  {
+    href: '/features/stargazing-forecast/',
+    title: 'Previsioni per osservare il cielo',
+    detail: 'Nuvole, seeing, trasparenza, Luna e condizioni orarie.',
+  },
+  {
+    href: '/features/sky-map/',
+    title: 'Mappa reale del cielo',
+    detail: 'Simula il cielo per un luogo e un orario selezionati.',
+  },
+  {
+    href: '/features/aurora-forecast/',
+    title: 'Previsioni e avvisi aurora',
+    detail: 'Aggiungi il contesto dell\'aurora alla scelta del luogo.',
+  },
+  {
+    href: '/features/astrophotography-tools/',
+    title: 'Strumenti per astrofotografia',
+    detail: 'Prepara campo visivo, attrezzatura e mosaici sulla mappa del cielo.',
+  },
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Mappa dell\'inquinamento luminoso',
+    description: 'Una guida alla mappa dell\'inquinamento luminoso di Stargazing Hub per confrontare luoghi, orari e condizioni del cielo.',
+    url: pageUrl,
+    inLanguage: 'it-IT',
+    dateModified: contentReviewedAt,
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      contentUrl: imageUrl,
+      caption: image.caption,
+    },
+    mainEntity: {
+      '@type': 'SoftwareApplication',
+      '@id': new URL('/#mobile-application', siteUrl).toString(),
+      name: 'Stargazing Hub',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'iOS, Android',
+      description: 'App di pianificazione astronomica con mappa dell\'inquinamento luminoso, previsioni e mappa del cielo.',
+      featureList: featureHighlights,
+      installUrl: [appStoreUrl, googlePlayUrl],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Stargazing Hub Italia',
+        item: new URL('/it/', siteUrl).toString(),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Mappa dell\'inquinamento luminoso',
+        item: pageUrl,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Mappa inquinamento luminoso: scegli dove osservare | Stargazing Hub"
+  description="Usa la mappa dell'inquinamento luminoso per confrontare luoghi, meteo, Luna e Via Lattea prima di una notte di osservazione."
+  image={image.src}
+  lang={lang}
+  alternateLinks={[
+    { hreflang: 'x-default', path: '/features/light-pollution-map/' },
+    { hreflang: 'en', path: '/features/light-pollution-map/' },
+    { hreflang: 'it', path: '/it/features/light-pollution-map/' },
+  ]}
+  structuredData={structuredData}
+>
+  <main class="sg-subpage localized-feature">
+    <section class="sg-subpage-hero">
+      <div class="sg-shell">
+        <nav aria-label="Percorso" class="sg-breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+            <li><a href="/it/" class="transition-colors hover:text-white">Stargazing Hub</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-[var(--text-secondary)]" aria-current="page">Mappa inquinamento luminoso</li>
+          </ol>
+        </nav>
+
+        <div class="sg-detail-hero-grid">
+          <div>
+            <p class="sg-eyebrow">Pianifica l'osservazione</p>
+            <h1 class="sg-subpage-title sg-localized-title">Mappa dell'inquinamento luminoso</h1>
+            <p class="sg-subpage-lead">
+              Confronta luoghi, meteo, Luna e Via Lattea prima di partire per una sessione di osservazione.
+            </p>
+            <div class="sg-store-actions">
+              <a class="sg-button sg-button-primary" href={appStoreUrl} data-store="app-store" data-placement="it-light-pollution-map">App Store</a>
+              <a class="sg-button sg-button-secondary" href={googlePlayUrl} data-store="google-play" data-placement="it-light-pollution-map">Google Play</a>
+            </div>
+            <p class="sg-reviewed">Contenuto revisionato il <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time></p>
+          </div>
+
+          <figure class="sg-detail-figure">
+            <div class="sg-detail-screen">
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                class="h-auto w-full"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </div>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section">
+      <div class="sg-shell grid gap-12 border-y border-white/10 py-14 lg:grid-cols-12 lg:gap-16">
+        <article class="lg:col-span-7">
+          <h2 class="text-3xl sm:text-4xl">A cosa serve una mappa dell'inquinamento luminoso?</h2>
+          <p class="mt-6 text-lg leading-relaxed text-[var(--text-secondary)]">
+            Serve a confrontare più luoghi prima di una sessione di osservazione. In Stargazing Hub puoi affiancarla ai livelli della mappa per meteo, aurora, Sole, Luna e Via Lattea, così la scelta del luogo resta collegata all'orario e alle condizioni del cielo.
+          </p>
+          <p class="mt-5 leading-relaxed text-[var(--text-secondary)]">
+            La mappa non promette che un punto sarà sicuramente buio. Ti aiuta a restringere la scelta, poi conviene verificare previsioni e condizioni locali prima del viaggio.
+          </p>
+        </article>
+
+        <aside class="lg:col-span-4 lg:col-start-9">
+          <h2 class="text-2xl sm:text-3xl">Cosa controllare insieme</h2>
+          <ul class="mt-7 space-y-5 text-[var(--text-secondary)]">
+            {featureHighlights.map((item) => (
+              <li class="border-l border-[var(--sg-accent)] pl-4 leading-relaxed">{item}</li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section">
+      <div class="sg-shell">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl">Come usarla prima di partire</h2>
+          <p class="mt-4 leading-relaxed text-[var(--text-secondary)]">Una verifica utile parte dal luogo e finisce con il cielo previsto per l'orario scelto.</p>
+        </div>
+        <div class="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
+          {workflow.map((item) => (
+            <article class="border-l border-white/15 pl-6">
+              <h3 class="text-xl sm:text-2xl">{item.title}</h3>
+              <p class="mt-3 leading-relaxed text-[var(--text-secondary)]">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-tight">
+      <div class="sg-shell sg-info-panel">
+        <div class="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-12">
+          <div>
+            <h2 class="text-2xl sm:text-3xl">Limiti da considerare</h2>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Ricontrolla sempre il luogo e le condizioni prima di metterti in viaggio.</p>
+          </div>
+          <ul class="space-y-4 text-[var(--text-secondary)]">
+            {limitations.map((item) => (
+              <li class="flex gap-3 leading-relaxed">
+                <span class="sg-list-mark" aria-hidden="true"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-related">
+      <div class="sg-shell">
+        <div class="mb-8 max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl">Continua la pianificazione</h2>
+          <p class="mt-3 text-[var(--text-secondary)]">Le guide ufficiali collegate sono disponibili in inglese.</p>
+        </div>
+        <div class="grid gap-x-10 md:grid-cols-2">
+          {relatedFeatures.map((feature) => (
+            <a
+              href={feature.href}
+              hreflang="en"
+              class="group flex items-start justify-between gap-6 border-t border-white/10 py-6 no-underline"
+            >
+              <span>
+                <span class="block text-xl font-semibold text-white transition-colors group-hover:text-[var(--sg-accent)]">{feature.title}</span>
+                <span class="mt-2 block text-sm leading-relaxed text-[var(--text-muted)]">{feature.detail}</span>
+              </span>
+              <span class="mt-1 shrink-0 text-[var(--text-muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+        <a href="/it/" class="sg-inline-link mt-8 inline-block">Torna alla pagina italiana →</a>
+      </div>
+    </section>
+  </main>
+  <Footer t={t} lang={lang} />
+</Layout>
+
+<style>
+  .sg-localized-title {
+    font-size: clamp(2.5rem, 4.5vw, 3.4rem);
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 360px) {
+    .sg-localized-title {
+      font-size: clamp(2rem, 10.2vw, 2.3rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .localized-feature :global(section),
+    .localized-feature :global(div),
+    .localized-feature :global(p),
+    .localized-feature :global(h1),
+    .localized-feature :global(h2),
+    .localized-feature :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>

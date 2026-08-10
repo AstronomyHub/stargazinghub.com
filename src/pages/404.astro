@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import { translations } from '../i18n/ui';
+
+const t = translations.en;
+const usefulLinks = [
+  { href: '/features/stargazing-forecast/', title: 'Check the stargazing forecast', detail: 'Review clouds, seeing, transparency, Moon and hourly conditions.' },
+  { href: '/features/light-pollution-map/', title: 'Compare observing locations', detail: 'Use light pollution and planning maps before making a trip.' },
+  { href: '/features/sky-map/', title: 'Open the sky map guide', detail: 'Learn how location, time and horizon context shape the visible sky.' },
+  { href: '/faq/', title: 'Read the product FAQ', detail: 'Find answers about pricing, platforms and app features.' },
+];
+---
+
+<Layout
+  title="Page not found | Stargazing Hub"
+  description="The requested Stargazing Hub page could not be found. Return home or browse the app feature guides."
+  lang="en"
+  structuredData={[]}
+  robots="noindex,follow"
+  includeSiteStructuredData={false}
+>
+  <main class="error-page relative z-10 flex-1 px-6 pb-24 pt-24 sm:pt-28">
+    <div class="cosmic-nebula nebula-1 opacity-20"></div>
+    <div class="relative mx-auto max-w-6xl">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] transition-colors hover:text-white">
+        <span aria-hidden="true">←</span>
+        Stargazing Hub
+      </a>
+
+      <div class="grid gap-12 pb-16 pt-16 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="mb-5 text-sm font-medium uppercase tracking-[0.18em] text-[var(--nitrogen-cyan)]">Error 404</p>
+          <h1 class="text-[clamp(3rem,8vw,6rem)] leading-[0.95]">
+            <span class="gradient-text-cool">This page is not here.</span>
+          </h1>
+        </div>
+        <div class="lg:col-span-4 lg:col-start-9">
+          <p class="text-lg leading-relaxed text-[var(--text-secondary)]">
+            The address may be old or mistyped. Return to the homepage, or continue with one of the planning guides below.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="/" class="btn-primary no-underline">Go to homepage</a>
+            <a href="/features/" class="btn-secondary no-underline">Browse features</a>
+          </div>
+        </div>
+      </div>
+
+      <section aria-labelledby="useful-pages" class="border-y border-white/10 py-12">
+        <h2 id="useful-pages" class="text-2xl sm:text-3xl">Useful pages</h2>
+        <div class="mt-6 grid gap-x-10 md:grid-cols-2">
+          {usefulLinks.map((link) => (
+            <a href={link.href} class="group flex items-start justify-between gap-6 border-t border-white/10 py-6 no-underline">
+              <span>
+                <span class="block text-xl font-semibold text-white transition-colors group-hover:text-[var(--nitrogen-cyan)]">{link.title}</span>
+                <span class="mt-2 block text-sm leading-relaxed text-[var(--text-muted)]">{link.detail}</span>
+              </span>
+              <span class="mt-1 shrink-0 text-[var(--text-muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+  <Footer t={t} lang="en" />
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .error-page :global(section),
+    .error-page :global(div),
+    .error-page :global(p),
+    .error-page :global(h1),
+    .error-page :global(h2),
+    .error-page :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>

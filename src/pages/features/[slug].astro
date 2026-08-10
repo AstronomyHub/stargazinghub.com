@@ -1,7 +1,12 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
-import { featurePages, downloadLinks, siteUrl } from '../../data/appKnowledge';
+import {
+  accuracyAndSafetyNotes,
+  downloadLinks,
+  featurePages,
+  siteUrl,
+} from '../../data/appKnowledge';
 import { translations } from '../../i18n/ui';
 
 export function getStaticPaths() {
@@ -13,8 +18,129 @@ export function getStaticPaths() {
 
 const { feature } = Astro.props;
 const t = translations.en;
+const contentReviewedAt = '2026-08-10';
 const featureUrl = new URL(`/features/${feature.slug}/`, siteUrl).toString();
 const markdownUrl = `/features/${feature.slug}.md`;
+const formattedUpdatedAt = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${contentReviewedAt}T00:00:00Z`));
+const featureAlternateLinks = feature.slug === 'stargazing-forecast'
+  ? [
+      { hreflang: 'x-default', path: '/features/stargazing-forecast/' },
+      { hreflang: 'en', path: '/features/stargazing-forecast/' },
+      { hreflang: 'zh-Hans', path: '/zh/features/stargazing-forecast/' },
+    ]
+  : feature.slug === 'light-pollution-map'
+    ? [
+        { hreflang: 'x-default', path: '/features/light-pollution-map/' },
+        { hreflang: 'en', path: '/features/light-pollution-map/' },
+        { hreflang: 'it', path: '/it/features/light-pollution-map/' },
+      ]
+    : undefined;
+
+type FeatureMedia = {
+  src: string;
+  alt: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+const defaultFeatureMedia: FeatureMedia = {
+  src: '/press/stargazinghub-star-chart.webp',
+  alt: 'Stargazing Hub star chart with constellations and sky map controls',
+  caption: 'The star chart shows the sky for the selected location and time.',
+  width: 1080,
+  height: 1920,
+};
+
+const featureMedia: Record<string, FeatureMedia> = {
+  'sky-map': defaultFeatureMedia,
+  'light-pollution-map': {
+    src: '/press/stargazinghub-light-pollution-map.webp',
+    alt: 'Stargazing Hub light pollution map for comparing observing locations',
+    caption: 'Compare light pollution around candidate observing locations before a trip.',
+    width: 1080,
+    height: 1920,
+  },
+  'stargazing-forecast': {
+    src: '/press/stargazinghub-observing-forecast.webp',
+    alt: 'Stargazing Hub observing forecast with stargazing index, Moon phase and hourly conditions',
+    caption: 'The observing forecast shows the stargazing index, Moon and hourly conditions.',
+    width: 1080,
+    height: 1920,
+  },
+  'sky-recognition': {
+    src: '/press/stargazinghub-sky-recognition.webp',
+    alt: 'Stargazing Hub sky recognition result for a real night sky photo',
+    caption: 'The app identifies the star field in an imported night-sky photo.',
+    width: 1080,
+    height: 1920,
+  },
+  'aurora-forecast': {
+    src: '/press/stargazinghub-stargazing-index-map.webp',
+    alt: 'Stargazing Hub planning map with observing conditions for a selected location',
+    caption: 'Compare aurora conditions with the weather at a selected location.',
+    width: 1206,
+    height: 2622,
+  },
+  '3d-moon': {
+    src: '/press/stargazinghub-observing-forecast.webp',
+    alt: 'Stargazing Hub observing forecast showing Moon phase and illumination context',
+    caption: 'Moon phase and illumination are shown alongside the conditions they affect.',
+    width: 1080,
+    height: 1920,
+  },
+  'meteor-shower-calendar': {
+    src: '/press/stargazinghub-star-chart.webp',
+    alt: 'Stargazing Hub star chart used to understand the night sky around an observing session',
+    caption: 'Open the star chart for the date and time of a meteor shower peak.',
+    width: 1080,
+    height: 1920,
+  },
+  'astrophotography-tools': {
+    src: '/press/stargazinghub-star-chart.webp',
+    alt: 'Stargazing Hub star chart used for target and field of view planning',
+    caption: 'Preview the field of view for selected camera and telescope equipment on the sky map.',
+    width: 1080,
+    height: 1920,
+  },
+};
+
+const relatedFeatureSlugs: Record<string, string[]> = {
+  'sky-map': ['stargazing-forecast', 'light-pollution-map', 'sky-recognition', 'astrophotography-tools'],
+  'light-pollution-map': ['stargazing-forecast', 'sky-map', 'aurora-forecast', 'astrophotography-tools'],
+  'stargazing-forecast': ['light-pollution-map', 'sky-map', '3d-moon', 'aurora-forecast'],
+  'sky-recognition': ['sky-map', 'astrophotography-tools', 'stargazing-forecast'],
+  'aurora-forecast': ['stargazing-forecast', 'light-pollution-map', 'sky-map'],
+  '3d-moon': ['stargazing-forecast', 'sky-map', 'astrophotography-tools'],
+  'meteor-shower-calendar': ['stargazing-forecast', 'light-pollution-map', '3d-moon'],
+  'astrophotography-tools': ['sky-map', 'light-pollution-map', 'stargazing-forecast', '3d-moon'],
+};
+
+const limitationIndexes: Record<string, number[]> = {
+  'sky-map': [0, 2],
+  'light-pollution-map': [0, 1, 2],
+  'stargazing-forecast': [0, 1],
+  'sky-recognition': [3],
+  'aurora-forecast': [0, 1],
+  '3d-moon': [0],
+  'meteor-shower-calendar': [0, 1],
+  'astrophotography-tools': [0],
+};
+
+const media = featureMedia[feature.slug] ?? defaultFeatureMedia;
+const relatedFeatures = (relatedFeatureSlugs[feature.slug] ?? [])
+  .map((slug) => featurePages.find((item) => item.slug === slug))
+  .filter((item): item is (typeof featurePages)[number] => Boolean(item));
+const limitations = (limitationIndexes[feature.slug] ?? [0])
+  .map((index) => accuracyAndSafetyNotes[index])
+  .filter((item): item is string => typeof item === 'string');
+const featureImageUrl = new URL(media.src, siteUrl).toString();
+
 const structuredData = [
   {
     '@context': 'https://schema.org',
@@ -22,12 +148,19 @@ const structuredData = [
     name: feature.title,
     description: feature.metaDescription,
     url: featureUrl,
+    dateModified: contentReviewedAt,
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      contentUrl: featureImageUrl,
+      caption: media.caption,
+    },
     mainEntity: {
       '@type': 'SoftwareApplication',
+      '@id': new URL('/#mobile-application', siteUrl).toString(),
       name: 'Stargazing Hub',
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'iOS, Android',
-      description: feature.citableSummary,
+      description: feature.summary,
       featureList: feature.capabilities,
       installUrl: [downloadLinks.appStore, downloadLinks.googlePlay],
     },
@@ -45,6 +178,12 @@ const structuredData = [
       {
         '@type': 'ListItem',
         position: 2,
+        name: 'Features',
+        item: new URL('/features/', siteUrl).toString(),
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
         name: feature.shortTitle,
         item: featureUrl,
       },
@@ -56,97 +195,144 @@ const structuredData = [
 <Layout
   title={`${feature.title} | Stargazing Hub`}
   description={feature.metaDescription}
+  image={media.src}
   lang="en"
   markdownUrl={markdownUrl}
+  alternateLinks={featureAlternateLinks}
   structuredData={structuredData}
 >
-  <main class="relative z-10">
-    <section class="relative isolate px-6 pt-24 pb-16 overflow-hidden">
-      <div class="cosmic-nebula nebula-1 opacity-20"></div>
-      <div class="max-w-6xl mx-auto">
-        <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-8">
-          <span aria-hidden="true">←</span>
-          Stargazing Hub
-        </a>
+  <main class="sg-subpage feature-detail">
+    <section class="sg-subpage-hero">
+      <div class="sg-shell">
+        <nav aria-label="Breadcrumb" class="sg-breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+            <li><a href="/" class="transition-colors hover:text-white">Stargazing Hub</a></li>
+            <li aria-hidden="true">/</li>
+            <li><a href="/features/" class="transition-colors hover:text-white">Features</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-[var(--text-secondary)]" aria-current="page">{feature.shortTitle}</li>
+          </ol>
+        </nav>
 
-        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-14 items-start">
+        <div class="sg-detail-hero-grid">
           <div>
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-              <span class="w-2 h-2 rounded-full bg-[var(--oxygen-blue)]"></span>
-              <span class="text-sm text-[var(--text-secondary)]">Feature guide</span>
-            </div>
-
-            <h1 class="text-[clamp(2.7rem,7vw,5.5rem)] mb-6">
-              <span class="gradient-text-cool">{feature.title}</span>
-            </h1>
-
-            <p class="text-lg sm:text-xl text-[var(--text-secondary)] max-w-3xl leading-relaxed mb-8">
+            <p class="sg-eyebrow">Stargazing Hub feature</p>
+            <h1 class="sg-subpage-title">{feature.title}</h1>
+            <p class="sg-subpage-lead">
               {feature.summary}
             </p>
-
-            <div class="flex flex-wrap gap-3">
-              <a class="btn-primary no-underline" href={downloadLinks.appStore}>Download on App Store</a>
-              <a class="btn-secondary no-underline" href={downloadLinks.googlePlay}>Get it on Google Play</a>
-              <a class="btn-secondary no-underline" href={markdownUrl}>Markdown</a>
+            <div class="sg-store-actions">
+              <a class="sg-button sg-button-primary" href={downloadLinks.appStore} data-store="app-store" data-placement={`feature-${feature.slug}`}>App Store</a>
+              <a class="sg-button sg-button-secondary" href={downloadLinks.googlePlay} data-store="google-play" data-placement={`feature-${feature.slug}`}>Google Play</a>
             </div>
+            <p class="sg-reviewed">
+              Page reviewed <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time>
+            </p>
           </div>
 
-          <aside class="glass-card p-6 sm:p-8">
-            <p class="text-xs uppercase tracking-[0.2em] text-[var(--text-muted)] mb-4">Citable Summary</p>
-            <blockquote class="text-xl sm:text-2xl leading-snug text-white">
-              {feature.citableSummary}
-            </blockquote>
-            <div class="mt-6 flex flex-wrap gap-2">
-              {feature.keywords.map((keyword: string) => (
-                <span class="text-xs px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[var(--text-secondary)]">
-                  {keyword}
-                </span>
-              ))}
+          <figure class="sg-detail-figure">
+            <div class="sg-detail-screen">
+              <img
+                src={media.src}
+                alt={media.alt}
+                width={media.width}
+                height={media.height}
+                class="h-auto w-full"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
             </div>
-          </aside>
+            <figcaption>{media.caption}</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <section class="px-6 pb-20">
-      <div class="max-w-6xl mx-auto grid lg:grid-cols-3 gap-6">
-        <div class="glass-card p-6 sm:p-7">
-          <h2 class="text-2xl sm:text-3xl mb-5">Core Capabilities</h2>
-          <ul class="space-y-3 text-[var(--text-secondary)]">
+    <section class="sg-subpage-section">
+      <div class="sg-shell grid gap-12 border-y border-white/10 py-14 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-7">
+          <h2 class="mb-7 text-3xl sm:text-4xl">What you can do</h2>
+          <ul class="grid gap-5 text-[var(--text-secondary)] sm:grid-cols-2">
             {feature.capabilities.map((item: string) => (
-              <li class="flex gap-3">
-                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--hydrogen-pink)] shrink-0"></span>
-                <span>{item}</span>
+              <li class="border-t border-white/10 pt-4 leading-relaxed">
+                <span class="mr-2 text-[var(--hydrogen-pink)]" aria-hidden="true">•</span>
+                {item}
               </li>
             ))}
           </ul>
         </div>
 
-        <div class="glass-card p-6 sm:p-7">
-          <h2 class="text-2xl sm:text-3xl mb-5">Use Cases</h2>
-          <ul class="space-y-3 text-[var(--text-secondary)]">
+        <aside class="lg:col-span-4 lg:col-start-9">
+          <h2 class="mb-7 text-2xl sm:text-3xl">When it is useful</h2>
+          <ul class="space-y-5 text-[var(--text-secondary)]">
             {feature.useCases.map((item: string) => (
-              <li class="flex gap-3">
-                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--oxygen-blue)] shrink-0"></span>
+              <li class="border-l border-[var(--oxygen-blue)]/50 pl-4 leading-relaxed">{item}</li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-tight">
+      <div class="sg-shell sg-info-panel">
+        <div class="grid gap-6 lg:grid-cols-[0.65fr_1.35fr] lg:gap-12">
+          <div>
+            <h2 class="text-2xl sm:text-3xl">Limits and checks</h2>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">Use the app as a planning guide and check conditions again before heading out.</p>
+          </div>
+          <ul class="space-y-4 text-[var(--text-secondary)]">
+            {limitations.map((item: string) => (
+              <li class="flex gap-3 leading-relaxed">
+                <span class="sg-list-mark" aria-hidden="true"></span>
                 <span>{item}</span>
               </li>
             ))}
           </ul>
         </div>
+      </div>
+    </section>
 
-        <div class="glass-card p-6 sm:p-7">
-          <h2 class="text-2xl sm:text-3xl mb-5">Related Tools</h2>
-          <ul class="space-y-3 text-[var(--text-secondary)]">
-            {feature.relatedTools.map((item: string) => (
-              <li class="flex gap-3">
-                <span class="mt-2 w-1.5 h-1.5 rounded-full bg-[var(--sulfur-gold)] shrink-0"></span>
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+    <section class="sg-subpage-section sg-subpage-section-related">
+      <div class="sg-shell">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 class="text-3xl sm:text-4xl">Related features</h2>
+            <p class="mt-3 text-[var(--text-secondary)]">Open another guide for weather, location, the Moon or sky-map details.</p>
+          </div>
+          <a href="/features/" class="sg-inline-link">View all features →</a>
+        </div>
+
+        <div class="grid gap-x-10 md:grid-cols-2">
+          {relatedFeatures.map((related) => (
+            <a
+              href={`/features/${related.slug}/`}
+              class="group flex items-start justify-between gap-6 border-t border-white/10 py-6 no-underline"
+            >
+              <span>
+                <span class="block text-xl font-semibold text-white">{related.shortTitle}</span>
+                <span class="mt-2 block text-sm leading-relaxed text-[var(--text-muted)]">{related.metaDescription}</span>
+              </span>
+              <span class="mt-1 shrink-0 text-[var(--text-muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
   </main>
   <Footer t={t} lang="en" />
 </Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .feature-detail :global(section),
+    .feature-detail :global(div),
+    .feature-detail :global(p),
+    .feature-detail :global(h1),
+    .feature-detail :global(h2),
+    .feature-detail :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>

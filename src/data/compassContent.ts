@@ -37,6 +37,7 @@ export interface CompassContent {
   title: string;
   subtitle: string;
   ctaFree: string;
+  storeLabels: { appStore: string; googlePlay: string };
   badges: string[];
   featuresTitle: string;
   featuresSubtitle: string;
@@ -58,66 +59,68 @@ export interface CompassContent {
 
 const en: CompassContent = {
   meta: {
-    title: 'Compass Altimeter: Sun & Moon — Altitude, Compass & Golden Hour',
+    title: 'Compass Altimeter: Sun & Moon | Altitude, Compass & Golden Hour',
     description:
-      'A clean, pro-grade altitude and compass app with Sun & Moon positions and golden-hour planning. GPS + barometric fusion for fast, accurate readings. Free on iOS & Android, from the Stargazing Hub team.',
+      'Check altitude, compass direction, Sun and Moon positions, golden hour and blue hour. Uses GPS and barometer readings. Free on iOS and Android.',
   },
   eyebrow: 'Free · iOS & Android',
   fromTeam: 'From the Stargazing Hub team',
   title: 'Compass Altimeter: Sun & Moon',
   subtitle:
-    'A clean, pro-grade altitude & compass tool. GPS + barometric fusion for fast, accurate live readings — built for hiking, landscape photography and stargazing.',
+    'Altitude, true or magnetic north, Sun and Moon direction, and golden hour timing in one field tool.',
   ctaFree: 'Free download',
+  storeLabels: { appStore: 'Download on the App Store', googlePlay: 'Get it on Google Play' },
   badges: ['GPS + barometer fusion', 'True / magnetic north', 'Golden & blue hour', 'Privacy-first'],
-  featuresTitle: 'Everything you need, nothing you don’t',
-  featuresSubtitle: 'Precise readings and clean design — the essentials done right.',
+  featuresTitle: 'Readings for the field',
+  featuresSubtitle: 'Altitude, direction, pressure and light information on one screen.',
   features: [
     { icon: 'altitude', title: 'Live altitude', desc: 'GPS + barometric fusion with a real-time accuracy readout. Set a base point to track ascent and descent.' },
     { icon: 'compass', title: 'Precise compass', desc: 'True or magnetic north with localized N/E/S/W text, subtle haptics, magnetic-interference detection and calibration tips.' },
-    { icon: 'sunmoon', title: 'Sun & Moon', desc: 'Elevation and azimuth, sunrise/sunset and moonrise/moonset for any spot — plan light and shadow.' },
-    { icon: 'camera', title: 'Photography aide', desc: 'Golden hour and blue hour with compass bearings, so you know exactly where the light will fall.' },
+    { icon: 'sunmoon', title: 'Sun & Moon', desc: 'Elevation and azimuth, sunrise/sunset and moonrise/moonset for any spot. Plan light and shadow.' },
+    { icon: 'camera', title: 'Photography aide', desc: 'Golden hour and blue hour with compass bearings for checking the direction of the light.' },
     { icon: 'coords', title: 'Coordinates', desc: 'Switch between decimal degrees and DMS, with one-tap copy for sharing or logging.' },
     { icon: 'pressure', title: 'Live pressure', desc: 'Real-time barometric pressure in hPa, mmHg, inHg or psi.' },
   ],
   widgetsTitle: 'Home-screen widgets',
-  widgetsSubtitle: 'Glanceable Sun, Moon and golden-hour info, right on your home screen.',
+  widgetsSubtitle: 'Sun, Moon and golden-hour information on the home screen.',
   widgets: [
     { img: '/compass/widget-golden.png', title: 'Golden hour', desc: 'Today’s golden & blue-hour windows at a glance.' },
     { img: '/compass/widget-times.png', title: 'Sun & Moon times', desc: 'Sunrise, sunset, moonrise and moonset.' },
     { img: '/compass/widget-moon.png', title: 'Moon phase', desc: 'Current phase and illumination.' },
   ],
-  useCasesTitle: 'Made for the outdoors',
+  useCasesTitle: 'Common uses',
   useCases: ['Hiking & exploration', 'Landscape photography timing', 'Astronomy & education', 'Travel & altitude logging'],
   goldenTitle: 'Plan the light before you go',
   goldenDesc:
-    'Pair the app with our free Golden Hour & Light Direction tool — exact golden and blue-hour times plus the compass bearing of the light, for any city or spot.',
+    'Pair the app with our free Golden Hour & Light Direction tool for exact golden and blue-hour times, plus the compass bearing of the light for any city or spot.',
   goldenCta: 'Open the Golden Hour tool',
-  privacyTitle: 'Private by design',
+  privacyTitle: 'Location and privacy',
   privacyDesc:
-    'Location is used only while you’re in the app, for altitude and Sun/Moon math — no continuous background tracking. Preferences stay on your device; no personal data is uploaded.',
-  closingTitle: 'Carry the sky in your pocket',
-  closingDesc: 'Altitude, direction, Sun and Moon — fast, accurate and beautifully simple.',
+    'Location is used only while you’re in the app for altitude and Sun/Moon calculations. There is no continuous background tracking. Preferences stay on your device; no personal data is uploaded.',
+  closingTitle: 'Compass Altimeter: Sun & Moon',
+  closingDesc: 'Check altitude, direction, Sun and Moon in one app.',
   backToHub: 'Stargazing Hub',
 };
 
 const zh: CompassContent = {
   "meta": {
     "title": "海拔指南针 · 日月轨迹：海拔、指南针与黄金时刻",
-    "description": "简洁专业的海拔与指南针应用，集成日月位置与黄金时刻规划。GPS + 气压计融合，读数快速又精准。iOS 与 Android 免费使用，由天文通团队出品。"
+    "description": "查看海拔、指南针方向、日月位置、黄金时刻和蓝色时刻。使用 GPS 与气压计读数，支持 iOS 和 Android。"
   },
   "eyebrow": "免费 · iOS 与 Android",
   "fromTeam": "来自天文通团队",
   "title": "海拔指南针 · 日月轨迹",
-  "subtitle": "简洁而专业的海拔与指南针工具。GPS + 气压计融合，实时读数快速精准 —— 专为徒步、风光摄影与观星打造。",
+  "subtitle": "一处查看海拔、真北与磁北、日月方位，以及黄金时刻。适合徒步、摄影和观星。",
   "ctaFree": "免费下载",
+  "storeLabels": { "appStore": "在 App Store 下载", "googlePlay": "在 Google Play 获取" },
   "badges": [
     "GPS + 气压计融合",
     "真北 / 磁北",
     "黄金与蓝色时刻",
     "隐私优先"
   ],
-  "featuresTitle": "该有的全都有，多余的一概没有",
-  "featuresSubtitle": "精准读数，简洁设计 —— 把基本功能做到位。",
+  "featuresTitle": "户外所需的关键读数",
+  "featuresSubtitle": "在一个页面查看海拔、方向、气压和光线信息。",
   "features": [
     {
       "icon": "altitude",
@@ -132,12 +135,12 @@ const zh: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "日月轨迹",
-      "desc": "任意地点的太阳高度角与方位角、日出日落、月出月落 —— 提前规划光影。"
+      "desc": "任意地点的太阳高度角与方位角、日出日落、月出月落。提前规划光影。"
     },
     {
       "icon": "camera",
       "title": "摄影助手",
-      "desc": "黄金时刻与蓝色时刻配合罗盘方位，让你精准掌握光线落点。"
+      "desc": "结合黄金时刻、蓝色时刻和罗盘方位，查看光线方向。"
     },
     {
       "icon": "coords",
@@ -151,7 +154,7 @@ const zh: CompassContent = {
     }
   ],
   "widgetsTitle": "主屏小组件",
-  "widgetsSubtitle": "日、月与黄金时刻信息，一眼尽收主屏。",
+  "widgetsSubtitle": "在主屏查看太阳、月亮和黄金时刻。",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -169,7 +172,7 @@ const zh: CompassContent = {
       "desc": "当前月相与照明度。"
     }
   ],
-  "useCasesTitle": "为户外而生",
+  "useCasesTitle": "常见用途",
   "useCases": [
     "徒步与探索",
     "风光摄影时机把握",
@@ -177,32 +180,33 @@ const zh: CompassContent = {
     "旅行与海拔记录"
   ],
   "goldenTitle": "出发前，先规划好光线",
-  "goldenDesc": "搭配我们免费的「黄金时刻与光线方向」工具一同使用 —— 精确查询任意城市或地点的黄金与蓝色时刻，以及光线的罗盘方位。",
+  "goldenDesc": "搭配我们免费的「黄金时刻与光线方向」工具一同使用，精确查询任意城市或地点的黄金与蓝色时刻，以及光线的罗盘方位。",
   "goldenCta": "打开黄金时刻工具",
-  "privacyTitle": "从设计之初守护隐私",
-  "privacyDesc": "位置信息仅在你使用应用时调用，用于海拔与日月计算 —— 绝不在后台持续追踪。偏好设置保存在你的设备上，不上传任何个人数据。",
-  "closingTitle": "把天空装进口袋",
-  "closingDesc": "海拔、方向、太阳与月亮 —— 快速、精准，简约而美。",
+  "privacyTitle": "位置与隐私",
+  "privacyDesc": "位置信息仅在你使用应用时调用，用于海拔与日月计算。绝不在后台持续追踪。偏好设置保存在你的设备上，不上传任何个人数据。",
+  "closingTitle": "海拔指南针 · 日月轨迹",
+  "closingDesc": "在一个应用里查看海拔、方向、太阳和月亮。",
   "backToHub": "天文通"
 };
 const zhTw: CompassContent = {
   "meta": {
-    "title": "海拔指南針：太陽與月亮 — 海拔、指南針與黃金時刻",
-    "description": "一款簡潔專業的海拔與指南針工具，整合太陽與月亮位置及黃金時刻規劃。GPS 加氣壓計融合，快速精準地讀取數據。iOS 與 Android 免費使用，由天文通團隊出品。"
+    "title": "海拔指南針：太陽與月亮｜海拔、指南針與黃金時刻",
+    "description": "查看海拔、指南針方向、太陽與月亮位置、黃金時刻和藍色時刻。使用 GPS 與氣壓計讀數，支援 iOS 和 Android。"
   },
   "eyebrow": "免費 · iOS 與 Android",
   "fromTeam": "天文通團隊出品",
   "title": "海拔指南針：太陽與月亮",
-  "subtitle": "簡潔又專業的海拔與指南針工具。結合 GPS 與氣壓計融合技術，即時呈現快速精準的讀數 — 專為登山健行、風景攝影與觀星打造。",
+  "subtitle": "一處查看海拔、真北與磁北、太陽與月亮方位，以及黃金時刻。適合健行、攝影與觀星。",
   "ctaFree": "免費下載",
+  "storeLabels": { "appStore": "在 App Store 下載", "googlePlay": "在 Google Play 下載" },
   "badges": [
     "GPS 加氣壓計融合",
     "真北 / 磁北",
     "黃金與藍色時刻",
     "隱私至上"
   ],
-  "featuresTitle": "該有的一應俱全，多餘的通通省略",
-  "featuresSubtitle": "精準讀數搭配簡潔設計 — 把基本功做到位。",
+  "featuresTitle": "戶外需要的關鍵讀數",
+  "featuresSubtitle": "在一個頁面查看海拔、方向、氣壓和光線資訊。",
   "features": [
     {
       "icon": "altitude",
@@ -217,12 +221,12 @@ const zhTw: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "太陽與月亮",
-      "desc": "任何地點的仰角與方位角、日出日落與月出月落 — 讓你掌握光影變化。"
+      "desc": "任何地點的仰角與方位角、日出日落與月出月落。讓你掌握光影變化。"
     },
     {
       "icon": "camera",
       "title": "攝影助手",
-      "desc": "黃金時刻與藍色時刻搭配指南針方位，讓你精準預判光線灑落的方向。"
+      "desc": "結合黃金時刻、藍色時刻和指南針方位，查看光線方向。"
     },
     {
       "icon": "coords",
@@ -236,7 +240,7 @@ const zhTw: CompassContent = {
     }
   ],
   "widgetsTitle": "主畫面小工具",
-  "widgetsSubtitle": "太陽、月亮與黃金時刻資訊一目了然，就在你的主畫面上。",
+  "widgetsSubtitle": "在主畫面查看太陽、月亮和黃金時刻。",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -254,7 +258,7 @@ const zhTw: CompassContent = {
       "desc": "目前月相與照明比例。"
     }
   ],
-  "useCasesTitle": "為戶外而生",
+  "useCasesTitle": "常見用途",
   "useCases": [
     "登山健行與探索",
     "風景攝影時機掌握",
@@ -262,32 +266,33 @@ const zhTw: CompassContent = {
     "旅行與海拔記錄"
   ],
   "goldenTitle": "出發前先規劃好光線",
-  "goldenDesc": "搭配我們免費的「黃金時刻與光線方向」工具 — 任何城市或地點都能查到精確的黃金與藍色時刻時間，以及光線的指南針方位。",
+  "goldenDesc": "搭配我們免費的「黃金時刻與光線方向」工具，任何城市或地點都能查到精確的黃金與藍色時刻，以及光線的指南針方位。",
   "goldenCta": "開啟黃金時刻工具",
-  "privacyTitle": "從設計之初就重視隱私",
-  "privacyDesc": "定位資訊僅在你使用 App 時用於海拔與太陽 / 月亮運算 — 不會在背景持續追蹤。所有偏好設定都保留在你的裝置上，不會上傳任何個人資料。",
-  "closingTitle": "把整片天空裝進口袋",
-  "closingDesc": "海拔、方向、太陽與月亮 — 快速、精準，而且簡潔得恰到好處。",
+  "privacyTitle": "定位與隱私",
+  "privacyDesc": "定位資訊僅在你使用 App 時用於海拔與太陽、月亮運算。不會在背景持續追蹤。所有偏好設定都保留在你的裝置上，不會上傳任何個人資料。",
+  "closingTitle": "海拔指南針：太陽與月亮",
+  "closingDesc": "在一個 App 查看海拔、方向、太陽與月亮。",
   "backToHub": "天文通"
 };
 const de: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Sonne & Mond — Höhe, Kompass & Golden Hour",
+    "title": "Compass Altimeter: Sonne & Mond, Höhe, Kompass & Golden Hour",
     "description": "Eine klare, professionelle Höhen- und Kompass-App mit Sonnen- und Mondständen sowie Golden-Hour-Planung. GPS + barometrische Fusion für schnelle, präzise Messwerte. Kostenlos für iOS & Android, vom Team von Stargazing Hub."
   },
   "eyebrow": "Kostenlos · iOS & Android",
   "fromTeam": "Vom Team von Stargazing Hub",
   "title": "Compass Altimeter: Sonne & Mond",
-  "subtitle": "Ein klares, professionelles Höhen- & Kompass-Tool. GPS + barometrische Fusion für schnelle, präzise Live-Messwerte — gemacht zum Wandern, für die Landschaftsfotografie und Sternenbeobachtung.",
+  "subtitle": "Höhe, geografischer oder magnetischer Norden, Sonnen- und Mondrichtung sowie Golden Hour in einem Werkzeug.",
   "ctaFree": "Kostenlos herunterladen",
+  "storeLabels": { "appStore": "Im App Store laden", "googlePlay": "Bei Google Play laden" },
   "badges": [
     "GPS + Barometer-Fusion",
     "Geografischer / magnetischer Norden",
     "Golden & Blue Hour",
     "Datenschutz an erster Stelle"
   ],
-  "featuresTitle": "Alles, was du brauchst — und nichts, was stört",
-  "featuresSubtitle": "Präzise Messwerte und klares Design — das Wesentliche, richtig gemacht.",
+  "featuresTitle": "Messwerte für unterwegs",
+  "featuresSubtitle": "Höhe, Richtung, Luftdruck und Lichtinformationen auf einem Bildschirm.",
   "features": [
     {
       "icon": "altitude",
@@ -302,7 +307,7 @@ const de: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "Sonne & Mond",
-      "desc": "Höhe und Azimut, Sonnenauf- und -untergang sowie Mondauf- und -untergang für jeden Ort — plane Licht und Schatten."
+      "desc": "Höhe und Azimut, Sonnenauf- und -untergang sowie Mondauf- und -untergang für jeden Ort. Plane Licht und Schatten."
     },
     {
       "icon": "camera",
@@ -321,7 +326,7 @@ const de: CompassContent = {
     }
   ],
   "widgetsTitle": "Homescreen-Widgets",
-  "widgetsSubtitle": "Sonne, Mond und Golden Hour auf einen Blick — direkt auf deinem Homescreen.",
+  "widgetsSubtitle": "Informationen zu Sonne, Mond und Golden Hour auf dem Startbildschirm.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -339,7 +344,7 @@ const de: CompassContent = {
       "desc": "Aktuelle Phase und Beleuchtung."
     }
   ],
-  "useCasesTitle": "Gemacht für draußen",
+  "useCasesTitle": "Typische Einsätze",
   "useCases": [
     "Wandern & Entdecken",
     "Timing für die Landschaftsfotografie",
@@ -347,32 +352,33 @@ const de: CompassContent = {
     "Reisen & Höhenprotokollierung"
   ],
   "goldenTitle": "Plane das Licht, bevor du losziehst",
-  "goldenDesc": "Kombiniere die App mit unserem kostenlosen Tool für Golden Hour & Lichtrichtung — exakte Golden- und Blue-Hour-Zeiten plus die Kompasspeilung des Lichts, für jede Stadt und jeden Ort.",
+  "goldenDesc": "Kombiniere die App mit unserem kostenlosen Tool für Golden Hour & Lichtrichtung. Du erhältst exakte Golden- und Blue-Hour-Zeiten plus die Kompasspeilung des Lichts für jede Stadt und jeden Ort.",
   "goldenCta": "Golden-Hour-Tool öffnen",
-  "privacyTitle": "Datenschutz von Grund auf",
-  "privacyDesc": "Dein Standort wird nur genutzt, während du die App verwendest — für Höhen- und Sonne/Mond-Berechnungen, ohne durchgehendes Tracking im Hintergrund. Deine Einstellungen bleiben auf deinem Gerät; es werden keine personenbezogenen Daten hochgeladen.",
-  "closingTitle": "Trag den Himmel in deiner Tasche",
-  "closingDesc": "Höhe, Richtung, Sonne und Mond — schnell, präzise und wunderbar einfach.",
+  "privacyTitle": "Standort und Datenschutz",
+  "privacyDesc": "Dein Standort wird nur genutzt, während du die App verwendest, und zwar für Höhen- und Sonne/Mond-Berechnungen. Es gibt kein durchgehendes Tracking im Hintergrund. Deine Einstellungen bleiben auf deinem Gerät; es werden keine personenbezogenen Daten hochgeladen.",
+  "closingTitle": "Compass Altimeter: Sonne & Mond",
+  "closingDesc": "Höhe, Richtung, Sonne und Mond in einer App.",
   "backToHub": "Stargazing Hub"
 };
 const es: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Sol y Luna — Altitud, brújula y hora dorada",
+    "title": "Compass Altimeter: Sol y Luna, altitud, brújula y hora dorada",
     "description": "Una app de altitud y brújula limpia y de nivel profesional, con las posiciones del Sol y la Luna y planificación de la hora dorada. Fusión de GPS y barómetro para lecturas rápidas y precisas. Gratis en iOS y Android, del equipo de Stargazing Hub."
   },
   "eyebrow": "Gratis · iOS y Android",
   "fromTeam": "Del equipo de Stargazing Hub",
   "title": "Compass Altimeter: Sol y Luna",
-  "subtitle": "Una herramienta de altitud y brújula limpia y de nivel profesional. Fusión de GPS y barómetro para lecturas en vivo rápidas y precisas, pensada para el senderismo, la fotografía de paisaje y la observación de estrellas.",
+  "subtitle": "Altitud, norte geográfico o magnético, dirección del Sol y la Luna y hora dorada en una sola herramienta.",
   "ctaFree": "Descarga gratis",
+  "storeLabels": { "appStore": "Descargar en App Store", "googlePlay": "Descargar en Google Play" },
   "badges": [
     "Fusión de GPS y barómetro",
     "Norte verdadero / magnético",
     "Hora dorada y hora azul",
     "La privacidad primero"
   ],
-  "featuresTitle": "Todo lo que necesitas, nada que sobre",
-  "featuresSubtitle": "Lecturas precisas y un diseño limpio: lo esencial, bien hecho.",
+  "featuresTitle": "Lecturas útiles al aire libre",
+  "featuresSubtitle": "Altitud, dirección, presión e información de luz en una sola pantalla.",
   "features": [
     {
       "icon": "altitude",
@@ -406,7 +412,7 @@ const es: CompassContent = {
     }
   ],
   "widgetsTitle": "Widgets para la pantalla de inicio",
-  "widgetsSubtitle": "El Sol, la Luna y la hora dorada de un vistazo, directamente en tu pantalla de inicio.",
+  "widgetsSubtitle": "Información del Sol, la Luna y la hora dorada en la pantalla de inicio.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -424,7 +430,7 @@ const es: CompassContent = {
       "desc": "Fase actual e iluminación."
     }
   ],
-  "useCasesTitle": "Hecha para el aire libre",
+  "useCasesTitle": "Usos habituales",
   "useCases": [
     "Senderismo y exploración",
     "Timing para fotografía de paisaje",
@@ -434,30 +440,31 @@ const es: CompassContent = {
   "goldenTitle": "Planifica la luz antes de salir",
   "goldenDesc": "Combina la app con nuestra herramienta gratuita de Hora Dorada y Dirección de la Luz: horarios exactos de la hora dorada y la hora azul, además de la orientación de la luz en la brújula, para cualquier ciudad o lugar.",
   "goldenCta": "Abrir la herramienta de Hora Dorada",
-  "privacyTitle": "Privada por diseño",
+  "privacyTitle": "Ubicación y privacidad",
   "privacyDesc": "La ubicación se usa solo mientras estás en la app, para los cálculos de altitud y del Sol y la Luna, sin seguimiento continuo en segundo plano. Tus preferencias permanecen en tu dispositivo; no se sube ningún dato personal.",
-  "closingTitle": "Lleva el cielo en tu bolsillo",
-  "closingDesc": "Altitud, dirección, Sol y Luna: rápido, preciso y de una sencillez preciosa.",
+  "closingTitle": "Compass Altimeter: Sol y Luna",
+  "closingDesc": "Consulta la altitud, la dirección, el Sol y la Luna en una sola app.",
   "backToHub": "Stargazing Hub"
 };
 const fr: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter : Soleil & Lune — Altitude, boussole et golden hour",
+    "title": "Compass Altimeter : Soleil & Lune, altitude, boussole et heure dorée",
     "description": "Une application d'altitude et de boussole épurée et professionnelle, avec les positions du Soleil et de la Lune et la planification de la golden hour. Fusion GPS + baromètre pour des mesures rapides et précises. Gratuite sur iOS et Android, par l'équipe Stargazing Hub."
   },
   "eyebrow": "Gratuit · iOS et Android",
   "fromTeam": "Par l'équipe Stargazing Hub",
   "title": "Compass Altimeter : Soleil & Lune",
-  "subtitle": "Un outil d'altitude et de boussole épuré et professionnel. Fusion GPS + baromètre pour des mesures en direct rapides et précises — conçu pour la randonnée, la photo de paysage et l'observation des étoiles.",
+  "subtitle": "Altitude, nord géographique ou magnétique, direction du Soleil et de la Lune et heure dorée dans un seul outil.",
   "ctaFree": "Télécharger gratuitement",
+  "storeLabels": { "appStore": "Télécharger sur l’App Store", "googlePlay": "Télécharger sur Google Play" },
   "badges": [
     "Fusion GPS + baromètre",
     "Nord vrai / magnétique",
     "Golden hour et blue hour",
     "Respect de la vie privée"
   ],
-  "featuresTitle": "Tout ce qu'il vous faut, rien de superflu",
-  "featuresSubtitle": "Des mesures précises et un design épuré — l'essentiel, bien fait.",
+  "featuresTitle": "Les mesures utiles sur le terrain",
+  "featuresSubtitle": "Altitude, orientation, pression et lumière sur un même écran.",
   "features": [
     {
       "icon": "altitude",
@@ -472,7 +479,7 @@ const fr: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "Soleil & Lune",
-      "desc": "Élévation et azimut, lever/coucher du soleil et lever/coucher de la lune pour n'importe quel lieu — anticipez lumière et ombres."
+      "desc": "Élévation et azimut, lever/coucher du soleil et lever/coucher de la lune pour n'importe quel lieu. Anticipez lumière et ombres."
     },
     {
       "icon": "camera",
@@ -491,7 +498,7 @@ const fr: CompassContent = {
     }
   ],
   "widgetsTitle": "Widgets pour l'écran d'accueil",
-  "widgetsSubtitle": "Le Soleil, la Lune et la golden hour d'un coup d'œil, directement sur votre écran d'accueil.",
+  "widgetsSubtitle": "Informations sur le Soleil, la Lune et la golden hour sur l'écran d'accueil.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -509,7 +516,7 @@ const fr: CompassContent = {
       "desc": "Phase actuelle et illumination."
     }
   ],
-  "useCasesTitle": "Pensé pour le plein air",
+  "useCasesTitle": "Usages courants",
   "useCases": [
     "Randonnée et exploration",
     "Timing de la photo de paysage",
@@ -517,32 +524,33 @@ const fr: CompassContent = {
     "Voyage et suivi d'altitude"
   ],
   "goldenTitle": "Préparez la lumière avant de partir",
-  "goldenDesc": "Associez l'application à notre outil gratuit Golden Hour & Direction de la lumière — horaires exacts de la golden hour et de la blue hour, plus l'orientation à la boussole de la lumière, pour n'importe quelle ville ou lieu.",
+  "goldenDesc": "Associez l'application à notre outil gratuit Golden Hour & Direction de la lumière. Il donne les horaires exacts de la golden hour et de la blue hour, ainsi que l'orientation de la lumière à la boussole, pour n'importe quelle ville ou lieu.",
   "goldenCta": "Ouvrir l'outil Golden Hour",
-  "privacyTitle": "La confidentialité dès la conception",
-  "privacyDesc": "La localisation n'est utilisée que pendant que vous êtes dans l'application, pour les calculs d'altitude et de position du Soleil et de la Lune — aucun suivi continu en arrière-plan. Vos préférences restent sur votre appareil ; aucune donnée personnelle n'est transmise.",
-  "closingTitle": "Le ciel dans votre poche",
-  "closingDesc": "Altitude, orientation, Soleil et Lune — rapide, précis et d'une élégante simplicité.",
+  "privacyTitle": "Localisation et confidentialité",
+  "privacyDesc": "La localisation n'est utilisée que pendant que vous êtes dans l'application, pour les calculs d'altitude et de position du Soleil et de la Lune. Aucun suivi continu n'est effectué en arrière-plan. Vos préférences restent sur votre appareil ; aucune donnée personnelle n'est transmise.",
+  "closingTitle": "Compass Altimeter : Soleil & Lune",
+  "closingDesc": "Consultez l'altitude, l'orientation, le Soleil et la Lune dans une seule app.",
   "backToHub": "Stargazing Hub"
 };
 const it: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Sole e Luna — Altitudine, bussola e ora d'oro",
+    "title": "Compass Altimeter: Sole e Luna, altitudine, bussola e ora d'oro",
     "description": "Un'app di altitudine e bussola essenziale e di livello professionale, con le posizioni di Sole e Luna e la pianificazione dell'ora d'oro. Fusione GPS + barometro per misurazioni rapide e precise. Gratis su iOS e Android, dal team di Stargazing Hub."
   },
   "eyebrow": "Gratis · iOS e Android",
   "fromTeam": "Dal team di Stargazing Hub",
   "title": "Compass Altimeter: Sole e Luna",
-  "subtitle": "Uno strumento di altitudine e bussola essenziale e di livello professionale. Fusione GPS + barometro per misurazioni dal vivo rapide e precise, pensata per escursionismo, fotografia di paesaggio e osservazione delle stelle.",
+  "subtitle": "Altitudine, nord vero o magnetico, direzione di Sole e Luna e ora d'oro in un unico strumento.",
   "ctaFree": "Download gratuito",
+  "storeLabels": { "appStore": "Scarica su App Store", "googlePlay": "Scarica su Google Play" },
   "badges": [
     "Fusione GPS + barometro",
     "Nord vero / magnetico",
     "Ora d'oro e ora blu",
     "Privacy al primo posto"
   ],
-  "featuresTitle": "Tutto ciò che ti serve, niente di superfluo",
-  "featuresSubtitle": "Misurazioni precise e design pulito: l'essenziale, fatto come si deve.",
+  "featuresTitle": "Le misure utili all'aperto",
+  "featuresSubtitle": "Altitudine, direzione, pressione e luce in un'unica schermata.",
   "features": [
     {
       "icon": "altitude",
@@ -576,7 +584,7 @@ const it: CompassContent = {
     }
   ],
   "widgetsTitle": "Widget per la schermata Home",
-  "widgetsSubtitle": "Sole, Luna e ora d'oro a colpo d'occhio, direttamente sulla tua schermata Home.",
+  "widgetsSubtitle": "Informazioni su Sole, Luna e ora d'oro nella schermata Home.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -594,7 +602,7 @@ const it: CompassContent = {
       "desc": "Fase attuale e illuminazione."
     }
   ],
-  "useCasesTitle": "Fatta per l'aria aperta",
+  "useCasesTitle": "Usi comuni",
   "useCases": [
     "Escursionismo ed esplorazione",
     "Tempistica per la fotografia di paesaggio",
@@ -604,30 +612,31 @@ const it: CompassContent = {
   "goldenTitle": "Pianifica la luce prima di partire",
   "goldenDesc": "Abbina l'app al nostro strumento gratuito Ora d'oro e Direzione della luce: orari esatti di ora d'oro e ora blu più l'azimut della luce, per qualsiasi città o luogo.",
   "goldenCta": "Apri lo strumento Ora d'oro",
-  "privacyTitle": "Privacy by design",
+  "privacyTitle": "Posizione e privacy",
   "privacyDesc": "La posizione viene usata solo mentre sei nell'app, per i calcoli di altitudine e di Sole/Luna: nessun tracciamento continuo in background. Le preferenze restano sul tuo dispositivo; nessun dato personale viene caricato.",
-  "closingTitle": "Porta il cielo in tasca",
-  "closingDesc": "Altitudine, direzione, Sole e Luna: rapidi, precisi e splendidamente semplici.",
+  "closingTitle": "Compass Altimeter: Sole e Luna",
+  "closingDesc": "Altitudine, direzione, Sole e Luna in un'unica app.",
   "backToHub": "Stargazing Hub"
 };
 const ja: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Sun & Moon — 高度・コンパス・ゴールデンアワー",
-    "description": "高度とコンパスをプロ仕様で、シンプルに。太陽と月の位置やゴールデンアワーのプランニングにも対応。GPSと気圧センサーの融合で、すばやく正確に計測します。iOS / Android で無料。Stargazing Hub チームがお届けします。"
+    "title": "Compass Altimeter: Sun & Moon｜高度・コンパス・ゴールデンアワー",
+    "description": "高度とコンパスをプロ仕様で、シンプルに。太陽と月の位置やゴールデンアワーのプランニングにも対応。GPSと気圧センサーの融合で、すばやく正確に計測します。iOS／Androidで無料。Stargazing Hubチームがお届けします。"
   },
-  "eyebrow": "無料 · iOS & Android",
-  "fromTeam": "Stargazing Hub チームより",
+  "eyebrow": "iOS／Androidで無料",
+  "fromTeam": "Stargazing Hubチームより",
   "title": "Compass Altimeter: Sun & Moon",
-  "subtitle": "シンプルで本格的な高度＆コンパスツール。GPSと気圧センサーの融合で、すばやく正確なリアルタイム計測を実現。登山、風景写真、星空観察のために生まれました。",
+  "subtitle": "高度、真北と磁北、太陽と月の方位、ゴールデンアワーを1つのツールで確認できます。",
   "ctaFree": "無料ダウンロード",
+  "storeLabels": { "appStore": "App Storeでダウンロード", "googlePlay": "Google Playで入手" },
   "badges": [
-    "GPS + 気圧センサー融合",
-    "真北 / 磁北",
+    "GPS＋気圧センサー融合",
+    "真北／磁北",
     "ゴールデン＆ブルーアワー",
     "プライバシー第一"
   ],
-  "featuresTitle": "必要なものだけを、しっかりと",
-  "featuresSubtitle": "正確な計測とすっきりしたデザイン。本質をきちんと押さえました。",
+  "featuresTitle": "屋外で必要な情報",
+  "featuresSubtitle": "高度、方位、気圧、光の情報を1つの画面で確認できます。",
   "features": [
     {
       "icon": "altitude",
@@ -661,7 +670,7 @@ const ja: CompassContent = {
     }
   ],
   "widgetsTitle": "ホーム画面ウィジェット",
-  "widgetsSubtitle": "太陽、月、ゴールデンアワーの情報を、ホーム画面でひと目でチェック。",
+  "widgetsSubtitle": "太陽、月、ゴールデンアワーをホーム画面で確認できます。",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -679,7 +688,7 @@ const ja: CompassContent = {
       "desc": "現在の月相と輝面比。"
     }
   ],
-  "useCasesTitle": "アウトドアのために",
+  "useCasesTitle": "主な用途",
   "useCases": [
     "登山＆探検",
     "風景写真のタイミング合わせ",
@@ -689,30 +698,31 @@ const ja: CompassContent = {
   "goldenTitle": "出かける前に、光を計画する",
   "goldenDesc": "無料の「ゴールデンアワー＆光の方向」ツールと組み合わせれば、どの都市・どの場所でも、正確なゴールデン＆ブルーアワーの時刻と、光が差し込むコンパス方位がわかります。",
   "goldenCta": "ゴールデンアワーツールを開く",
-  "privacyTitle": "設計からプライバシーを大切に",
+  "privacyTitle": "位置情報とプライバシー",
   "privacyDesc": "位置情報はアプリ利用中のみ、高度や太陽・月の計算のために使用します。バックグラウンドでの継続的な追跡は行いません。設定はお使いの端末内にとどまり、個人データがアップロードされることはありません。",
-  "closingTitle": "空をポケットに",
-  "closingDesc": "高度、方位、太陽と月。すばやく、正確に、そして美しいほどシンプルに。",
+  "closingTitle": "Compass Altimeter: Sun & Moon",
+  "closingDesc": "高度、方位、太陽と月を1つのアプリで確認できます。",
   "backToHub": "Stargazing Hub"
 };
 const ko: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: 해와 달 — 고도, 나침반, 골든아워",
+    "title": "Compass Altimeter: 해와 달, 고도, 나침반, 골든아워",
     "description": "해와 달의 위치와 골든아워 플래닝까지 담은 깔끔하고 전문가급 고도·나침반 앱. GPS + 기압 융합으로 빠르고 정확한 측정을 제공합니다. Stargazing Hub 팀이 만든 iOS·Android 무료 앱."
   },
   "eyebrow": "무료 · iOS & Android",
   "fromTeam": "Stargazing Hub 팀이 만들었습니다",
   "title": "Compass Altimeter: 해와 달",
-  "subtitle": "깔끔하고 전문가급인 고도·나침반 도구. GPS + 기압 융합으로 빠르고 정확한 실시간 측정을 제공합니다 — 등산, 풍경 사진, 별 관측을 위해 만들어졌습니다.",
+  "subtitle": "고도, 진북과 자북, 해와 달의 방향, 골든아워 시간을 한 도구에서 확인합니다.",
   "ctaFree": "무료 다운로드",
+  "storeLabels": { "appStore": "App Store에서 다운로드", "googlePlay": "Google Play에서 받기" },
   "badges": [
     "GPS + 기압계 융합",
     "진북 / 자북",
     "골든아워 & 블루아워",
     "프라이버시 우선"
   ],
-  "featuresTitle": "필요한 건 모두, 군더더기는 없이",
-  "featuresSubtitle": "정확한 측정과 깔끔한 디자인 — 핵심을 제대로 담았습니다.",
+  "featuresTitle": "야외에서 필요한 측정값",
+  "featuresSubtitle": "고도, 방향, 기압, 빛 정보를 한 화면에서 확인할 수 있습니다.",
   "features": [
     {
       "icon": "altitude",
@@ -746,7 +756,7 @@ const ko: CompassContent = {
     }
   ],
   "widgetsTitle": "홈 화면 위젯",
-  "widgetsSubtitle": "해, 달, 골든아워 정보를 홈 화면에서 한눈에.",
+  "widgetsSubtitle": "해, 달, 골든아워 정보를 홈 화면에서 확인할 수 있습니다.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -764,7 +774,7 @@ const ko: CompassContent = {
       "desc": "현재 위상과 조도."
     }
   ],
-  "useCasesTitle": "야외를 위해 만들어졌습니다",
+  "useCasesTitle": "주요 용도",
   "useCases": [
     "등산 & 탐험",
     "풍경 사진 타이밍 잡기",
@@ -772,32 +782,33 @@ const ko: CompassContent = {
     "여행 & 고도 기록"
   ],
   "goldenTitle": "떠나기 전에 빛을 계획하세요",
-  "goldenDesc": "무료 골든아워 & 빛 방향 도구와 함께 사용하세요 — 어느 도시나 지점이든 정확한 골든아워·블루아워 시간과 빛의 나침반 방위를 알려줍니다.",
+  "goldenDesc": "무료 골든아워 & 빛 방향 도구와 함께 사용하세요. 어느 도시나 지점이든 정확한 골든아워·블루아워 시간과 빛의 나침반 방위를 알려줍니다.",
   "goldenCta": "골든아워 도구 열기",
-  "privacyTitle": "설계부터 프라이버시 중심",
-  "privacyDesc": "위치 정보는 앱을 사용하는 동안에만 고도와 해·달 계산을 위해 사용됩니다 — 백그라운드에서 지속 추적하지 않습니다. 설정은 기기에 저장되며, 개인 정보는 업로드되지 않습니다.",
-  "closingTitle": "하늘을 주머니에 담으세요",
-  "closingDesc": "고도, 방향, 해와 달 — 빠르고 정확하며 더없이 간결하게.",
+  "privacyTitle": "위치 정보와 개인정보 보호",
+  "privacyDesc": "위치 정보는 앱을 사용하는 동안에만 고도와 해·달 계산을 위해 사용됩니다. 백그라운드에서 지속 추적하지 않습니다. 설정은 기기에 저장되며, 개인 정보는 업로드되지 않습니다.",
+  "closingTitle": "Compass Altimeter: 해와 달",
+  "closingDesc": "고도, 방향, 해와 달을 한 앱에서 확인하세요.",
   "backToHub": "Stargazing Hub"
 };
 const nl: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Sun & Moon — Hoogte, kompas & gouden uur",
+    "title": "Compass Altimeter: Sun & Moon, hoogte, kompas & gouden uur",
     "description": "Een strakke, professionele hoogtemeter- en kompas-app met zon- en maanstanden en planning voor het gouden uur. GPS + barometrische fusie voor snelle, nauwkeurige metingen. Gratis voor iOS & Android, van het team van Stargazing Hub."
   },
   "eyebrow": "Gratis · iOS & Android",
   "fromTeam": "Van het team van Stargazing Hub",
   "title": "Compass Altimeter: Sun & Moon",
-  "subtitle": "Een strakke, professionele hoogtemeter en kompas. GPS + barometrische fusie voor snelle, nauwkeurige live-metingen — gemaakt voor wandelen, landschapsfotografie en sterrenkijken.",
+  "subtitle": "Hoogte, geografisch of magnetisch noorden, stand van zon en maan en gouden uur in één hulpmiddel.",
   "ctaFree": "Gratis downloaden",
+  "storeLabels": { "appStore": "Download in de App Store", "googlePlay": "Download via Google Play" },
   "badges": [
     "GPS + barometer-fusie",
     "Geografisch / magnetisch noorden",
     "Gouden & blauw uur",
     "Privacy voorop"
   ],
-  "featuresTitle": "Alles wat je nodig hebt, niets overbodigs",
-  "featuresSubtitle": "Nauwkeurige metingen en een strak ontwerp — de basis perfect uitgevoerd.",
+  "featuresTitle": "Metingen voor onderweg",
+  "featuresSubtitle": "Hoogte, richting, luchtdruk en lichtinformatie op één scherm.",
   "features": [
     {
       "icon": "altitude",
@@ -812,7 +823,7 @@ const nl: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "Zon & maan",
-      "desc": "Hoogte en azimut, zonsopkomst/-ondergang en maansopkomst/-ondergang voor elke plek — plan licht en schaduw."
+      "desc": "Hoogte en azimut, zonsopkomst/-ondergang en maansopkomst/-ondergang voor elke plek. Plan licht en schaduw."
     },
     {
       "icon": "camera",
@@ -831,7 +842,7 @@ const nl: CompassContent = {
     }
   ],
   "widgetsTitle": "Widgets voor je beginscherm",
-  "widgetsSubtitle": "In één oogopslag info over zon, maan en het gouden uur, direct op je beginscherm.",
+  "widgetsSubtitle": "Informatie over zon, maan en het gouden uur op het beginscherm.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -849,7 +860,7 @@ const nl: CompassContent = {
       "desc": "Huidige maanfase en verlichting."
     }
   ],
-  "useCasesTitle": "Gemaakt voor buiten",
+  "useCasesTitle": "Veelgebruikte toepassingen",
   "useCases": [
     "Wandelen & verkennen",
     "Timing voor landschapsfotografie",
@@ -857,32 +868,33 @@ const nl: CompassContent = {
     "Reizen & hoogte vastleggen"
   ],
   "goldenTitle": "Plan het licht voordat je vertrekt",
-  "goldenDesc": "Combineer de app met onze gratis tool voor het gouden uur en de lichtrichting — exacte tijden van het gouden en blauwe uur plus de kompaspeiling van het licht, voor elke stad of plek.",
+  "goldenDesc": "Combineer de app met onze gratis tool voor het gouden uur en de lichtrichting. Je krijgt exacte tijden van het gouden en blauwe uur plus de kompaspeiling van het licht, voor elke stad of plek.",
   "goldenCta": "Open de tool voor het gouden uur",
-  "privacyTitle": "Privacy door ontwerp",
-  "privacyDesc": "Je locatie wordt alleen gebruikt terwijl je in de app bent, voor de berekening van hoogte en zon-/maanstanden — geen continue tracking op de achtergrond. Voorkeuren blijven op je apparaat; er worden geen persoonlijke gegevens geüpload.",
-  "closingTitle": "Draag de hemel in je broekzak",
-  "closingDesc": "Hoogte, richting, zon en maan — snel, nauwkeurig en prachtig eenvoudig.",
+  "privacyTitle": "Locatie en privacy",
+  "privacyDesc": "Je locatie wordt alleen gebruikt terwijl je in de app bent, voor de berekening van hoogte en zon-/maanstanden. Er vindt geen continue tracking op de achtergrond plaats. Voorkeuren blijven op je apparaat; er worden geen persoonlijke gegevens geüpload.",
+  "closingTitle": "Compass Altimeter: Sun & Moon",
+  "closingDesc": "Bekijk hoogte, richting, zon en maan in één app.",
   "backToHub": "Stargazing Hub"
 };
 const pl: CompassContent = {
   "meta": {
-    "title": "Compass Altimeter: Słońce i Księżyc — wysokość, kompas i złota godzina",
+    "title": "Compass Altimeter: Słońce i Księżyc, wysokość, kompas i złota godzina",
     "description": "Przejrzysta, profesjonalna aplikacja do pomiaru wysokości i kompas z pozycjami Słońca i Księżyca oraz planowaniem złotej godziny. Fuzja GPS i czujnika ciśnienia zapewnia szybkie, dokładne odczyty. Bezpłatna na iOS i Androida, od zespołu Stargazing Hub."
   },
   "eyebrow": "Bezpłatnie · iOS i Android",
   "fromTeam": "Od zespołu Stargazing Hub",
   "title": "Compass Altimeter: Słońce i Księżyc",
-  "subtitle": "Przejrzyste, profesjonalne narzędzie do pomiaru wysokości i kompas. Fuzja GPS i czujnika ciśnienia zapewnia szybkie, dokładne odczyty na żywo — stworzona z myślą o turystyce górskiej, fotografii krajobrazowej i obserwacji nieba.",
+  "subtitle": "Wysokość, północ geograficzna lub magnetyczna, kierunek Słońca i Księżyca oraz złota godzina w jednym narzędziu.",
   "ctaFree": "Pobierz za darmo",
+  "storeLabels": { "appStore": "Pobierz w App Store", "googlePlay": "Pobierz z Google Play" },
   "badges": [
     "Fuzja GPS i barometru",
     "Północ rzeczywista / magnetyczna",
     "Złota i niebieska godzina",
     "Prywatność na pierwszym miejscu"
   ],
-  "featuresTitle": "Wszystko, czego potrzebujesz — bez zbędnych dodatków",
-  "featuresSubtitle": "Precyzyjne odczyty i czysty design — to, co najważniejsze, zrobione jak należy.",
+  "featuresTitle": "Pomiary potrzebne w terenie",
+  "featuresSubtitle": "Wysokość, kierunek, ciśnienie i informacje o świetle na jednym ekranie.",
   "features": [
     {
       "icon": "altitude",
@@ -897,7 +909,7 @@ const pl: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "Słońce i Księżyc",
-      "desc": "Wysokość i azymut, wschody i zachody Słońca oraz Księżyca dla dowolnego miejsca — planuj światło i cień."
+      "desc": "Wysokość i azymut, wschody i zachody Słońca oraz Księżyca dla dowolnego miejsca. Planuj światło i cień."
     },
     {
       "icon": "camera",
@@ -916,7 +928,7 @@ const pl: CompassContent = {
     }
   ],
   "widgetsTitle": "Widżety na ekran główny",
-  "widgetsSubtitle": "Informacje o Słońcu, Księżycu i złotej godzinie na pierwszy rzut oka, prosto na ekranie głównym.",
+  "widgetsSubtitle": "Informacje o Słońcu, Księżycu i złotej godzinie na ekranie głównym.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -934,7 +946,7 @@ const pl: CompassContent = {
       "desc": "Aktualna faza i stopień oświetlenia."
     }
   ],
-  "useCasesTitle": "Stworzona na świeże powietrze",
+  "useCasesTitle": "Najczęstsze zastosowania",
   "useCases": [
     "Turystyka górska i eksploracja",
     "Wybór pory na fotografię krajobrazową",
@@ -942,12 +954,12 @@ const pl: CompassContent = {
     "Podróże i rejestrowanie wysokości"
   ],
   "goldenTitle": "Zaplanuj światło, zanim wyruszysz",
-  "goldenDesc": "Połącz aplikację z naszym bezpłatnym narzędziem Złota godzina i kierunek światła — dokładne godziny złotej i niebieskiej godziny oraz kierunek padania światła według kompasu dla dowolnego miasta lub miejsca.",
+  "goldenDesc": "Połącz aplikację z naszym bezpłatnym narzędziem Złota godzina i kierunek światła. Pokazuje ono dokładne godziny złotej i niebieskiej godziny oraz kierunek padania światła według kompasu dla dowolnego miasta lub miejsca.",
   "goldenCta": "Otwórz narzędzie Złota godzina",
-  "privacyTitle": "Prywatność u podstaw",
-  "privacyDesc": "Lokalizacja jest używana tylko wtedy, gdy korzystasz z aplikacji — do obliczeń wysokości oraz pozycji Słońca i Księżyca, bez ciągłego śledzenia w tle. Preferencje pozostają na Twoim urządzeniu; żadne dane osobowe nie są przesyłane.",
-  "closingTitle": "Noś niebo w kieszeni",
-  "closingDesc": "Wysokość, kierunek, Słońce i Księżyc — szybko, dokładnie i pięknie prosto.",
+  "privacyTitle": "Lokalizacja i prywatność",
+  "privacyDesc": "Lokalizacja jest używana tylko wtedy, gdy korzystasz z aplikacji, do obliczeń wysokości oraz pozycji Słońca i Księżyca. Aplikacja nie prowadzi ciągłego śledzenia w tle. Preferencje pozostają na Twoim urządzeniu; żadne dane osobowe nie są przesyłane.",
+  "closingTitle": "Compass Altimeter: Słońce i Księżyc",
+  "closingDesc": "Wysokość, kierunek, Słońce i Księżyc w jednej aplikacji.",
   "backToHub": "Stargazing Hub"
 };
 const ru: CompassContent = {
@@ -958,16 +970,17 @@ const ru: CompassContent = {
   "eyebrow": "Бесплатно · iOS и Android",
   "fromTeam": "От команды Stargazing Hub",
   "title": "Compass Altimeter: Солнце и Луна",
-  "subtitle": "Лаконичный измеритель высоты и компас профессионального уровня. GPS и барометр объединяются ради быстрых и точных показаний в реальном времени — для походов, пейзажной съёмки и наблюдения за звёздами.",
+  "subtitle": "Высота, истинный или магнитный север, положение Солнца и Луны и золотой час в одном приложении.",
   "ctaFree": "Скачать бесплатно",
+  "storeLabels": { "appStore": "Загрузить в App Store", "googlePlay": "Скачать в Google Play" },
   "badges": [
     "GPS + барометр",
     "Истинный / магнитный север",
     "Золотой и синий час",
     "Конфиденциальность прежде всего"
   ],
-  "featuresTitle": "Всё нужное и ничего лишнего",
-  "featuresSubtitle": "Точные показания и чистый дизайн — главное, сделанное как надо.",
+  "featuresTitle": "Показания для работы на местности",
+  "featuresSubtitle": "Высота, направление, давление и данные о свете на одном экране.",
   "features": [
     {
       "icon": "altitude",
@@ -982,12 +995,12 @@ const ru: CompassContent = {
     {
       "icon": "sunmoon",
       "title": "Солнце и Луна",
-      "desc": "Высота и азимут, восход и заход Солнца и Луны для любой точки — планируйте свет и тени."
+      "desc": "Высота и азимут, восход и заход Солнца и Луны для любой точки. Планируйте свет и тени."
     },
     {
       "icon": "camera",
       "title": "Помощник фотографа",
-      "desc": "Золотой и синий час вместе с направлением по компасу — вы точно знаете, куда упадёт свет."
+      "desc": "Золотой и синий час вместе с направлением по компасу. Вы точно знаете, куда упадёт свет."
     },
     {
       "icon": "coords",
@@ -1001,7 +1014,7 @@ const ru: CompassContent = {
     }
   ],
   "widgetsTitle": "Виджеты на главном экране",
-  "widgetsSubtitle": "Информация о Солнце, Луне и золотом часе одним взглядом — прямо на главном экране.",
+  "widgetsSubtitle": "Информация о Солнце, Луне и золотом часе на главном экране.",
   "widgets": [
     {
       "img": "/compass/widget-golden.png",
@@ -1019,7 +1032,7 @@ const ru: CompassContent = {
       "desc": "Текущая фаза и освещённость."
     }
   ],
-  "useCasesTitle": "Создано для открытого воздуха",
+  "useCasesTitle": "Основные сценарии",
   "useCases": [
     "Походы и исследования",
     "Время для пейзажной съёмки",
@@ -1027,17 +1040,17 @@ const ru: CompassContent = {
     "Путешествия и учёт высоты"
   ],
   "goldenTitle": "Спланируйте свет заранее",
-  "goldenDesc": "Дополните приложение нашим бесплатным инструментом «Золотой час и направление света» — точное время золотого и синего часа плюс направление света по компасу для любого города или места.",
+  "goldenDesc": "Дополните приложение нашим бесплатным инструментом «Золотой час и направление света». Он покажет точное время золотого и синего часа, а также направление света по компасу для любого города или места.",
   "goldenCta": "Открыть инструмент «Золотой час»",
-  "privacyTitle": "Конфиденциальность с самого начала",
-  "privacyDesc": "Геолокация используется только когда вы в приложении — для расчёта высоты и положения Солнца и Луны, без постоянного отслеживания в фоне. Настройки остаются на вашем устройстве; личные данные никуда не передаются.",
-  "closingTitle": "Небо всегда в вашем кармане",
-  "closingDesc": "Высота, направление, Солнце и Луна — быстро, точно и красиво просто.",
+  "privacyTitle": "Геолокация и конфиденциальность",
+  "privacyDesc": "Геолокация используется только когда вы в приложении, для расчёта высоты и положения Солнца и Луны. Постоянного отслеживания в фоне нет. Настройки остаются на вашем устройстве; личные данные никуда не передаются.",
+  "closingTitle": "Compass Altimeter: Солнце и Луна",
+  "closingDesc": "Высота, направление, Солнце и Луна в одном приложении.",
   "backToHub": "Stargazing Hub"
 };
 
 export const compassContent: Record<string, CompassContent> = { en, zh, 'zh-tw': zhTw, de, es, fr, it, ja, ko, nl, pl, ru };
 
 export function getCompass(lang: string): CompassContent {
-  return compassContent[lang] || compassContent.en;
+  return compassContent[lang] ?? compassContent.en!;
 }

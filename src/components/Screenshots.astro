@@ -52,17 +52,16 @@ const getScreenshotImage = (imagePath: string) => allScreenshots[imagePath]?.def
 
 const screenshots = gpConfig.files
   .slice(0, screenshotMeta.length)
-  .map((imagePath, index) => ({
-    ...screenshotMeta[index],
-    imagePath,
-    src: getScreenshotImage(imagePath),
-  }))
-  .filter((screenshot) => screenshot.src);
+  .flatMap((imagePath, index) => {
+    const meta = screenshotMeta[index];
+    const src = getScreenshotImage(imagePath);
+    return meta && src ? [{ ...meta, imagePath, src }] : [];
+  });
 const screenshotCount = screenshots.length;
 ---
 
 <!-- JSON-LD 结构化数据 for SEO -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": t.brand?.name || "Stargazing Hub",
@@ -100,10 +99,10 @@ const screenshotCount = screenshots.length;
       </div>
 
       <h2 class="mb-4">
-        <span class="gradient-text-warm">Beautiful & Intuitive</span>
+        <span class="gradient-text-warm">App screenshots</span>
       </h2>
       <p class="text-[var(--text-secondary)] max-w-2xl mx-auto">
-        Designed for clarity and simplicity. Everything you need at your fingertips.
+        Screens from the current app.
       </p>
     </div>
 
@@ -186,7 +185,7 @@ const screenshotCount = screenshots.length;
   </div>
 </section>
 
-<script define:vars={{ screenshotCount }}>
+<script is:inline define:vars={{ screenshotCount }}>
   let currentScreenshot = 0;
   const totalScreenshots = screenshotCount;
 

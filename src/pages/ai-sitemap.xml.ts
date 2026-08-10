@@ -2,9 +2,12 @@ import { absoluteUrl, featurePages } from '../data/appKnowledge';
 
 export function GET() {
   const urls = [
+    '/',
     '/llms.txt',
     '/llms-full.txt',
     '/data/app.json',
+    '/press/',
+    '/privacy/',
     '/faq/',
     '/faq.md',
     ...featurePages.flatMap((feature) => [

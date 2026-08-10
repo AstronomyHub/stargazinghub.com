@@ -9,68 +9,180 @@ interface Props {
   markdownUrl?: string;
   alternateLinks?: Array<{ hreflang: string; path: string }>;
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+  robots?: string;
+  includeSiteStructuredData?: boolean;
 }
 
 const {
   title = 'Stargazing Hub: Sky Map, Light Pollution & Aurora Forecast',
-  description = 'Plan every night under the stars with a real sky map, stargazing index, light pollution map, aurora forecast, 3D Moon, meteor calendar and astrophotography tools.',
-  image = '/images/icon.png',
+  description = 'Check stargazing conditions, light pollution and the terrain-aware sky map before your next observing night.',
+  image = '/press/stargazinghub-field-workflow-poster.jpg',
   lang = 'en',
   markdownUrl,
   alternateLinks,
-  structuredData
+  structuredData,
+  robots = 'index,follow',
+  includeSiteStructuredData = true,
 } = Astro.props;
 
 import { translations } from '../i18n/ui';
-import { downloadLinks, homepageAlternateLinks, homepagePaths, siteUrl } from '../data/appKnowledge';
+import { getAccessibilityUi } from '../i18n/marketing';
+import { getAppStoreRating, MIN_LOCAL_RATING_COUNT } from '../lib/appStoreRating';
+import LanguageRedirect from '../components/LanguageRedirect.astro';
+import {
+  appIdentity,
+  downloadLinks,
+  homepageAlternateLinks,
+  homepagePaths,
+} from '../data/appKnowledge';
 const t = translations[lang as keyof typeof translations] || translations.en;
+const a11y = getAccessibilityUi(lang);
+const localeMetadata: Record<string, { documentLanguage: string; openGraphLocale: string }> = {
+  en: { documentLanguage: 'en', openGraphLocale: 'en_US' },
+  zh: { documentLanguage: 'zh-Hans', openGraphLocale: 'zh_CN' },
+  'zh-tw': { documentLanguage: 'zh-Hant', openGraphLocale: 'zh_TW' },
+  de: { documentLanguage: 'de', openGraphLocale: 'de_DE' },
+  es: { documentLanguage: 'es', openGraphLocale: 'es_ES' },
+  fr: { documentLanguage: 'fr', openGraphLocale: 'fr_FR' },
+  it: { documentLanguage: 'it', openGraphLocale: 'it_IT' },
+  ja: { documentLanguage: 'ja', openGraphLocale: 'ja_JP' },
+  ko: { documentLanguage: 'ko', openGraphLocale: 'ko_KR' },
+  nl: { documentLanguage: 'nl', openGraphLocale: 'nl_NL' },
+  pl: { documentLanguage: 'pl', openGraphLocale: 'pl_PL' },
+  ru: { documentLanguage: 'ru', openGraphLocale: 'ru_RU' },
+};
+const currentLocaleMetadata = localeMetadata[lang] ?? localeMetadata.en!;
+const documentLanguage = currentLocaleMetadata.documentLanguage;
+const openGraphLocale = currentLocaleMetadata.openGraphLocale;
 const siteTitle = title === 'Stargazing Hub - Sky Live'
   ? `${t.brand?.name} - Sky Map & Forecast`
   : title;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const isIndexable = !robots.toLowerCase().includes('noindex');
+const siteRootURL = new URL('/', Astro.site);
 const currentPath = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
-const resolvedAlternateLinks = alternateLinks ?? (homepagePaths.has(currentPath) ? homepageAlternateLinks : []);
+const isHomepage = homepagePaths.has(currentPath);
+const alternateOpenGraphLocales = isHomepage
+  ? Object.entries(localeMetadata)
+      .filter(([locale]) => locale !== lang)
+      .map(([, metadata]) => metadata.openGraphLocale)
+  : [];
+const resolvedAlternateLinks = alternateLinks ?? (isHomepage ? homepageAlternateLinks : []);
 const markdownAbsoluteUrl = markdownUrl ? new URL(markdownUrl, Astro.site) : null;
-const defaultStructuredData = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": t.brand?.name || "Stargazing Hub",
-  "alternateName": "天文通",
-  "url": siteUrl,
-  "operatingSystem": "iOS, Android",
-  "applicationCategory": "EducationalApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "description": description,
-  "featureList": [
-    "Real-time sky map and AR star chart",
-    "Stargazing index and multi-model hourly forecast",
-    "Light pollution, aurora, Sun, Moon and Milky Way planning maps",
-    "Night-sky photo recognition",
-    "3D Moon, meteor calendar and astrophotography tools"
-  ],
-  "sameAs": [
-    downloadLinks.appStore,
-    downloadLinks.googlePlay,
-    "https://x.com/lpm_app",
-    "https://bsky.app/profile/lightpollutionmap.app",
-    "https://www.facebook.com/StargazingHub"
-  ],
-  "downloadUrl": [downloadLinks.appStore, downloadLinks.googlePlay]
-};
-const structuredDataList = structuredData
-  ? Array.isArray(structuredData) ? structuredData : [structuredData]
-  : [defaultStructuredData];
+const primaryImageURL = new URL(image, Astro.site);
+const primaryImageDimensions = image.includes('field-workflow-poster')
+  ? { width: 1920, height: 1080 }
+  : null;
+const organizationId = `${siteRootURL.href}#organization`;
+const founderId = `${siteRootURL.href}#founder`;
+const websiteId = `${siteRootURL.href}#website`;
+const applicationId = `${siteRootURL.href}#mobile-application`;
+const webpageId = `${canonicalURL.href}#webpage`;
+const primaryImageId = `${canonicalURL.href}#primary-image`;
+const homepageStoreRating = isHomepage ? await getAppStoreRating(lang) : null;
+const aggregateRating = homepageStoreRating?.source === 'app-store'
+  && typeof homepageStoreRating.ratingValue === 'number'
+  && typeof homepageStoreRating.ratingCount === 'number'
+  && homepageStoreRating.ratingCount >= MIN_LOCAL_RATING_COUNT
+  ? {
+      "@type": "AggregateRating",
+      "ratingValue": Number(homepageStoreRating.displayValue),
+      "ratingCount": homepageStoreRating.ratingCount,
+      "bestRating": 5,
+      "worstRating": 1,
+    }
+  : null;
 
-import LanguageRedirect from '../components/LanguageRedirect.astro';
+const siteStructuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": organizationId,
+      "name": appIdentity.name,
+      "alternateName": appIdentity.chineseName,
+      "url": siteRootURL.href,
+      "logo": {
+        "@type": "ImageObject",
+        "@id": `${siteRootURL.href}#logo`,
+        "url": new URL('/images/icon.png', Astro.site).href
+      },
+      "founder": { "@id": founderId },
+      "sameAs": [
+        "https://x.com/lpm_app",
+        "https://bsky.app/profile/lightpollutionmap.app",
+        "https://www.facebook.com/StargazingHub"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": founderId,
+      "name": "Aaron Hsu",
+      "jobTitle": "Independent developer",
+      "url": new URL('/press/', Astro.site).href,
+      "worksFor": { "@id": organizationId }
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      "url": siteRootURL.href,
+      "name": appIdentity.name,
+      "alternateName": appIdentity.chineseName,
+      "publisher": { "@id": organizationId },
+      "about": { "@id": applicationId }
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": applicationId,
+      "name": appIdentity.name,
+      "alternateName": appIdentity.chineseName,
+      "url": siteRootURL.href,
+      "description": appIdentity.summary,
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "EducationalApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": { "@id": founderId },
+      "publisher": { "@id": organizationId },
+      "downloadUrl": [downloadLinks.appStore, downloadLinks.googlePlay],
+      "sameAs": [downloadLinks.appStore, downloadLinks.googlePlay],
+      ...(aggregateRating ? { "aggregateRating": aggregateRating } : {})
+    },
+    {
+      "@type": "ImageObject",
+      "@id": primaryImageId,
+      "url": primaryImageURL.href
+    },
+    {
+      "@type": "WebPage",
+      "@id": webpageId,
+      "url": canonicalURL.href,
+      "name": siteTitle,
+      "description": description,
+      "inLanguage": documentLanguage,
+      "isPartOf": { "@id": websiteId },
+      "about": { "@id": applicationId },
+      "publisher": { "@id": organizationId },
+      "primaryImageOfPage": { "@id": primaryImageId }
+    }
+  ]
+};
+const pageStructuredData = structuredData
+  ? Array.isArray(structuredData) ? structuredData : [structuredData]
+  : [];
+const structuredDataList = [
+  ...(includeSiteStructuredData ? [siteStructuredData] : []),
+  ...pageStructuredData,
+];
+
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={documentLanguage}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,7 +190,7 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
     <meta name="generator" content={Astro.generator} />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
+    {isIndexable && <link rel="canonical" href={canonicalURL} />}
     {resolvedAlternateLinks.map((link) => (
       <link rel="alternate" hreflang={link.hreflang} href={new URL(link.path, Astro.site)} />
     ))}
@@ -90,48 +202,139 @@ import LanguageRedirect from '../components/LanguageRedirect.astro';
     <title>{siteTitle}</title>
     <meta name="title" content={siteTitle} />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={appIdentity.name} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={siteTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta property="og:image" content={primaryImageURL} />
+    <meta property="og:image:alt" content={`${siteTitle} product preview`} />
+    {primaryImageDimensions && <meta property="og:image:width" content={String(primaryImageDimensions.width)} />}
+    {primaryImageDimensions && <meta property="og:image:height" content={String(primaryImageDimensions.height)} />}
+    <meta property="og:locale" content={openGraphLocale} />
+    {alternateOpenGraphLocales.map((locale) => <meta property="og:locale:alternate" content={locale} />)}
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={siteTitle} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL(image, Astro.url)} />
+    <meta property="twitter:image" content={primaryImageURL} />
+    <meta property="twitter:image:alt" content={`${siteTitle} product preview`} />
 
     <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png" />
 
+    <style is:global>
+      .skip-link {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 100;
+        padding: 0.75rem 1rem;
+        border: 1px solid rgb(242 189 85 / 0.8);
+        border-radius: 0.5rem;
+        background: #111827;
+        color: #f8fafc;
+        font-weight: 700;
+        line-height: 1;
+        text-decoration: none;
+        transform: translateY(calc(-100% - 2rem));
+      }
+
+      .skip-link:focus-visible {
+        transform: translateY(0);
+      }
+
+      :where(a, button, input, select, textarea, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+        outline: 3px solid #f2bd55 !important;
+        outline-offset: 3px !important;
+      }
+
+      #main-content:focus {
+        outline: none;
+      }
+
+      @media (forced-colors: active) {
+        .skip-link,
+        :where(a, button, input, select, textarea, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+          outline-color: CanvasText !important;
+        }
+      }
+    </style>
+
     <!-- JSON-LD Structured Data for search engines -->
     {structuredDataList.map((data) => (
-      <script type="application/ld+json" set:html={JSON.stringify(data)}></script>
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(data)}></script>
     ))}
     <!-- Matomo -->
     <script is:inline>
-      var _paq = window._paq = window._paq || [];
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
       (function() {
-        var u="//matomotech.com/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        var productionHosts = ['stargazinghub.com', 'www.stargazinghub.com'];
+        if (!productionHosts.includes(window.location.hostname)) return;
+
+        var _paq = window._paq = window._paq || [];
+        var trackerBaseUrl = 'https://matomotech.com/';
+
+        _paq.push(['setDoNotTrack', true]);
+        _paq.push(['disableCookies']);
+        _paq.push(['setTrackerUrl', trackerBaseUrl + 'matomo.php']);
         _paq.push(['setSiteId', '28']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+
+        document.addEventListener('click', function(event) {
+          var clickedElement = event.target;
+          if (!(clickedElement instanceof Element)) return;
+
+          var storeLink = clickedElement.closest('a[data-store][data-placement]');
+          if (!storeLink) return;
+
+          var store = (storeLink.getAttribute('data-store') || '').trim();
+          var placement = (storeLink.getAttribute('data-placement') || '').trim();
+          if (!store || !placement) return;
+
+          _paq.push(['trackEvent', 'Download', store, placement]);
+        });
+
+        document.addEventListener('click', function(event) {
+          var clickedElement = event.target;
+          if (!(clickedElement instanceof Element)) return;
+
+          var featureLink = clickedElement.closest('a[data-feature][data-placement]');
+          if (featureLink) {
+            var feature = (featureLink.getAttribute('data-feature') || '').trim();
+            var featurePlacement = (featureLink.getAttribute('data-placement') || '').trim();
+            if (feature && featurePlacement) {
+              _paq.push(['trackEvent', 'Feature', feature, featurePlacement]);
+            }
+          }
+
+          var carouselControl = clickedElement.closest('[data-carousel-action]');
+          if (carouselControl) {
+            var carouselAction = (carouselControl.getAttribute('data-carousel-action') || '').trim();
+            if (carouselAction) {
+              _paq.push(['trackEvent', 'Carousel', 'hero', carouselAction]);
+            }
+          }
+        });
+
+        var trackerScript = document.createElement('script');
+        trackerScript.async = true;
+        trackerScript.src = trackerBaseUrl + 'matomo.js';
+        document.head.appendChild(trackerScript);
       })();
     </script>
     <!-- End Matomo -->
   </head>
   <body class="starry-bg">
-    <LanguageRedirect />
-    <div class="min-h-screen flex flex-col">
+    <a class="skip-link" href="#main-content">{a11y.skipToContent}</a>
+    <div id="main-content" tabindex="-1" class="min-h-screen flex flex-col">
       <slot />
     </div>
+    {isHomepage && <LanguageRedirect currentLang={lang} />}
   </body>
 </html>

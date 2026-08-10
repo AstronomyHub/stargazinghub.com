@@ -1,4 +1,5 @@
 const APP_STORE_ID = '1478601599';
+export const MIN_LOCAL_RATING_COUNT = 30;
 
 const countryByLanguage: Record<string, string> = {
   en: 'US',
@@ -17,21 +18,25 @@ const countryByLanguage: Record<string, string> = {
 
 export interface AppStoreRating {
   country: string;
-  ratingValue: number;
-  ratingCount: number;
+  requestedCountry: string;
+  isReference: boolean;
+  ratingValue: number | null;
+  ratingCount: number | null;
   displayValue: string;
   displayCount: string;
-  source: 'app-store' | 'fallback';
+  source: 'app-store' | 'unavailable';
 }
 
-const fallbackRating: AppStoreRating = {
-  country: 'US',
-  ratingValue: 4.7,
-  ratingCount: 0,
-  displayValue: '4.7',
+const unavailableRating = (requestedCountry: string): AppStoreRating => ({
+  country: requestedCountry,
+  requestedCountry,
+  isReference: false,
+  ratingValue: null,
+  ratingCount: null,
+  displayValue: 'N/A',
   displayCount: '',
-  source: 'fallback',
-};
+  source: 'unavailable',
+});
 
 const ratingCache = new Map<string, Promise<AppStoreRating>>();
 
@@ -49,47 +54,82 @@ const normalizeLanguage = (language: string) => language.toLowerCase();
 
 export const getAppStoreRating = async (language = 'en'): Promise<AppStoreRating> => {
   const normalizedLanguage = normalizeLanguage(language);
-  const country = countryByLanguage[normalizedLanguage] || 'US';
-  const cacheKey = `${normalizedLanguage}:${country}`;
+  const requestedCountry = countryByLanguage[normalizedLanguage] || 'US';
+  const cacheKey = `${normalizedLanguage}:${requestedCountry}`;
 
   if (!ratingCache.has(cacheKey)) {
-    ratingCache.set(cacheKey, fetchAppStoreRating(normalizedLanguage, country));
+    ratingCache.set(cacheKey, resolveDisplayRating(normalizedLanguage, requestedCountry));
   }
 
   return ratingCache.get(cacheKey)!;
 };
 
-const fetchAppStoreRating = async (language: string, country: string): Promise<AppStoreRating> => {
+const resolveDisplayRating = async (
+  language: string,
+  requestedCountry: string,
+): Promise<AppStoreRating> => {
+  const usRating = await fetchAppStoreRating(language, 'US', requestedCountry);
+  if (
+    usRating.source === 'app-store'
+    && typeof usRating.ratingCount === 'number'
+    && usRating.ratingCount >= MIN_LOCAL_RATING_COUNT
+  ) {
+    return {
+      ...usRating,
+      isReference: requestedCountry !== 'US',
+    };
+  }
+
+  return unavailableRating(requestedCountry);
+};
+
+const fetchAppStoreRating = async (
+  language: string,
+  country: string,
+  requestedCountry: string,
+): Promise<AppStoreRating> => {
   try {
     const url = `https://itunes.apple.com/lookup?id=${APP_STORE_ID}&country=${country}`;
     const response = await fetch(url, {
       headers: {
         accept: 'application/json',
       },
+      signal: AbortSignal.timeout(5000),
     });
 
     if (!response.ok) {
-      return { ...fallbackRating, country };
+      return unavailableRating(requestedCountry);
     }
 
-    const payload = await response.json();
+    const payload = await response.json() as {
+      results?: Array<{
+        averageUserRating?: number;
+        userRatingCount?: number;
+      }>;
+    };
     const app = payload?.results?.[0];
     const ratingValue = Number(app?.averageUserRating);
     const ratingCount = Number(app?.userRatingCount);
 
-    if (!Number.isFinite(ratingValue) || ratingValue <= 0) {
-      return { ...fallbackRating, country };
+    if (!Number.isFinite(ratingValue) || ratingValue <= 0 || ratingValue > 5) {
+      return unavailableRating(requestedCountry);
     }
+
+    const normalizedRatingCount = Number.isFinite(ratingCount) && ratingCount >= 0
+      ? ratingCount
+      : null;
 
     return {
       country,
+      requestedCountry,
+      isReference: false,
       ratingValue,
-      ratingCount: Number.isFinite(ratingCount) ? ratingCount : 0,
+      ratingCount: normalizedRatingCount,
       displayValue: formatRating(ratingValue),
-      displayCount: formatCount(ratingCount, language),
+      displayCount: normalizedRatingCount === null ? '' : formatCount(normalizedRatingCount, language),
       source: 'app-store',
     };
   } catch {
-    return { ...fallbackRating, country };
+    return unavailableRating(requestedCountry);
   }
 };

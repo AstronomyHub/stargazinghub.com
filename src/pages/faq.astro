@@ -1,66 +1,188 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
-import { faqItems, downloadLinks, siteUrl } from '../data/appKnowledge';
+import { downloadLinks, faqItems, siteUrl } from '../data/appKnowledge';
 import { translations } from '../i18n/ui';
 
 const t = translations.en;
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer,
-    },
-  })),
-};
+const contentReviewedAt = '2026-08-10';
+const pageUrl = new URL('/faq/', siteUrl).toString();
+const formattedUpdatedAt = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${contentReviewedAt}T00:00:00Z`));
+
+const answerLinks = [
+  { href: '/features/', label: 'Compare all app features' },
+  { href: '/features/light-pollution-map/', label: 'Read about the light pollution map' },
+  { href: '/features/sky-recognition/', label: 'See how sky recognition works' },
+  { href: '/features/astrophotography-tools/', label: 'Read about astrophotography tools' },
+  { href: '/features/aurora-forecast/', label: 'Read about the aurora forecast' },
+  { href: '/features/', label: 'Browse the full feature guide' },
+];
+
+const relatedFeatures = [
+  { href: '/features/stargazing-forecast/', title: 'Stargazing Forecast', detail: 'Clouds, seeing, transparency, Moon and hourly observing conditions.' },
+  { href: '/features/sky-map/', title: 'Sky Map', detail: 'Preview the visible sky for a selected place and time.' },
+  { href: '/features/light-pollution-map/', title: 'Light Pollution Map', detail: 'Compare locations before making a dark-sky trip.' },
+  { href: '/features/astrophotography-tools/', title: 'Astrophotography Tools', detail: 'Plan framing, equipment combinations and mosaics.' },
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    name: 'Stargazing Hub FAQ',
+    url: pageUrl,
+    dateModified: contentReviewedAt,
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'FAQ',
+        item: pageUrl,
+      },
+    ],
+  },
+];
 ---
 
 <Layout
-  title="Stargazing Hub FAQ | Sky Map, Forecast and Planning"
-  description="Answers about Stargazing Hub features, pricing, light pollution maps, sky recognition, aurora planning and astrophotography tools."
+  title="Stargazing Hub FAQ | Features, Pricing and Planning"
+  description="Answers about Stargazing Hub pricing, light pollution maps, sky photo recognition, aurora planning, astrophotography tools and supported languages."
   lang="en"
   markdownUrl="/faq.md"
   structuredData={structuredData}
 >
-  <main class="relative z-10 px-6 pt-24 pb-20">
-    <div class="max-w-4xl mx-auto">
-      <a href="/" class="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-8">
-        <span aria-hidden="true">←</span>
-        Stargazing Hub
-      </a>
+  <main class="sg-subpage faq-page">
+    <section class="sg-subpage-hero">
+      <div class="sg-shell">
+        <nav aria-label="Breadcrumb" class="sg-breadcrumb">
+          <ol class="flex items-center gap-2 text-sm text-[var(--text-muted)]">
+            <li><a href="/" class="transition-colors hover:text-white">Stargazing Hub</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-[var(--text-secondary)]" aria-current="page">FAQ</li>
+          </ol>
+        </nav>
 
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6">
-        <span class="w-2 h-2 rounded-full bg-[var(--oxygen-blue)]"></span>
-        <span class="text-sm text-[var(--text-secondary)]">Product FAQ</span>
+        <div class="sg-index-intro">
+          <p class="sg-eyebrow">Questions and answers</p>
+          <h1 class="sg-subpage-title">Stargazing Hub FAQ</h1>
+          <p class="sg-subpage-lead">
+            Pricing, supported devices, languages and the main astronomy features.
+          </p>
+          <p class="sg-reviewed">
+            Answers reviewed <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time>
+          </p>
+        </div>
       </div>
+    </section>
 
-      <h1 class="text-[clamp(2.7rem,7vw,5.5rem)] mb-6">
-        <span class="gradient-text-cool">Stargazing Hub FAQ</span>
-      </h1>
+    <section class="sg-subpage-section">
+      <div class="sg-shell grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <aside class="lg:col-span-3">
+          <div class="lg:sticky lg:top-24">
+            <h2 class="text-2xl">Quick navigation</h2>
+            <nav aria-label="FAQ questions" class="mt-5">
+              <ol class="space-y-3 text-sm text-[var(--text-muted)]">
+                {faqItems.map((item, index) => (
+                  <li><a href={`#question-${index + 1}`} class="leading-relaxed transition-colors hover:text-white">{item.question}</a></li>
+                ))}
+              </ol>
+            </nav>
+          </div>
+        </aside>
 
-      <p class="text-lg sm:text-xl text-[var(--text-secondary)] leading-relaxed mb-10">
-        Clear answers for search engines, AI assistants and users who want to understand what Stargazing Hub can do before downloading it.
-      </p>
+        <div class="lg:col-span-8 lg:col-start-5">
+          {faqItems.map((item, index) => {
+            const answerLink = answerLinks[index];
 
-      <div class="space-y-5">
-        {faqItems.map((item) => (
-          <section class="glass-card p-6 sm:p-7">
-            <h2 class="text-2xl sm:text-3xl mb-4">{item.question}</h2>
-            <p class="text-[var(--text-secondary)] leading-relaxed">{item.answer}</p>
-          </section>
-        ))}
+            return (
+              <section id={`question-${index + 1}`} class="scroll-mt-24 border-t border-white/10 py-8 first:pt-0">
+                <h2 class="text-2xl sm:text-3xl">{item.question}</h2>
+                <p class="mt-4 text-lg leading-relaxed text-[var(--text-secondary)]">{item.answer}</p>
+                {answerLink && (
+                  <a href={answerLink.href} class="sg-inline-link mt-5 inline-block">
+                    {answerLink.label} →
+                  </a>
+                )}
+              </section>
+            );
+          })}
+        </div>
       </div>
+    </section>
 
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a class="btn-primary no-underline" href={downloadLinks.appStore}>Download on App Store</a>
-        <a class="btn-secondary no-underline" href={downloadLinks.googlePlay}>Get it on Google Play</a>
-        <a class="btn-secondary no-underline" href={`${siteUrl}/llms-full.txt`}>AI Knowledge File</a>
+    <section class="sg-subpage-section">
+      <div class="sg-shell border-y border-white/10 py-14">
+        <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 class="text-3xl sm:text-4xl">Feature guides</h2>
+            <p class="mt-3 text-[var(--text-secondary)]">Each guide includes a product screenshot, feature details and known limits.</p>
+          </div>
+          <a href="/features/" class="sg-inline-link">View all features →</a>
+        </div>
+
+        <div class="grid gap-x-10 md:grid-cols-2">
+          {relatedFeatures.map((feature) => (
+            <a href={feature.href} class="group flex items-start justify-between gap-6 border-t border-white/10 py-6 no-underline">
+              <span>
+                <span class="block text-xl font-semibold text-white">{feature.title}</span>
+                <span class="mt-2 block text-sm leading-relaxed text-[var(--text-muted)]">{feature.detail}</span>
+              </span>
+              <span class="mt-1 shrink-0 text-[var(--text-muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-related">
+      <div class="sg-shell sg-subpage-cta">
+        <div>
+          <h2 class="text-3xl sm:text-4xl">Download the app</h2>
+          <p class="mt-3 max-w-2xl leading-relaxed text-[var(--text-secondary)]">Stargazing Hub is available for iOS and Android.</p>
+        </div>
+        <div class="flex flex-wrap gap-3 lg:justify-end">
+          <a class="sg-button sg-button-primary" href={downloadLinks.appStore} data-store="app-store" data-placement="faq">App Store</a>
+          <a class="sg-button sg-button-secondary" href={downloadLinks.googlePlay} data-store="google-play" data-placement="faq">Google Play</a>
+        </div>
+      </div>
+    </section>
   </main>
   <Footer t={t} lang="en" />
 </Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .faq-page :global(section),
+    .faq-page :global(div),
+    .faq-page :global(p),
+    .faq-page :global(h1),
+    .faq-page :global(h2),
+    .faq-page :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>

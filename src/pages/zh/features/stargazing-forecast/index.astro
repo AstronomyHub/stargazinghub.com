@@ -1,0 +1,280 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import Footer from '../../../../components/Footer.astro';
+import { downloadLinks, siteUrl } from '../../../../data/appKnowledge';
+import { translations } from '../../../../i18n/ui';
+
+const lang = 'zh';
+const t = translations[lang];
+const contentReviewedAt = '2026-08-10';
+const pageUrl = new URL('/zh/features/stargazing-forecast/', siteUrl).toString();
+const image = {
+  src: '/press/stargazinghub-observing-forecast.webp',
+  alt: 'Stargazing Hub 观测预报页面，显示观星指数、月相和逐小时条件',
+  caption: '观测预报把观星指数、月相和逐小时天文天气放在同一个页面里。',
+  width: 1080,
+  height: 1920,
+};
+const imageUrl = new URL(image.src, siteUrl).toString();
+const appStoreUrl = t.links?.appStore || downloadLinks.appStore;
+const googlePlayUrl = t.links?.googlePlay || downloadLinks.googlePlay;
+const [updatedYear, updatedMonth, updatedDay] = contentReviewedAt.split('-');
+const formattedUpdatedAt = `${updatedYear} 年 ${Number(updatedMonth)} 月 ${Number(updatedDay)} 日`;
+
+const featureHighlights = [
+  '总览里的观星指数和月相',
+  '逐小时云量变化',
+  '视宁度、透明度和月光影响',
+  '来自多个天气模型的小时预报',
+];
+
+const forecastDetails = [
+  {
+    title: '观星总览',
+    text: '观星指数概括今晚的整体条件，同时显示月相和月光影响。',
+  },
+  {
+    title: '逐小时变化',
+    text: '查看云量、视宁度和透明度在接下来几个小时里的变化。',
+  },
+  {
+    title: '多模型预报',
+    text: '对比不同天气模型给出的小时预报，判断哪些时段更稳定。',
+  },
+  {
+    title: '地点与目标',
+    text: '光污染地图用于比较地点，星图用于确认目标、方向和地平线。',
+  },
+];
+
+const limitations = [
+  '天文模拟和天气预报只用于规划，不能作为涉及安全的导航依据。',
+  '天气和极光条件可能快速变化，出发前请再次核对当地情况。',
+  '光污染和地形信息有助于规划，但不能保证每个地点的实际天空亮度完全一致。',
+];
+
+const relatedFeatures = [
+  {
+    href: '/features/stargazing-forecast/',
+    title: '观星预报英文功能页',
+    detail: '查看观星指数和多模型逐小时天气的完整英文说明。',
+  },
+  {
+    href: '/features/light-pollution-map/',
+    title: '光污染地图英文功能页',
+    detail: '了解如何比较地点、月光和银河规划条件。',
+  },
+  {
+    href: '/features/sky-map/',
+    title: '真实星图英文功能页',
+    detail: '按地点和时间预览目标、方向与地平线。',
+  },
+  {
+    href: '/features/3d-moon/',
+    title: '3D 月球英文功能页',
+    detail: '查看月相、月面地标和月光规划功能。',
+  },
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: '观星指数与天文天气预报',
+    description: '介绍天文通的观星指数、云量、视宁度、透明度、月光和多模型逐小时天文天气。',
+    url: pageUrl,
+    inLanguage: 'zh-Hans',
+    dateModified: contentReviewedAt,
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      contentUrl: imageUrl,
+      caption: image.caption,
+    },
+    mainEntity: {
+      '@type': 'SoftwareApplication',
+      '@id': new URL('/#mobile-application', siteUrl).toString(),
+      name: 'Stargazing Hub（天文通）',
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'iOS, Android',
+      description: '一款提供观星指数、天文天气预报、光污染地图和真实星图的天文规划应用。',
+      featureList: featureHighlights,
+      installUrl: [appStoreUrl, googlePlayUrl],
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: '天文通',
+        item: new URL('/zh/', siteUrl).toString(),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '观星指数与天文天气',
+        item: pageUrl,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="观星指数与天文天气预报 | 天文通"
+  description="查看观星指数、云量、视宁度、透明度、月光和多模型逐小时天文天气，判断今晚是否适合观测。"
+  image={image.src}
+  lang={lang}
+  alternateLinks={[
+    { hreflang: 'x-default', path: '/features/stargazing-forecast/' },
+    { hreflang: 'en', path: '/features/stargazing-forecast/' },
+    { hreflang: 'zh-Hans', path: '/zh/features/stargazing-forecast/' },
+  ]}
+  structuredData={structuredData}
+>
+  <main class="sg-subpage localized-feature">
+    <section class="sg-subpage-hero">
+      <div class="sg-shell">
+        <nav aria-label="面包屑导航" class="sg-breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+            <li><a href="/zh/" class="transition-colors hover:text-white">天文通</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-[var(--text-secondary)]" aria-current="page">观星指数与天文天气</li>
+          </ol>
+        </nav>
+
+        <div class="sg-detail-hero-grid">
+          <div>
+            <p class="sg-eyebrow">观星指数与天文天气</p>
+            <h1 class="sg-subpage-title">用观星指数判断今晚要不要出门</h1>
+            <p class="sg-subpage-lead">
+              把云量、视宁度、透明度、月光和逐小时天文天气放在一起看。
+            </p>
+            <div class="sg-store-actions">
+              <a class="sg-button sg-button-primary" href={appStoreUrl} data-store="app-store" data-placement="zh-stargazing-forecast">App Store</a>
+              <a class="sg-button sg-button-secondary" href={googlePlayUrl} data-store="google-play" data-placement="zh-stargazing-forecast">Google Play</a>
+            </div>
+            <p class="sg-reviewed">内容审查日期：<time datetime={contentReviewedAt}>{formattedUpdatedAt}</time></p>
+          </div>
+
+          <figure class="sg-detail-figure">
+            <div class="sg-detail-screen">
+              <img
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                class="h-auto w-full"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </div>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section">
+      <div class="sg-shell grid gap-12 border-y border-white/10 py-14 lg:grid-cols-12 lg:gap-16">
+        <article class="lg:col-span-7">
+          <h2 class="text-3xl sm:text-4xl">观星指数是什么？</h2>
+          <p class="mt-6 text-lg leading-relaxed text-[var(--text-secondary)]">
+            观星指数把云量、视宁度、透明度和月光等条件汇总成一个结果，适合快速查看现在或今晚的大致情况。
+          </p>
+          <p class="mt-5 leading-relaxed text-[var(--text-secondary)]">
+            要看具体变化，可以打开逐小时预报逐项核对。安排整晚观测时，不要只看一个指数。
+          </p>
+        </article>
+
+        <aside class="lg:col-span-4 lg:col-start-9">
+          <h2 class="text-2xl sm:text-3xl">天文天气重点看什么？</h2>
+          <ul class="mt-7 space-y-5 text-[var(--text-secondary)]">
+            {featureHighlights.map((item) => (
+              <li class="border-l border-[var(--sg-accent)] pl-4 leading-relaxed">{item}</li>
+            ))}
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section">
+      <div class="sg-shell">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl">预报里能看到什么</h2>
+          <p class="mt-4 leading-relaxed text-[var(--text-secondary)]">除了观星指数，还可以查看逐小时变化、多个天气模型、光污染和目标方位。</p>
+        </div>
+        <div class="mt-10 grid gap-x-12 gap-y-10 md:grid-cols-2">
+          {forecastDetails.map((item) => (
+            <article class="border-l border-white/15 pl-6">
+              <h3 class="text-xl sm:text-2xl">{item.title}</h3>
+              <p class="mt-3 leading-relaxed text-[var(--text-secondary)]">{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-tight">
+      <div class="sg-shell sg-info-panel">
+        <div class="grid gap-8 lg:grid-cols-[0.65fr_1.35fr] lg:gap-12">
+          <div>
+            <h2 class="text-2xl sm:text-3xl">使用时要注意</h2>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">出发前重新核对当地情况，不要把预报当成安全依据。</p>
+          </div>
+          <ul class="space-y-4 text-[var(--text-secondary)]">
+            {limitations.map((item) => (
+              <li class="flex gap-3 leading-relaxed">
+                <span class="sg-list-mark" aria-hidden="true"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-related">
+      <div class="sg-shell">
+        <div class="mb-8 max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl">继续查看相关功能</h2>
+          <p class="mt-3 text-[var(--text-secondary)]">下面链接前往英文官方功能页。</p>
+        </div>
+        <div class="grid gap-x-10 md:grid-cols-2">
+          {relatedFeatures.map((feature) => (
+            <a
+              href={feature.href}
+              hreflang="en"
+              class="group flex items-start justify-between gap-6 border-t border-white/10 py-6 no-underline"
+            >
+              <span>
+                <span class="block text-xl font-semibold text-white transition-colors group-hover:text-[var(--sg-accent)]">{feature.title}</span>
+                <span class="mt-2 block text-sm leading-relaxed text-[var(--text-muted)]">{feature.detail}</span>
+              </span>
+              <span class="mt-1 shrink-0 text-[var(--text-muted)] transition-transform group-hover:translate-x-1 group-hover:text-white" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+        <a href="/zh/" class="sg-inline-link mt-8 inline-block">返回天文通中文页 →</a>
+      </div>
+    </section>
+  </main>
+  <Footer t={t} lang={lang} />
+</Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .localized-feature :global(section),
+    .localized-feature :global(div),
+    .localized-feature :global(p),
+    .localized-feature :global(h1),
+    .localized-feature :global(h2),
+    .localized-feature :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>

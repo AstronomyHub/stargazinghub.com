@@ -1,0 +1,194 @@
+---
+import { astronomyEvents, astronomyEventsReviewedAt } from '../data/astronomyEvents';
+import { getAstronomyEventCopy } from '../i18n/astronomyEvents';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const copy = getAstronomyEventCopy(lang);
+const recentCutoff = Date.now() - 6 * 60 * 60 * 1000;
+const upcomingEvents = astronomyEvents.filter((event) => new Date(event.startsAt).getTime() >= recentCutoff);
+
+const dateFormatter = new Intl.DateTimeFormat(copy.localeTag, {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+  timeZone: 'UTC',
+});
+
+const timeFormatter = new Intl.DateTimeFormat(copy.localeTag, {
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+  timeZone: 'UTC',
+});
+
+const formatDate = (date: Date) => {
+  const formatted = dateFormatter.format(date);
+  return lang === 'zh' || lang === 'zh-tw'
+    ? formatted.replace(/(\d)(?=[年月日])/g, '$1 ').replace(/([年月])(?=\d)/g, '$1 ')
+    : formatted;
+};
+
+const sourceSeparator = lang === 'zh' || lang === 'zh-tw' || lang === 'ja' ? '：' : ': ';
+---
+
+{upcomingEvents.length > 0 && (
+  <section class="astronomy-events relative isolate overflow-hidden px-6 py-20" id="events" aria-labelledby="astronomy-events-title">
+    <div class="cosmic-nebula nebula-2" style="right:-12%;top:8%"></div>
+    <div class="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.35fr] lg:items-start lg:gap-16">
+      <header class="astronomy-events-intro">
+        <h2 id="astronomy-events-title"><span class="gradient-text-cyan">{copy.title}</span></h2>
+        <p>{copy.subtitle}</p>
+        <a href="#download" data-feature="astronomy-events" data-placement="events">{copy.featureLink}</a>
+      </header>
+
+      <div class="astronomy-events-list glass" role="list">
+        {upcomingEvents.map((event) => {
+          const startsAt = new Date(event.startsAt);
+          return (
+            <article class="astronomy-event-row" role="listitem" data-event-id={event.id}>
+              <time datetime={event.startsAt}>
+                <strong>{formatDate(startsAt)}</strong>
+                <span>{timeFormatter.format(startsAt)} UTC</span>
+              </time>
+              <div>
+                <h3>{copy.names[event.name]}</h3>
+                <a href={event.sourceUrl} target="_blank" rel="noopener noreferrer">
+                  {copy.source}{sourceSeparator}{event.sourceLabel}
+                </a>
+              </div>
+            </article>
+          );
+        })}
+        <p class="astronomy-events-reviewed" data-reviewed-at={astronomyEventsReviewedAt}>{copy.checked}</p>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .astronomy-events-intro {
+    max-width: 34rem;
+  }
+
+  .astronomy-events-intro h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1.05;
+  }
+
+  .astronomy-events-intro p {
+    max-width: 32rem;
+    margin: 1.2rem 0 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .astronomy-events-intro a {
+    display: inline-flex;
+    margin-top: 1.6rem;
+    color: var(--nitrogen-cyan);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .astronomy-events-intro a:hover {
+    color: var(--text-primary);
+  }
+
+  .astronomy-events-list {
+    overflow: hidden;
+    border-radius: 1.15rem;
+  }
+
+  .astronomy-event-row {
+    display: grid;
+    grid-template-columns: minmax(8.25rem, 0.65fr) minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: center;
+    min-width: 0;
+    padding: 1.15rem 1.3rem;
+  }
+
+  .astronomy-event-row + .astronomy-event-row {
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  .astronomy-event-row time,
+  .astronomy-event-row > div {
+    min-width: 0;
+  }
+
+  .astronomy-event-row time strong,
+  .astronomy-event-row time span {
+    display: block;
+  }
+
+  .astronomy-event-row time strong {
+    color: var(--text-primary);
+    font-size: 0.95rem;
+  }
+
+  .astronomy-event-row time span,
+  .astronomy-event-row a,
+  .astronomy-events-reviewed {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  .astronomy-event-row time span {
+    margin-top: 0.25rem;
+  }
+
+  .astronomy-event-row h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    line-height: 1.25;
+  }
+
+  .astronomy-event-row a {
+    display: inline-block;
+    margin-top: 0.38rem;
+    text-decoration: none;
+  }
+
+  .astronomy-event-row a:hover {
+    color: var(--nitrogen-cyan);
+  }
+
+  .astronomy-events-reviewed {
+    margin: 0;
+    padding: 0.8rem 1.3rem;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  @media (max-width: 640px) {
+    .astronomy-events {
+      padding-block: 4rem;
+    }
+
+    .astronomy-event-row {
+      grid-template-columns: minmax(6.75rem, 0.7fr) minmax(0, 1fr);
+      gap: 0.8rem;
+      padding: 1rem;
+    }
+
+    .astronomy-event-row time strong {
+      font-size: 0.82rem;
+    }
+
+    .astronomy-event-row h3 {
+      font-size: 0.94rem;
+    }
+
+    .astronomy-events-reviewed {
+      padding-inline: 1rem;
+    }
+  }
+</style>

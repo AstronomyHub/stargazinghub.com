@@ -14,7 +14,7 @@ const media = [
     alt: 'Stargazing Hub observing forecast with stargazing index, Moon phase, and hourly conditions',
   },
   {
-    title: 'Offline sky recognition',
+    title: 'Photo-based sky recognition',
     description: 'A real wide-field night-sky photo resolved locally on the device.',
     src: '/press/stargazinghub-sky-recognition.webp',
     alt: 'Stargazing Hub sky recognition result showing constellations over a night-sky photo',
@@ -37,7 +37,7 @@ const structuredData = {
   '@type': 'WebPage',
   name: 'Stargazing Hub Press and Editorial Resources',
   description:
-    'Official product facts, editorial images, a short workflow demo, and media contact information for Stargazing Hub.',
+    'Official product facts, editorial images, a 30-second product demo and media contact information for Stargazing Hub.',
   url: pressUrl,
   about: {
     '@type': 'SoftwareApplication',
@@ -51,7 +51,7 @@ const structuredData = {
 
 <Layout
   title="Stargazing Hub Press & Editorial Resources"
-  description="Official Stargazing Hub product facts, downloadable editorial images, a short workflow demo, and media contact information."
+  description="Official Stargazing Hub product facts, downloadable editorial images, a 30-second product demo and media contact information."
   image="/press/stargazinghub-field-workflow-poster.jpg"
   lang="en"
   structuredData={structuredData}
@@ -65,16 +65,15 @@ const structuredData = {
         </a>
 
         <div class="press-eyebrow">PRESS &amp; EDITORIAL RESOURCES</div>
-        <h1>From planning the night<br />to understanding the photograph.</h1>
+        <h1>Product facts, screenshots<br />and a 30-second demo.</h1>
         <p class="press-lead">
-          Stargazing Hub is an observing and astrophotography companion for iPhone,
-          iPad, and Android. It combines multi-model forecasts, offline sky-photo
-          recognition, a multilingual terrain-aware star chart, and light-pollution
-          planning tools.
+          Stargazing Hub runs on iPhone, iPad and Android. It includes multi-model
+          observing forecasts, on-device sky-photo recognition, a multilingual
+          terrain-aware star chart and light-pollution maps.
         </p>
 
         <div class="press-actions">
-          <a class="press-primary" href="#demo">Watch the 60-second workflow</a>
+          <a class="press-primary" href="#demo">Watch the 30-second demo</a>
           <a class="press-secondary" href="/press/stargazinghub-press-kit-2026.zip" download>
             Download the media kit
           </a>
@@ -87,7 +86,7 @@ const structuredData = {
           </div>
           <div>
             <dt>Availability</dt>
-            <dd>Free download, optional ad-free support</dd>
+            <dd>Free version; premium tools and data vary by platform and region</dd>
           </div>
           <div>
             <dt>Media contact</dt>
@@ -100,13 +99,12 @@ const structuredData = {
     <section class="press-section" id="demo">
       <div class="press-shell press-grid">
         <div>
-          <div class="press-eyebrow">FIELD WORKFLOW</div>
-          <h2>A useful answer before and after the shutter.</h2>
+          <div class="press-eyebrow">PRODUCT DEMO</div>
+          <h2>Current product screens, recorded in the app.</h2>
           <p>
-            The workflow starts with deciding whether a night is worth the trip,
-            continues through location and sky planning, and ends by identifying
-            the field captured in a real photograph. The demo uses current English
-            product screens and contains no simulated interface.
+            The video shows the English version of Stargazing Hub checking an
+            observing forecast, comparing a location, opening the star chart and
+            identifying a real night-sky photo. The interface is not simulated.
           </p>
           <ul class="press-list">
             <li>Compare hourly and 15-day observing conditions.</li>
@@ -121,13 +119,13 @@ const structuredData = {
             playsinline
             preload="metadata"
             poster="/press/stargazinghub-field-workflow-poster.jpg"
-            aria-label="A 60-second Stargazing Hub product workflow"
+            aria-label="A 30-second Stargazing Hub product demo"
           >
             <source src="/press/stargazinghub-field-workflow-2026.mp4" type="video/mp4" />
             <a href="/press/stargazinghub-field-workflow-2026.mp4">Download the demo video</a>
           </video>
           <div class="press-video-meta">
-            <span>60 seconds · 1080p · captions on screen</span>
+            <span>30 seconds · 1080p · captions on screen</span>
             <a href="/press/stargazinghub-field-workflow-2026.mp4" download>Download MP4</a>
           </div>
         </div>
@@ -139,7 +137,7 @@ const structuredData = {
         <div class="press-section-heading">
           <div>
             <div class="press-eyebrow">DOWNLOADABLE IMAGES</div>
-            <h2>Four views of the core experience.</h2>
+            <h2>Four current product screens.</h2>
           </div>
           <p>
             Each image is 1080 × 1920. Editorial cropping is permitted; visible
@@ -168,13 +166,13 @@ const structuredData = {
       <div class="press-shell press-story-grid">
         <article>
           <div class="press-eyebrow">WHY IT EXISTS</div>
-          <h2>Built from a missed observing plan.</h2>
+          <h2>Why Aaron Hsu started Stargazing Hub.</h2>
           <p>
             Aaron Hsu is an amateur astronomer, product manager, and independent
             developer. He began building Stargazing Hub in 2018 after 7Timer became
-            unavailable while he was planning a planetary-imaging session. Observing
-            trips with friends continue to shape the product around practical field
-            decisions rather than a catalogue of isolated features.
+            unavailable while he was planning a planetary-imaging session. He still
+            uses observing trips with friends to decide which field tools to add or
+            change.
           </p>
         </article>
 
@@ -194,18 +192,18 @@ const structuredData = {
       <div class="press-shell">
         <div>
           <div class="press-eyebrow">CONTACT &amp; LINKS</div>
-          <h2>Review access and additional materials.</h2>
+          <h2>Request review access or additional materials.</h2>
         </div>
         <div class="press-contact-links">
           <a href="mailto:axxu0607@gmail.com">
             <span>Editorial contact</span>
             <strong>Aaron Hsu · axxu0607@gmail.com</strong>
           </a>
-          <a href={downloadLinks.appStore}>
+          <a href={downloadLinks.appStore} data-store="app-store" data-placement="press">
             <span>iPhone and iPad</span>
             <strong>View on the App Store</strong>
           </a>
-          <a href={downloadLinks.googlePlay}>
+          <a href={downloadLinks.googlePlay} data-store="google-play" data-placement="press">
             <span>Android</span>
             <strong>View on Google Play</strong>
           </a>

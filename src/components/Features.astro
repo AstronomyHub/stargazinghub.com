@@ -1,248 +1,153 @@
 ---
+import { getMarketingUi } from '../i18n/marketing';
+
 interface Props {
   t: any;
+  lang?: string;
 }
 
-const { t } = Astro.props;
+const { t, lang = 'en' } = Astro.props;
+const ui = getMarketingUi(lang);
+
+const featureHref = (slug: string) => {
+  if (lang === 'zh' && slug === 'stargazing-forecast') {
+    return '/zh/features/stargazing-forecast/';
+  }
+  if (lang === 'it' && slug === 'light-pollution-map') {
+    return '/it/features/light-pollution-map/';
+  }
+  return `/features/${slug}/`;
+};
 
 const features = [
   {
-    key: 'starMap',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
-    </svg>`,
-    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]'
-  },
-  {
     key: 'weather',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M17.5 19c0-3.037-2.463-5.5-5.5-5.5S6.5 15.963 6.5 19"/>
-      <circle cx="12" cy="10" r="3"/>
-      <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
-      <path d="M12 2v2"/>
-      <path d="M4.22 5.22l1.42 1.42"/>
-      <path d="M1 12h2"/>
-      <path d="M19.78 5.22l-1.42 1.42"/>
-      <path d="M21 12h2"/>
-    </svg>`,
-    gradient: 'from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)]'
-  },
-  {
-    key: 'solar',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="4"/>
-      <path d="M12 2v2"/>
-      <path d="M12 20v2"/>
-      <path d="M2 12h2"/>
-      <path d="M20 12h2"/>
-      <path d="M4.93 4.93l1.41 1.41"/>
-      <path d="M17.66 17.66l1.41 1.41"/>
-      <path d="M4.93 19.07l1.41-1.41"/>
-      <path d="M17.66 6.34l1.41-1.41"/>
-    </svg>`,
-    gradient: 'from-[var(--sulfur-gold)] to-[var(--oxygen-blue)]'
-  },
-  {
-    key: 'deepSpace',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="12" cy="12" rx="10" ry="6"/>
-      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(60 12 12)"/>
-      <ellipse cx="12" cy="12" rx="10" ry="6" transform="rotate(120 12 12)"/>
-      <circle cx="12" cy="12" r="2" fill="currentColor"/>
-    </svg>`,
-    gradient: 'from-[var(--carbon-purple)] to-[var(--nitrogen-cyan)]'
-  },
-  {
-    key: 'meteor',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 12l10 10 10-10L12 2z"/>
-      <path d="M12 2v20"/>
-      <path d="M2 12h20"/>
-      <circle cx="12" cy="12" r="3" fill="currentColor"/>
-      <path d="M12 9l3-3"/>
-      <path d="M12 9l-3-3"/>
-      <path d="M12 15l3 3"/>
-      <path d="M12 15l-3 3"/>
-    </svg>`,
-    gradient: 'from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)]'
+    slug: 'stargazing-forecast',
+    gradient: 'from-[var(--oxygen-blue)] to-[var(--nitrogen-cyan)]',
+    icon: '<path d="M17.5 19c0-3.04-2.46-5.5-5.5-5.5S6.5 15.96 6.5 19"/><circle cx="12" cy="10" r="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 2v2M4.22 5.22l1.42 1.42M1 12h2M19.78 5.22l-1.42 1.42M21 12h2"/>',
   },
   {
     key: 'satellite',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-      <path d="M2 12h20"/>
-    </svg>`,
-    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]'
+    slug: 'light-pollution-map',
+    gradient: 'from-[var(--hydrogen-pink)] to-[var(--carbon-purple)]',
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10zM2 12h20"/>',
   },
   {
-    key: 'tools',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="3"/>
-      <path d="M12 2v4"/>
-      <path d="M12 18v4"/>
-      <path d="M4.93 4.93l2.83 2.83"/>
-      <path d="M16.24 16.24l2.83 2.83"/>
-      <path d="M2 12h4"/>
-      <path d="M18 12h4"/>
-      <path d="M4.93 19.07l2.83-2.83"/>
-      <path d="M16.24 7.76l2.83-2.83"/>
-    </svg>`,
-    gradient: 'from-[var(--hydrogen-pink)] to-[var(--sulfur-gold)]'
+    key: 'starMap',
+    slug: 'sky-map',
+    gradient: 'from-[var(--carbon-purple)] to-[var(--oxygen-blue)]',
+    icon: '<path d="M12 2 2 7l10 5 10-5-10-5ZM2 17l10 5 10-5M2 12l10 5 10-5"/><circle cx="12" cy="12" r="2" fill="currentColor"/>',
   },
   {
     key: 'free',
-    icon: `<svg class="w-8 h-8" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-      <path d="M12 22V12"/>
-      <path d="M17 8.5L12 5l-5 3.5"/>
-    </svg>`,
-    gradient: 'from-[var(--nitrogen-cyan)] to-[var(--oxygen-blue)]'
-  }
-];
+    slug: 'sky-recognition',
+    gradient: 'from-[var(--nitrogen-cyan)] to-[var(--oxygen-blue)]',
+    icon: '<path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4"/><path d="m8 15 2.5-3 2 2 1.5-2 2 3H8Z"/><circle cx="9" cy="9" r="1" fill="currentColor"/>',
+  },
+  {
+    key: 'aurora',
+    slug: 'aurora-forecast',
+    gradient: 'from-[var(--oxygen-blue)] to-[var(--carbon-purple)]',
+    icon: '<path d="M3 17c3-8 6 4 9-5s6 3 9-5M3 21c3-6 6 3 9-4s6 2 9-4"/><path d="M5 4h.01M12 2h.01M19 4h.01"/>',
+  },
+  {
+    key: 'solar',
+    slug: '3d-moon',
+    gradient: 'from-[var(--sulfur-gold)] to-[var(--oxygen-blue)]',
+    icon: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+  },
+  {
+    key: 'meteor',
+    slug: 'meteor-shower-calendar',
+    gradient: 'from-[var(--sulfur-gold)] to-[var(--hydrogen-pink)]',
+    icon: '<path d="m14 4-2.2 4.8L7 11l4.8 2.2L14 18l2.2-4.8L21 11l-4.8-2.2L14 4Z"/><path d="M3 4h5M2 8h6M4 12h3"/>',
+  },
+  {
+    key: 'tools',
+    slug: 'astrophotography-tools',
+    gradient: 'from-[var(--hydrogen-pink)] to-[var(--sulfur-gold)]',
+    icon: '<circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>',
+  },
+] as const;
 ---
 
-<section class="relative py-20 px-6 overflow-hidden">
-  <div class="max-w-7xl mx-auto">
-    <!-- 区域标题 -->
-    <div class="text-center mb-12">
-      <!-- 装饰标签 -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full glass mb-6 max-w-full">
-        <svg class="w-3.5 h-3.5 md:w-4 md:h-4 text-[var(--oxygen-blue)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-        </svg>
-        <span class="text-xs md:text-sm text-[var(--text-secondary)] truncate">{t.features.eyebrow || 'Powerful Features'}</span>
+<section class="relative overflow-hidden px-6 py-20" id="features" aria-labelledby="home-features-title">
+  <div class="mx-auto max-w-7xl">
+    <header class="mb-12 text-center">
+      <div class="glass mb-6 inline-flex max-w-full items-center gap-2 rounded-full px-3 py-1.5 md:px-4 md:py-2">
+        <span class="text-xs text-[var(--text-secondary)] md:text-sm">{t.features.eyebrow}</span>
       </div>
-
-      <h2 class="mb-4">
+      <h2 id="home-features-title" class="mb-4">
         <span class="gradient-text-cool">{t.features.title}</span>
       </h2>
-
-      <p class="text-base text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
+      <p class="mx-auto max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">
         {t.features.subtitle}
       </p>
+    </header>
+
+    <div class="hidden grid-cols-1 gap-6 md:grid-cols-2 lg:grid lg:grid-cols-4">
+      {features.map((feature, index) => (
+        <a
+          href={featureHref(feature.slug)}
+          class="glass-card group relative overflow-hidden p-6 no-underline"
+          data-feature={feature.slug}
+          data-placement="home-grid"
+          style={`animation-delay:${index * 0.08}s`}
+        >
+          <span class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-10`}></span>
+          <span class="relative block">
+            <span class={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg transition-transform duration-300 group-hover:-translate-y-1`}>
+              <svg class="h-8 w-8 text-white" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={feature.icon}></svg>
+            </span>
+            <strong class="mb-2 block text-lg text-white transition-colors duration-300 group-hover:text-[var(--hydrogen-pink)]">
+              {t.features[feature.key].title}
+            </strong>
+            <span class="block text-sm leading-relaxed text-[var(--text-secondary)]">
+              {t.features[feature.key].description}
+            </span>
+          </span>
+        </a>
+      ))}
     </div>
 
-    <!-- 功能卡片网格 -->
-    <!-- Desktop: Grid Layout -->
-    <div class="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {
-        features.map((feature, index) => (
-          <div
-            class={`group relative glass-card p-6 overflow-hidden`}
-            style={`animation-delay: ${index * 0.1}s;`}
-          >
-            <!-- 背景渐变光晕 -->
-            <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-
-            <!-- 内容 -->
-            <div class="relative">
-              <!-- 图标 -->
-              <div class={`w-12 h-12 mb-4 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg`}>
-                <div class="text-white" set:html={feature.icon} />
-              </div>
-
-              <!-- 标题 -->
-              <h3 class="text-lg font-bold mb-2 text-white group-hover:text-[var(--hydrogen-pink)] transition-colors duration-300">
-                {t.features[feature.key].title}
-              </h3>
-
-              <!-- 描述 -->
-              <p class="text-[var(--text-secondary)] text-sm leading-relaxed">
-                {t.features[feature.key].description}
-              </p>
-            </div>
-          </div>
-        ))
-      }
+    <div class="no-scrollbar -mx-6 grid snap-x snap-mandatory grid-flow-col grid-rows-2 gap-4 overflow-x-auto px-6 pb-6 lg:hidden">
+      {features.map((feature) => (
+        <a
+          href={featureHref(feature.slug)}
+          class="glass-card group relative flex h-full w-[70vw] snap-start items-center overflow-hidden p-5 no-underline sm:w-[300px]"
+          data-feature={feature.slug}
+          data-placement="home-grid-mobile"
+        >
+          <span class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-5`}></span>
+          <span class="relative flex items-start gap-4">
+            <span class={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${feature.gradient} shadow-lg`}>
+              <svg class="h-6 w-6 text-white" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" set:html={feature.icon}></svg>
+            </span>
+            <span>
+              <strong class="mb-1 block text-base leading-tight text-white">{t.features[feature.key].title}</strong>
+              <span class="line-clamp-2 block text-xs leading-relaxed text-[var(--text-secondary)]">{t.features[feature.key].description}</span>
+            </span>
+          </span>
+        </a>
+      ))}
     </div>
 
-    <!-- Mobile: Grid Scroll (Auto Play) -->
-    <div id="features-mobile-gallery" class="lg:hidden grid grid-rows-2 grid-flow-col gap-4 overflow-x-auto pb-6 snap-x snap-mandatory no-scrollbar -mx-6 px-6 scroll-smooth">
-      {
-        features.map((feature, index) => (
-          <div class="snap-start w-[70vw] sm:w-[300px] relative glass-card p-5 overflow-hidden flex flex-col justify-center h-full">
-             <!-- 背景渐变光晕 -->
-             <div class={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-5 transition-opacity duration-500`}></div>
-
-             <!-- 内容 -->
-             <div class="relative flex items-start gap-4">
-               <!-- 图标 (Smaller) -->
-               <div class={`w-10 h-10 shrink-0 bg-gradient-to-br ${feature.gradient} rounded-lg flex items-center justify-center shadow-lg`}>
-                 <div class="text-white transform scale-75" set:html={feature.icon} />
-               </div>
- 
-               <div>
-                 <!-- 标题 -->
-                 <h3 class="text-base font-bold mb-1 text-white leading-tight">
-                   {t.features[feature.key].title}
-                 </h3>
-   
-                 <!-- 描述 (Truncated) -->
-                 <p class="text-[var(--text-secondary)] text-xs leading-relaxed line-clamp-2">
-                   {t.features[feature.key].description}
-                 </p>
-               </div>
-             </div>
-          </div>
-        ))
-      }
+    <div class="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+      {Object.values(t.features.stats || {}).map((stat: any, index: number) => (
+        <div class="glass-card p-5 text-center">
+          <strong class:list={[
+            'mb-1 block text-xl md:text-2xl',
+            index % 3 === 0 ? 'gradient-text-warm' : index % 3 === 1 ? 'gradient-text-cool' : 'gradient-text',
+          ]}>{stat.value}</strong>
+          <span class="text-xs text-[var(--text-muted)]">{stat.label}</span>
+        </div>
+      ))}
     </div>
 
-    <script is:inline>
-      (function() {
-        const gallery = document.getElementById('features-mobile-gallery');
-        if (!gallery) return;
-
-        let interval;
-        // In grid-flow-col, width depends on column width. 
-        // We approximate it to scroll one "page" (which is one column width)
-        
-        function startAutoPlay() {
-          interval = setInterval(() => {
-            const scrollAmount = gallery.clientWidth * 0.8; // Scroll most of the screen width
-
-            // If at end, scroll to start
-            if (gallery.scrollLeft + gallery.clientWidth >= gallery.scrollWidth - 10) {
-              gallery.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-              gallery.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-          }, 4000); // Slower than hero
-        }
-
-        function stopAutoPlay() {
-          clearInterval(interval);
-        }
-
-        // Start
-        startAutoPlay();
-
-        // Pause on interaction
-        gallery.addEventListener('touchstart', stopAutoPlay, { passive: true });
-        gallery.addEventListener('touchend', () => setTimeout(startAutoPlay, 5000), { passive: true });
-      })();
-    </script>
-
-    <!-- 底部统计 -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.bortle?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.bortle?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-cool mb-1">{t.features.stats?.seeing?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.seeing?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text mb-1">{t.features.stats?.tracker?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.tracker?.label}</div>
-      </div>
-      <div class="glass-card p-6 text-center">
-        <div class="text-2xl font-bold gradient-text-warm mb-1">{t.features.stats?.ar?.value}</div>
-        <div class="text-xs text-[var(--text-muted)] uppercase tracking-wider">{t.features.stats?.ar?.label}</div>
-      </div>
+    <div class="mt-9 text-center">
+      <a class="text-sm font-semibold text-[var(--nitrogen-cyan)] hover:text-white" href="/features/" data-feature="all" data-placement="home-grid">
+        {ui.allFeatures}
+      </a>
     </div>
   </div>
 </section>

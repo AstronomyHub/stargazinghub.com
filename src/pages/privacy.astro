@@ -5,59 +5,158 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Privacy Policy - Stargazing Hub">
   <main class="max-w-4xl mx-auto px-6 py-24 text-[var(--text-secondary)]">
     <h1 class="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
-    
+
     <div class="space-y-6">
-      <p class="text-lg">Last updated: February 2, 2026</p>
+      <p class="text-lg">Last updated: August 9, 2026</p>
 
       <section>
-        <h2 class="text-2xl font-bold text-white mb-4">1. Introduction</h2>
+        <h2 class="text-2xl font-bold text-white mb-4">1. Scope</h2>
         <p>
-          Welcome to Stargazing Hub ("we," "our," or "us"). We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website or use our mobile application and tell you about your privacy rights and how the law protects you.
+          This policy explains how Stargazing Hub handles information when you visit
+          stargazinghub.com or use the Stargazing Hub mobile app. The website and the
+          app use different systems, so their data practices are described separately.
         </p>
       </section>
 
       <section>
-        <h2 class="text-2xl font-bold text-white mb-4">2. Data We Collect</h2>
+        <h2 class="text-2xl font-bold text-white mb-4">2. Website analytics</h2>
         <p>
-          We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:
+          On the official Stargazing Hub domain, we use Matomo to understand which
+          pages people visit and which store links they choose. The browser tracker
+          records page views, link activity, and a Download event containing the store
+          name and the placement of the link. Analytics requests are sent to the
+          configured Matomo endpoint at matomotech.com.
         </p>
-        <ul class="list-disc pl-6 mt-2 space-y-2">
-          <li><strong>Location Data:</strong> We collect your location data to provide accurate astronomical data, such as star maps, weather forecasts, and satellite passes specific to your position.</li>
-          <li><strong>Usage Data:</strong> We may collect information about how you use our application, such as features accessed and time spent.</li>
-          <li><strong>Device Data:</strong> We collect information about your mobile device, including model, operating system, and unique device identifiers.</li>
+        <ul class="list-disc pl-6 mt-3 space-y-2">
+          <li>The tracker is configured without analytics cookies.</li>
+          <li>It is configured to honor a browser's Do Not Track signal.</li>
+          <li>It does not load on local development or preview domains.</li>
         </ul>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">3. How We Use Your Data</h2>
-        <p>
-          We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
-        </p>
-        <ul class="list-disc pl-6 mt-2 space-y-2">
-          <li>To provide the features and functionality of the App (e.g., showing the sky map for your location).</li>
-          <li>To improve our App and customer service.</li>
-          <li>To send you notifications about astronomical events (if you have opted in).</li>
-        </ul>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">4. Data Security</h2>
-        <p>
-          We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.
+        <p class="mt-3">
+          As with any web request, the analytics server receives technical connection
+          data such as an IP address and browser user agent. We use website analytics
+          to maintain the site, evaluate content, and measure store-link performance.
+          The website does not ask you to create an account or submit location data or
+          sky photos.
         </p>
       </section>
 
       <section>
-        <h2 class="text-2xl font-bold text-white mb-4">5. Third-Party Links</h2>
+        <h2 class="text-2xl font-bold text-white mb-4">3. Mobile app data</h2>
+        <h3 class="text-lg font-bold text-white mb-2">Location</h3>
         <p>
-          This website or application may include links to third-party websites, plug-ins and applications. Clicking on those links or enabling those connections may allow third parties to collect or share data about you. We do not control these third-party websites and are not responsible for their privacy statements.
+          With your permission, the app uses your location for on-device astronomical
+          calculations and location-based weather, map, elevation, and geocoding
+          features. Coordinates are sent to the relevant service providers when those
+          online features are used. Selected and recent locations may be stored on
+          your device. You can control location access in iOS or Android settings.
+        </p>
+
+        <h3 class="text-lg font-bold text-white mt-5 mb-2">Sky photos</h3>
+        <p>
+          Eligible wide-field sky photos can be solved entirely on the device without
+          upload. A photo is uploaded only when you choose Online Solve, including an
+          online fallback offered after a local solve fails. Online solves use the
+          Stargazing Hub astrometry service and may fall back to Astrometry.net. The
+          request is marked as non-public. Depending on the image-processing path, an
+          uploaded file may retain embedded metadata such as EXIF data. Recognition
+          history and related image files may also be stored locally on your device.
+        </p>
+
+        <h3 class="text-lg font-bold text-white mt-5 mb-2">App analytics and advertising</h3>
+        <p>
+          Subject to the app's privacy controls, the app uses Umeng Analytics for page
+          usage, subscription-funnel, and technical reliability events. Free users may
+          receive ads from Google AdMob or, in mainland China configurations,
+          Pangle/GroMore and Tencent GDT. These providers may process app and device
+          information, ad interactions, network information, and pseudonymous device
+          or advertising identifiers. Google advertising uses its consent flow, and
+          iOS advertising identifiers are subject to App Tracking Transparency where
+          applicable. Advertising SDKs are not initialized for subscribers.
+        </p>
+
+        <h3 class="text-lg font-bold text-white mt-5 mb-2">Identifiers, purchases, and accounts</h3>
+        <p>
+          The app and its service providers may use pseudonymous app, device, or
+          advertising identifiers for API security, subscription management,
+          analytics, and advertising. Some remote service requests include an app or
+          device identifier for access control and abuse prevention.
+        </p>
+        <p class="mt-3">
+          Subscriptions are processed through Apple or Google. Google Play builds may
+          use RevenueCat with an anonymous app user ID to manage entitlements. After an
+          iOS purchase, renewal, or restore, the app may send a private operational
+          sales notice through Feishu/Lark. That notice can include the product,
+          transaction and expiry times, storefront country, currency and amount,
+          purchase status, app version, and a locally generated device identifier.
+          Stargazing Hub does not currently provide user registration or sign-in.
         </p>
       </section>
 
       <section>
-        <h2 class="text-2xl font-bold text-white mb-4">6. Contact Us</h2>
+        <h2 class="text-2xl font-bold text-white mb-4">4. Use, disclosure, and legal basis</h2>
         <p>
-          If you have any questions about this privacy policy or our privacy practices, please contact us at: support@stargazinghub.com
+          We use information to provide requested features, keep the website and app
+          working, understand performance, prevent abuse, and comply with legal
+          obligations. We disclose information to service providers only where needed
+          for those purposes, or when law requires it. We do not treat a third party's
+          privacy policy as a substitute for our own responsibilities.
+        </p>
+        <p class="mt-3">
+          Our legal basis depends on the information, feature, and your location. It
+          may include performing a service you requested, legitimate interests in
+          operating and improving the service, consent, or compliance with law. Where
+          applicable law requires consent for a particular activity, we will request
+          it. You may withdraw consent at any time without affecting earlier lawful
+          processing.
+        </p>
+        <p class="mt-3">
+          Service providers may process information outside the country where you
+          live. When applicable law requires safeguards for an international transfer,
+          we remain responsible for putting those safeguards in place.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">5. Retention and security</h2>
+        <p>
+          We keep information only for as long as needed for the purposes described in
+          this policy, including security, dispute resolution, and legal requirements.
+          Retention can vary by data type and service. We use reasonable technical and
+          organizational measures to protect information, but no internet or storage
+          system can be guaranteed completely secure.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">6. Your choices and rights</h2>
+        <p>
+          You can control app permissions in your device settings and enable Do Not
+          Track in a supported browser. Depending on where you live, you may also have
+          rights to access, correct, delete, or receive your personal data, and to
+          restrict or object to certain processing. You may have the right to complain
+          to your local data protection authority. These rights are subject to the
+          conditions and exceptions in applicable law.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">7. Third-party links and services</h2>
+        <p>
+          The website and app link to or rely on third-party services, including app
+          stores and data providers. Those providers may process information under
+          their own privacy policies. We review the services we choose and remain
+          responsible for our obligations when we use a provider to process data on
+          our behalf.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-4">8. Contact us</h2>
+        <p>
+          For privacy questions or requests, email
+          <a class="text-white underline underline-offset-4" href="mailto:support@stargazinghub.com">support@stargazinghub.com</a>.
+          We may need to verify your identity before completing a request.
         </p>
       </section>
     </div>
