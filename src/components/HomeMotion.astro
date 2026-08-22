@@ -1,0 +1,180 @@
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  (() => {
+    const root = document.querySelector<HTMLElement>('body.home-page main');
+    if (!root) return;
+
+    const motion = gsap.matchMedia();
+    const listeners = new AbortController();
+    const spotlightCards = Array.from(root.querySelectorAll<HTMLElement>('[data-spotlight]'));
+
+    spotlightCards.forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const bounds = card.getBoundingClientRect();
+        card.style.setProperty('--spot-x', `${event.clientX - bounds.left}px`);
+        card.style.setProperty('--spot-y', `${event.clientY - bounds.top}px`);
+      }, { signal: listeners.signal });
+
+      card.addEventListener('pointerleave', () => {
+        card.style.removeProperty('--spot-x');
+        card.style.removeProperty('--spot-y');
+      }, { signal: listeners.signal });
+    });
+
+    motion.add(
+      {
+        isDesktop: '(min-width: 1024px)',
+        reduceMotion: '(prefers-reduced-motion: reduce)',
+      },
+      (context) => {
+        const conditions = context.conditions as { isDesktop: boolean; reduceMotion: boolean };
+        if (conditions.reduceMotion) return;
+
+        const animationContext = gsap.context(() => {
+          const sections = Array.from(root.querySelectorAll<HTMLElement>('[data-motion-section]'));
+
+          sections.forEach((section) => {
+            const header = section.querySelector<HTMLElement>('[data-motion-header]');
+            const panels = Array.from(section.querySelectorAll<HTMLElement>('[data-motion-panel]'))
+              .filter((panel) => panel.offsetParent !== null);
+            const items = Array.from(section.querySelectorAll<HTMLElement>('[data-motion-item]'))
+              .filter((item) => item.offsetParent !== null);
+
+            const timeline = gsap.timeline({
+              defaults: { ease: 'power2.out' },
+              scrollTrigger: {
+                trigger: section,
+                start: conditions.isDesktop ? 'top 72%' : 'top 84%',
+                once: true,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            if (header) {
+              timeline.from(header, {
+                y: conditions.isDesktop ? 26 : 18,
+                opacity: 0,
+                duration: 0.72,
+                clearProps: 'transform,opacity',
+              });
+            }
+
+            if (panels.length > 0) {
+              timeline.from(panels, {
+                y: conditions.isDesktop ? 30 : 22,
+                scale: 0.992,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.08,
+                clearProps: 'transform,opacity',
+              }, header ? '-=0.46' : 0);
+            }
+
+            if (items.length > 0) {
+              timeline.from(items, {
+                y: conditions.isDesktop ? 18 : 14,
+                opacity: 0,
+                duration: 0.58,
+                stagger: conditions.isDesktop ? 0.04 : 0.03,
+                clearProps: 'transform,opacity',
+              }, panels.length > 0 ? '-=0.48' : header ? '-=0.38' : 0);
+            }
+
+            section.querySelectorAll<HTMLElement>('[data-motion-orb]').forEach((orb) => {
+              gsap.fromTo(orb, { yPercent: -3 }, {
+                yPercent: 6,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 1.6,
+                },
+              });
+            });
+          });
+        }, root);
+
+        requestAnimationFrame(() => ScrollTrigger.refresh());
+
+        return () => animationContext.revert();
+      },
+    );
+
+    const destroy = () => {
+      motion.revert();
+      listeners.abort();
+    };
+
+    window.addEventListener('pagehide', destroy, { once: true });
+  })();
+</script>
+
+<style is:global>
+  html.home-document {
+    height: auto;
+    min-height: 100%;
+    overflow-x: clip;
+  }
+
+  html.home-document body.home-page {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .home-page #main-content::before {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    opacity: 0.028;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.72'/%3E%3C/svg%3E");
+    content: '';
+    pointer-events: none;
+    mix-blend-mode: soft-light;
+  }
+
+  .home-page .home-section {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .home-page .home-section-header {
+    position: relative;
+    max-width: 58rem;
+    margin-bottom: clamp(2.5rem, 4.2vw, 3.75rem);
+    text-align: left;
+  }
+
+  .home-page .home-section-header h2 {
+    max-width: 54rem;
+    margin-top: 0;
+    font-size: clamp(2.5rem, 4.7vw, 4.4rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .home-page .home-section-header p {
+    max-width: 42rem;
+    margin-top: 1.35rem;
+    font-size: clamp(1rem, 1.4vw, 1.14rem);
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 767px) {
+    .home-page .home-section-header {
+      margin-bottom: 2rem;
+    }
+
+    .home-page .home-section-header h2 {
+      font-size: clamp(2.2rem, 9.6vw, 3.15rem);
+    }
+  }
+</style>

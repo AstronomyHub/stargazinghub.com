@@ -29,6 +29,7 @@ import { translations } from '../i18n/ui';
 import { getAccessibilityUi } from '../i18n/marketing';
 import { getAppStoreRating, MIN_LOCAL_RATING_COUNT } from '../lib/appStoreRating';
 import LanguageRedirect from '../components/LanguageRedirect.astro';
+import HomeMotion from '../components/HomeMotion.astro';
 import {
   appIdentity,
   downloadLinks,
@@ -182,7 +183,7 @@ const structuredDataList = [
 ---
 
 <!doctype html>
-<html lang={documentLanguage}>
+<html lang={documentLanguage} class:list={[isHomepage && 'home-document']}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -330,11 +331,12 @@ const structuredDataList = [
     </script>
     <!-- End Matomo -->
   </head>
-  <body class="starry-bg">
+  <body class:list={['starry-bg', isHomepage && 'home-page']}>
     <a class="skip-link" href="#main-content">{a11y.skipToContent}</a>
     <div id="main-content" tabindex="-1" class="min-h-screen flex flex-col">
       <slot />
     </div>
     {isHomepage && <LanguageRedirect currentLang={lang} />}
+    {isHomepage && <HomeMotion />}
   </body>
 </html>
