@@ -1,0 +1,192 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../../assets/icon.webp';
+import StoreLinks from './StoreLinks.astro';
+import LanguagePicker from './LanguagePicker.astro';
+import PreviewMotion from './PreviewMotion.astro';
+import AstronomyEvents from '../AstronomyEvents.astro';
+import Testimonials from '../Testimonials.astro';
+import { websiteLocales, adoption } from '../../data/appKnowledge';
+import { getCompass, compassPath } from '../../data/compassContent';
+import { getHomeCopy } from '../../i18n/home';
+import { getMarketingUi, getAccessibilityUi } from '../../i18n/marketing';
+import screenshotsConfig from '../../googleplay-screenshots.config.json';
+import '../../styles/night-home.css';
+
+interface Props { t: any; lang: string; }
+const { t, lang } = Astro.props;
+const copy = getHomeCopy(lang);
+const ui = getMarketingUi(lang);
+const a11y = getAccessibilityUi(lang);
+const language = websiteLocales.find((locale) => locale.code === lang)!;
+const compass = getCompass(lang);
+const compassLabel = compass.title.split(/[:：·]/)[0].trim();
+const featureHref = (slug: string) => {
+  if (lang === 'zh' && slug === 'stargazing-forecast') return '/zh/features/stargazing-forecast/';
+  if (lang === 'it' && slug === 'light-pollution-map') return '/it/features/light-pollution-map/';
+  return `/features/${slug}/`;
+};
+const steps = [
+  { key: 'satellite', slug: 'light-pollution-map', image: '/press/stargazinghub-light-pollution-map.webp' },
+  { key: 'weather', slug: 'stargazing-forecast', image: '/press/stargazinghub-observing-forecast.webp' },
+  { key: 'starMap', slug: 'sky-map', image: '/press/stargazinghub-star-chart.webp' },
+];
+const screenshotImages = import.meta.glob<{ default: ImageMetadata }>('/src/assets/screenshots/*-googleplay/googleplay-{2,5,6}.webp', { eager: true });
+const localizedScreenshots = screenshotsConfig[lang as keyof typeof screenshotsConfig] ?? screenshotsConfig.en;
+const illustratedFeatures = [
+  { key: 'free', slug: 'sky-recognition', screenshot: 2 },
+  { key: 'aurora', slug: 'aurora-forecast', screenshot: 5 },
+  { key: 'solar', slug: '3d-moon', screenshot: 6 },
+].map((feature) => ({ ...feature, image: screenshotImages[localizedScreenshots.files[feature.screenshot - 1]]?.default }));
+const moreFeatures = [
+  { key: 'meteor', slug: 'meteor-shower-calendar' },
+  { key: 'tools', slug: 'astrophotography-tools' },
+];
+const socials = [
+  { name: 'X', href: 'https://x.com/lpm_app' },
+  { name: 'Bluesky', href: 'https://bsky.app/profile/lightpollutionmap.app' },
+  { name: 'Facebook', href: 'https://www.facebook.com/StargazingHub' },
+];
+---
+
+<main class="night-home" id="top">
+  <section class="night-hero" aria-labelledby="night-title">
+    <img class="night-background" src="/images/home/hero-night.webp" alt="" width="1672" height="941" fetchpriority="high" />
+    <header class="night-nav night-container">
+      <a class="night-brand" href={language.path}><Image src={icon} alt="" width={34} height={34} /><span>{t.brand.name}</span></a>
+      <nav aria-label={a11y.primaryNavigation}>
+        <a class="night-nav-features" href="#features">{t.navbar.features}</a>
+        <button class="night-language-trigger" type="button" data-language-open aria-label={`${ui.languages} · ${language.name}`} aria-haspopup="dialog" aria-controls="language-picker">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg><span>{language.name}</span>
+        </button>
+        <a class="night-button" href="#download">{t.navbar.download}<span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <div class="night-hero-layout night-container">
+      <div class="night-hero-copy">
+        <p class="night-eyebrow night-reveal">{copy.eyebrow}</p>
+        <h1 id="night-title" class="night-reveal night-delay-1">{copy.headline[0]}<br />{copy.headline[1]}</h1>
+        <p class="night-lead night-reveal night-delay-2">{copy.lead}</p>
+        <div class="night-reveal night-delay-3">
+          <StoreLinks t={t} placement="hero" />
+          <p class="night-fine">{t.download.bullets.join(' · ')}</p>
+        </div>
+      </div>
+      <div class="night-devices night-reveal night-delay-2">
+        <p class="night-caption night-caption-map">{lang === 'en' ? 'LIGHT POLLUTION MAP' : t.features.stats.bortle.value}</p>
+        <p class="night-caption night-caption-forecast">{t.features.weather.title}</p>
+        <div class="night-phone night-phone-map"><img src={steps[0].image} alt={t.features.satellite.title} width="1080" height="1920" decoding="async" /></div>
+        <div class="night-phone night-phone-forecast"><img src={steps[1].image} alt={t.features.weather.title} width="1080" height="1920" decoding="async" /></div>
+      </div>
+      <div class="night-hero-followup night-reveal night-delay-3">
+        <a class="night-text-link" href="#features">{copy.mapCta}<span aria-hidden="true">↓</span></a>
+        <div class="night-trust" data-adoption-as-of={adoption.asOf}>
+          <strong>3M+</strong><div><span>{copy.installs}</span><small>{copy.reported}</small></div><span class="night-trust-languages">{copy.appLanguages}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="night-bridge">
+    <div class="night-container"><h2>{copy.bridgeTitle}</h2><p>{copy.bridgeBody}</p></div>
+  </section>
+  <section id="features" aria-label={t.navbar.features}>
+    {steps.map((step, index) => (
+      <article class="night-feature-row">
+        <div class="night-container night-feature-layout">
+          <div class="night-feature-copy">
+            <p class="night-eyebrow">0{index + 1} / {t.features[step.key].title}</p>
+            <h2>{copy.steps[index]}</h2>
+            <p class="night-lead">{t.features[step.key].description}</p>
+            <div class="night-feature-actions">
+              <a class="night-button" href="#download">{t.hero.download}<span aria-hidden="true">↓</span></a>
+              <a class="night-text-link" href={featureHref(step.slug)} data-feature={step.slug} data-placement="features">{ui.explore}<span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="night-feature-image"><div class="night-phone"><img src={step.image} alt={t.features[step.key].title} width="1080" height="1920" loading="lazy" decoding="async" /></div></div>
+        </div>
+      </article>
+    ))}
+    <div class="night-more night-container" id="more-features">
+      <a class="night-text-link" href="/features/">{ui.allFeatures}<span aria-hidden="true">↗</span></a>
+      <div class="night-product-gallery">
+        {illustratedFeatures.map((feature) => (
+          <a href={featureHref(feature.slug)} data-feature={feature.slug} data-placement="more-features">
+            <div class="night-gallery-image"><div class="night-phone">
+              {feature.image && <Image src={feature.image} alt={t.features[feature.key].title} width={540} height={960} loading="lazy" decoding="async" />}
+            </div></div>
+            <h3>{t.features[feature.key].title}<span aria-hidden="true">↗</span></h3>
+            <p>{t.features[feature.key].description}</p>
+          </a>
+        ))}
+      </div>
+      <div class="night-more-grid">
+        {moreFeatures.map((feature) => (
+          <a href={featureHref(feature.slug)} data-feature={feature.slug} data-placement="more-features"><h3>{t.features[feature.key].title}<span aria-hidden="true">↗</span></h3><p>{t.features[feature.key].description}</p></a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="night-tour night-container" id="app-tour" aria-labelledby="night-tour-title">
+    <div><p class="night-eyebrow">{ui.demo}</p><h2 id="night-tour-title">{ui.tourTitle}</h2><a class="night-text-link" href="#download">{t.hero.download}<span aria-hidden="true">↓</span></a></div>
+    <video controls playsinline preload="none" poster="/press/stargazinghub-field-workflow-poster.jpg" aria-label={ui.tourTitle} width="1920" height="1080"><source src="/press/stargazinghub-field-workflow-2026.mp4" type="video/mp4" /></video>
+  </section>
+  <AstronomyEvents lang={lang} />
+  <Testimonials t={t} lang={lang} />
+
+  <section id="download" class="night-download" aria-labelledby="night-download-title">
+    <div class="night-container">
+      <Image src={icon} alt="" class="night-download-icon" width={64} height={64} />
+      <p class="night-eyebrow">{t.brand.name}</p>
+      <h2 id="night-download-title">{copy.downloadTitle[0]}<br />{copy.downloadTitle[1]}</h2>
+      <p class="night-lead">{copy.downloadBody}</p>
+      <StoreLinks t={t} placement="download" />
+      <p class="night-fine">{t.download.bullets.join(' · ')}</p>
+      <div class="night-qrs" aria-label={a11y.downloadOptions}>
+        <a href={t.links.appStore} data-store="app-store" data-placement="qr"><img src="/images/home/qr-ios.svg" alt="App Store QR" width="112" height="112" loading="lazy" /><span>iPhone &amp; iPad</span></a>
+        <a href={t.links.googlePlay} data-store="google-play" data-placement="qr"><img src="/images/home/qr-android.svg" alt="Google Play QR" width="112" height="112" loading="lazy" /><span>Android</span></a>
+      </div>
+      <p class="night-qr-note">{copy.scan}</p>
+    </div>
+  </section>
+
+  <section class="night-compass night-container" aria-labelledby="night-compass-title">
+    <a class="night-compass-link" href={compassPath(lang)}>
+      <img src="/compass/icon.png" alt="" width="72" height="72" loading="lazy" />
+      <div><p class="night-eyebrow">{compass.fromTeam}</p><h2 id="night-compass-title">{compassLabel}</h2><p>{compass.subtitle}</p><span class="night-compass-availability">{compass.eyebrow}</span></div>
+      <span class="night-compass-arrow" aria-hidden="true">↗</span>
+    </a>
+  </section>
+</main>
+
+<footer class="night-footer">
+  <div class="night-container">
+    <div class="night-footer-top">
+      <div><a class="night-brand" href={language.path}><Image src={icon} alt="" width={34} height={34} />{t.brand.name}</a><p>{t.footer.description}</p><nav class="night-socials" aria-label={a11y.socialLinks}>{socials.map((social) => <a href={social.href} target="_blank" rel="noopener noreferrer">{social.name}<span aria-hidden="true">↗</span></a>)}</nav></div>
+      <nav class="night-footer-links" aria-label={a11y.footerNavigation}>
+        <a href="/features/">{t.navbar.features}</a><a href="/faq/">FAQ</a><a href={compassPath(lang)}>{compassLabel}</a>
+        {lang === 'en' && <a href="/press/">Press</a>}<a href="mailto:support@stargazinghub.com">{ui.support}</a><a href="/privacy/">{t.footer.privacy}</a><a href="/terms/">{t.footer.terms}</a>
+      </nav>
+      <button type="button" class="night-language-trigger" data-language-open aria-haspopup="dialog" aria-controls="language-picker">{language.name}<span aria-hidden="true">⌄</span></button>
+    </div>
+    <p class="night-copyright">© {new Date().getFullYear()} {t.brand.name}{lang.startsWith('zh') ? '。' : '. '}{t.footer.copyright}</p>
+  </div>
+</footer>
+<LanguagePicker lang={lang} />
+<aside class="night-sticky" aria-label={a11y.downloadOptions} hidden>
+  <Image src={icon} alt="" width={34} height={34} /><div><strong>{t.brand.name}</strong><small>{t.hero.platformLabel}</small></div><a class="night-button" href="#download">{t.navbar.download}<span aria-hidden="true">↗</span></a>
+</aside>
+{import.meta.env.DEV && <PreviewMotion />}
+<script>
+  const sticky = document.querySelector<HTMLElement>('.night-sticky');
+  const hero = document.querySelector<HTMLElement>('.night-hero');
+  const download = document.querySelector<HTMLElement>('#download');
+  if (sticky && hero && download) {
+    const refresh = () => {
+      sticky.hidden = !(hero.getBoundingClientRect().bottom < 140 && download.getBoundingClientRect().top > innerHeight);
+    };
+    window.addEventListener('scroll', refresh, { passive: true });
+    window.addEventListener('resize', refresh);
+    refresh();
+  }
+</script>

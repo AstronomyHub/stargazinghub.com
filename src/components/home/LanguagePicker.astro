@@ -1,0 +1,45 @@
+---
+import { websiteLocales } from '../../data/appKnowledge';
+import { getMarketingUi } from '../../i18n/marketing';
+import { getHomeCopy } from '../../i18n/home';
+interface Props { lang: string; paths?: Record<string, string>; }
+const { lang, paths = {} } = Astro.props;
+const ui = getMarketingUi(lang);
+const copy = getHomeCopy(lang);
+---
+<dialog id="language-picker" class="night-language-picker" aria-labelledby="language-picker-title">
+  <header>
+    <h2 id="language-picker-title">{ui.languages}</h2>
+    <button type="button" data-language-close aria-label={copy.close}><span aria-hidden="true">×</span></button>
+  </header>
+  <nav aria-label={ui.languages}>
+    {websiteLocales.map((locale) => (
+      <a href={paths[locale.code] || locale.path} lang={locale.hreflang} hreflang={locale.hreflang} data-language-choice={locale.path} aria-current={locale.code === lang ? 'page' : undefined}>
+        <span>{locale.name}</span>{locale.code === lang && <span aria-hidden="true">✓</span>}
+      </a>
+    ))}
+  </nav>
+</dialog>
+<script>
+  const picker = document.querySelector<HTMLDialogElement>('#language-picker');
+  if (picker) {
+    const triggers = document.querySelectorAll<HTMLButtonElement>('[data-language-open]');
+    const close = () => picker.close();
+    triggers.forEach((trigger) => trigger.addEventListener('click', () => picker.showModal()));
+    picker.querySelector('[data-language-close]')?.addEventListener('click', close);
+    picker.addEventListener('click', (event) => {
+      if (event.target !== picker) return;
+      const bounds = picker.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) close();
+    });
+    picker.querySelectorAll<HTMLAnchorElement>('[data-language-choice]').forEach((link) => {
+      link.addEventListener('click', () => {
+        try { localStorage.setItem('preferred_path', link.dataset.languageChoice!); } catch { /* Navigation works without storage. */ }
+      });
+    });
+    if (import.meta.env.DEV) {
+      picker.dataset.languageReady = 'true';
+      document.dispatchEvent(new Event('home-languages-ready'));
+    }
+  }
+</script>

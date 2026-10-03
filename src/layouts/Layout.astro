@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import '../styles/night-home.css';
+import '../styles/night-content.css';
+import ContentHeader from '../components/ContentHeader.astro';
+import LanguagePicker from '../components/home/LanguagePicker.astro';
+import PreviewMotion from '../components/home/PreviewMotion.astro';
 
 interface Props {
   title?: string;
@@ -29,12 +34,12 @@ import { translations } from '../i18n/ui';
 import { getAccessibilityUi } from '../i18n/marketing';
 import { getAppStoreRating, MIN_LOCAL_RATING_COUNT } from '../lib/appStoreRating';
 import LanguageRedirect from '../components/LanguageRedirect.astro';
-import HomeMotion from '../components/HomeMotion.astro';
 import {
   appIdentity,
   downloadLinks,
   homepageAlternateLinks,
   homepagePaths,
+  websiteLocales,
 } from '../data/appKnowledge';
 const t = translations[lang as keyof typeof translations] || translations.en;
 const a11y = getAccessibilityUi(lang);
@@ -70,6 +75,11 @@ const alternateOpenGraphLocales = isHomepage
       .map(([, metadata]) => metadata.openGraphLocale)
   : [];
 const resolvedAlternateLinks = alternateLinks ?? (isHomepage ? homepageAlternateLinks : []);
+const languagePaths = Object.fromEntries(websiteLocales.flatMap((locale) => {
+  const alternate = resolvedAlternateLinks.find((link) => link.hreflang === locale.hreflang);
+  return alternate ? [[locale.code, alternate.path]] : [];
+}));
+if (isIndexable) languagePaths[lang] = currentPath;
 const markdownAbsoluteUrl = markdownUrl ? new URL(markdownUrl, Astro.site) : null;
 const primaryImageURL = new URL(image, Astro.site);
 const primaryImageDimensions = image.includes('field-workflow-poster')
@@ -183,7 +193,7 @@ const structuredDataList = [
 ---
 
 <!doctype html>
-<html lang={documentLanguage} class:list={[isHomepage && 'home-document']}>
+<html lang={documentLanguage} class:list={[isHomepage ? 'home-document' : 'content-document']}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -331,12 +341,14 @@ const structuredDataList = [
     </script>
     <!-- End Matomo -->
   </head>
-  <body class:list={['starry-bg', isHomepage && 'home-page']}>
+  <body class:list={['starry-bg', isHomepage ? 'home-page' : 'content-page']}>
     <a class="skip-link" href="#main-content">{a11y.skipToContent}</a>
+    {!isHomepage && <ContentHeader lang={lang} />}
     <div id="main-content" tabindex="-1" class="min-h-screen flex flex-col">
       <slot />
     </div>
-    {isHomepage && <LanguageRedirect currentLang={lang} />}
-    {isHomepage && <HomeMotion />}
+    {!isHomepage && <LanguagePicker lang={lang} paths={languagePaths} />}
+    {(isHomepage || resolvedAlternateLinks.length > 0) && <LanguageRedirect currentLang={lang} paths={languagePaths} />}
+    {!isHomepage && import.meta.env.DEV && <PreviewMotion />}
   </body>
 </html>

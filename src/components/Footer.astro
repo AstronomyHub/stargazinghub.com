@@ -1,145 +1,31 @@
 ---
 import { Image } from 'astro:assets';
-import iconImage from '../assets/icon.webp';
+import icon from '../assets/icon.webp';
 import { getCompass, compassPath } from '../data/compassContent';
 import { getAccessibilityUi, getMarketingUi } from '../i18n/marketing';
-
-interface Props {
-  t: any;
-  lang: string;
-}
-
+import { websiteLocales } from '../data/appKnowledge';
+interface Props { t: any; lang: string; }
 const { t, lang } = Astro.props;
 const ui = getMarketingUi(lang);
 const a11y = getAccessibilityUi(lang);
-const year = new Date().getFullYear();
-const compassTitle = getCompass(lang).title;
-const compassLabel = compassTitle.split(/[:：·]/)[0]?.trim() || compassTitle;
-const copyrightSeparator = lang === 'zh' || lang === 'zh-tw' ? '。' : '. ';
-
-const socialLinks = [
-  {
-    name: 'App Store',
-    href: t.links?.appStore || 'https://apps.apple.com/app/id1478601599',
-    store: 'app-store',
-    icon: '<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />',
-  },
-  {
-    name: 'Google Play',
-    href: t.links?.googlePlay || 'https://play.google.com/store/apps/details?id=com.twtapp&hl=en',
-    store: 'google-play',
-    icon: '<path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85A1.5 1.5 0 0 1 3 20.5m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.69.59 1.19s-.22.9-.57 1.18l-2.29 1.32-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49Z" />',
-  },
-  {
-    name: 'X',
-    href: 'https://x.com/lpm_app',
-    icon: '<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.451-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />',
-  },
-  {
-    name: 'Bluesky',
-    href: 'https://bsky.app/profile/lightpollutionmap.app',
-    viewBox: '0 0 64 57',
-    icon: '<path d="M13.873 3.805C21.21 9.332 29.103 20.537 32 26.55v15.882c0-.338-.13.044-.41.867-1.512 4.456-7.418 21.847-20.923 7.944-7.111-7.32-3.819-14.64 9.125-16.85-7.405 1.264-15.73-.825-18.014-9.015C1.12 23.022 0 8.51 0 6.55 0-3.268 8.579-.182 13.873 3.805ZM50.127 3.805C42.79 9.332 34.897 20.537 32 26.55v15.882c0-.338.13.044.41.867 1.512 4.456 7.418 21.847 20.923 7.944 7.111-7.32 3.819-14.64-9.125-16.85 7.405 1.264 15.73-.825 18.014-9.015C62.88 23.022 64 8.51 64 6.55c0-9.818-8.578-6.732-13.873-2.745Z" />',
-  },
-  {
-    name: 'Facebook',
-    href: 'https://www.facebook.com/StargazingHub',
-    icon: '<path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.438H7.078v-3.489h3.047V9.414c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.973h-1.513c-1.49 0-1.956.931-1.956 1.887v2.26h3.328l-.532 3.489h-2.796V24C19.612 23.094 24 18.1 24 12.073Z" />',
-  },
-] as const;
-
-const languages = [
-  ['/', 'English'],
-  ['/zh/', '简体中文'],
-  ['/zh-tw/', '繁體中文'],
-  ['/ja/', '日本語'],
-  ['/ko/', '한국어'],
-  ['/de/', 'Deutsch'],
-  ['/fr/', 'Français'],
-  ['/es/', 'Español'],
-  ['/it/', 'Italiano'],
-  ['/ru/', 'Русский'],
-  ['/nl/', 'Nederlands'],
-  ['/pl/', 'Polski'],
-] as const;
+const locale = websiteLocales.find((item) => item.code === lang) || websiteLocales[0];
+const compassLabel = getCompass(lang).title.split(/[:：·]/)[0].trim();
+const socials = [
+  { name: 'X', href: 'https://x.com/lpm_app' },
+  { name: 'Bluesky', href: 'https://bsky.app/profile/lightpollutionmap.app' },
+  { name: 'Facebook', href: 'https://www.facebook.com/StargazingHub' },
+];
 ---
-
-<footer class="relative border-t border-[var(--glass-border)]">
-  <div class="mx-auto max-w-7xl px-6 py-16">
-    <div class="mb-12 grid grid-cols-1 items-center gap-12 md:grid-cols-3">
-      <div class="text-center md:text-left">
-        <div class="mb-4 flex items-center justify-center gap-3 md:justify-start">
-          <span class="relative">
-            <span class="absolute inset-0 rounded-xl bg-gradient-to-r from-[var(--hydrogen-pink)] to-[var(--nitrogen-cyan)] opacity-50 blur-lg"></span>
-            <Image src={iconImage} alt="" class="relative h-12 w-12 rounded-xl" width={48} height={48} />
-          </span>
-          <strong class="text-xl">{t.brand?.name}</strong>
-        </div>
-        <p class="mx-auto mb-6 max-w-xs text-sm leading-relaxed text-[var(--text-secondary)] md:mx-0">{t.footer.description}</p>
-        <nav class="flex justify-center gap-3 md:justify-start" aria-label={a11y.socialLinks}>
-          {socialLinks.map((link) => (
-            <a
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="glass flex h-10 w-10 items-center justify-center rounded-lg transition-colors hover:bg-[var(--hydrogen-pink)]/20"
-              aria-label={link.name}
-              data-store={'store' in link ? link.store : undefined}
-              data-placement={'store' in link ? 'footer' : undefined}
-            >
-              <svg class="h-5 w-5" viewBox={'viewBox' in link ? link.viewBox : '0 0 24 24'} fill="currentColor" aria-hidden="true" set:html={link.icon}></svg>
-            </a>
-          ))}
-        </nav>
-      </div>
-
-      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3" aria-label={a11y.footerNavigation}>
-        <a href="/features/" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">{t.navbar?.features || 'Features'}</a>
-        <a href="/faq/" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">FAQ</a>
-        {lang === 'en' && <a href="/press/" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">Press</a>}
-        <a href={compassPath(lang)} class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">{compassLabel}</a>
-        <a href="mailto:support@stargazinghub.com" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">{ui.support}</a>
-        <a href="/privacy/" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">{t.footer.privacy}</a>
-        <a href="/terms/" class="text-sm text-[var(--text-secondary)] hover:text-[var(--hydrogen-pink)]">{t.footer.terms}</a>
+<footer class="night-footer">
+  <div class="night-container">
+    <div class="night-footer-top">
+      <div><a class="night-brand" href={locale.path}><Image src={icon} alt="" width={34} height={34} />{t.brand.name}</a><p>{t.footer.description}</p><nav class="night-socials" aria-label={a11y.socialLinks}>{socials.map((social) => <a href={social.href} target="_blank" rel="noopener noreferrer">{social.name}<span aria-hidden="true">↗</span></a>)}</nav></div>
+      <nav class="night-footer-links" aria-label={a11y.footerNavigation}>
+        <a href="/features/">{t.navbar.features}</a><a href="/faq/">FAQ</a><a href={compassPath(lang)}>{compassLabel}</a>
+        {lang === 'en' && <a href="/press/">Press</a>}<a href="mailto:support@stargazinghub.com">{ui.support}</a><a href="/privacy/">{t.footer.privacy}</a><a href="/terms/">{t.footer.terms}</a>
       </nav>
-
-      <div class="flex justify-center md:justify-end">
-        <label class="sr-only" for={`language-selector-${lang}`}>{ui.languages}</label>
-        <select
-          id={`language-selector-${lang}`}
-          class="cursor-pointer rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)] px-3 py-2 text-sm text-[var(--text-secondary)] transition-colors hover:border-[var(--hydrogen-pink)]/50 focus:border-[var(--hydrogen-pink)] focus:outline-none"
-          aria-label={ui.languages}
-          data-language-selector
-          onchange="try { localStorage.setItem('preferred_path', this.value); } catch (error) {} window.location.href=this.value"
-        >
-          {languages.map(([href, label]) => (
-            <option value={href} selected={(href === '/' ? 'en' : href.split('/')[1]) === lang}>{label}</option>
-          ))}
-        </select>
-      </div>
+      <button type="button" class="night-language-trigger" data-language-open aria-haspopup="dialog" aria-controls="language-picker">{locale.name}<span aria-hidden="true">⌄</span></button>
     </div>
-
-    <div class="flex flex-col items-center justify-between gap-4 border-t border-[var(--glass-border)] pt-8 md:flex-row">
-      <p class="text-center text-sm text-[var(--text-muted)] md:text-left">&copy; {year} {t.brand?.name}{copyrightSeparator}{t.footer.copyright}</p>
-      <nav class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-[var(--text-muted)]" aria-label={ui.languages}>
-        {languages.map(([href, label]) => <a href={href} data-language-choice={href} class="hover:text-white">{label}</a>)}
-      </nav>
-    </div>
+    <p class="night-copyright">© {new Date().getFullYear()} {t.brand.name}{lang.startsWith('zh') ? '。' : '. '}{t.footer.copyright}</p>
   </div>
 </footer>
-
-<script is:inline>
-  document.addEventListener('click', (event) => {
-    const clickedElement = event.target;
-    if (!(clickedElement instanceof Element)) return;
-    const languageLink = clickedElement.closest('a[data-language-choice]');
-    if (!languageLink) return;
-    const preferredPath = languageLink.getAttribute('data-language-choice');
-    if (!preferredPath) return;
-    try {
-      window.localStorage.setItem('preferred_path', preferredPath);
-    } catch {
-      // Navigation still works when storage is unavailable.
-    }
-  });
-</script>

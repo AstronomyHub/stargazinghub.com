@@ -1,0 +1,25 @@
+---
+import StoreLinks from './home/StoreLinks.astro';
+import { translations } from '../i18n/ui';
+import { getHomeCopy } from '../i18n/home';
+import { getCompass, compassLinks } from '../data/compassContent';
+interface Props { lang?: string; product?: 'stargazing' | 'compass'; placement: string; }
+const { lang = 'en', product = 'stargazing', placement } = Astro.props;
+const t = translations[lang as keyof typeof translations] || translations.en;
+const copy = getHomeCopy(lang);
+const compass = getCompass(lang);
+const isCompass = product === 'compass';
+const storeCopy = isCompass ? { ...t, links: compassLinks } : t;
+---
+<section class="content-download" id="download" aria-labelledby="content-download-title">
+  <div class="night-container">
+    <img src={isCompass ? '/compass/icon.png' : '/images/icon.png'} alt="" width="56" height="56" loading="lazy" />
+    <div>
+      <p class="night-eyebrow">{isCompass ? compass.ctaFree : t.brand.name}</p>
+      <h2 id="content-download-title">{isCompass ? compass.closingTitle : copy.downloadTitle.join(' ')}</h2>
+      <p>{isCompass ? compass.closingDesc : copy.downloadBody}</p>
+      <StoreLinks t={storeCopy} placement={placement} />
+      <p class="night-fine">{isCompass ? compass.eyebrow : t.download.bullets.join(' · ')}</p>
+    </div>
+  </div>
+</section>

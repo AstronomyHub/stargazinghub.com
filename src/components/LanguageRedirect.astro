@@ -1,15 +1,17 @@
 ---
 interface Props {
   currentLang?: string;
+  paths?: Record<string, string>;
 }
 
-const { currentLang = 'en' } = Astro.props;
+const { currentLang = 'en', paths } = Astro.props;
 ---
 
 <aside
   id="language-suggestion"
   class="language-suggestion"
   data-current-lang={currentLang}
+  data-language-paths={paths ? JSON.stringify(paths) : undefined}
   hidden
   role="dialog"
   aria-modal="false"
@@ -39,7 +41,7 @@ const { currentLang = 'en' } = Astro.props;
     padding: 1rem;
     border: 1px solid rgb(255 255 255 / 0.12);
     border-radius: 0.9rem;
-    background: rgb(8 13 32 / 0.94);
+    background: rgb(16 30 41 / 0.97);
     color: #fff;
     box-shadow:
       inset 0 1px 0 rgb(255 255 255 / 0.055),
@@ -60,10 +62,10 @@ const { currentLang = 'en' } = Astro.props;
   .language-suggestion__mark {
     flex: none;
     padding: 0.3rem 0.45rem;
-    border: 1px solid rgb(121 201 206 / 0.24);
+    border: 1px solid rgb(201 223 200 / 0.24);
     border-radius: 0.5rem;
-    background: rgb(121 201 206 / 0.07);
-    color: #8bd2d6;
+    background: rgb(201 223 200 / 0.07);
+    color: #c9dfc8;
     font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.02em;
@@ -115,14 +117,14 @@ const { currentLang = 'en' } = Astro.props;
   }
 
   #language-suggestion-confirm {
-    border-color: #79c9ce;
-    background: #79c9ce;
+    border-color: #c9dfc8;
+    background: #c9dfc8;
     color: #07151e;
   }
 
   #language-suggestion-confirm:hover {
-    border-color: #9bdcdf;
-    background: #9bdcdf;
+    border-color: #e0ecdc;
+    background: #e0ecdc;
   }
 
   @media (max-width: 639px) {
@@ -263,8 +265,11 @@ const { currentLang = 'en' } = Astro.props;
 
     const target = locales[targetKey];
     if (!target) return;
+    const paths = suggestion.dataset.languagePaths ? JSON.parse(suggestion.dataset.languagePaths) : null;
+    const destination = paths ? paths[targetKey] : target.url;
+    if (!destination) return;
 
-    const dismissalKey = `language_prompt_dismissed:${currentKey}:${target.url}`;
+    const dismissalKey = `language_prompt_dismissed:${currentKey}:${destination}`;
     try {
       if (window.sessionStorage.getItem(dismissalKey)) return;
     } catch {
@@ -293,7 +298,7 @@ const { currentLang = 'en' } = Astro.props;
 
     confirm.addEventListener('click', () => {
       writePreference(target.url);
-      window.location.assign(target.url);
+      window.location.assign(destination);
     });
 
     dismiss.addEventListener('click', () => {

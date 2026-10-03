@@ -1,4 +1,7 @@
 ---
+import ContentDownload from './ContentDownload.astro';
+import StoreLinks from './home/StoreLinks.astro';
+import { translations } from '../i18n/ui';
 import { getCompass, compassLinks } from '../data/compassContent';
 
 interface Props { lang: string }
@@ -6,61 +9,28 @@ interface Props { lang: string }
 const { lang } = Astro.props;
 const source = getCompass(lang);
 const c = source;
+const t = { ...(translations[lang as keyof typeof translations] || translations.en), links: compassLinks };
 const widgets = [...c.widgets].sort((a, b) => Number(b.img.includes('times')) - Number(a.img.includes('times')));
 ---
 
 <main class="compass-page">
-  <header class="product-nav">
-    <div class="shell nav-inner">
-      <a class="product-home" href="/" aria-label={c.backToHub}>
-        <img src="/compass/icon.png" width="40" height="40" alt="" aria-hidden="true" />
-        <span>{c.title}</span>
-      </a>
-      <a class="hub-link" href="/">
-        <span aria-hidden="true">←</span>
-        <span>{c.backToHub}</span>
-      </a>
-    </div>
-  </header>
 
   <section class="hero" aria-labelledby="compass-title">
     <div class="shell hero-grid">
-      <div class="hero-copy">
+      <div class="hero-copy night-reveal">
         <p class="hero-kicker">{c.fromTeam}</p>
-        <h1 id="compass-title" class="hero-title">{c.title}</h1>
+        <h1 id="compass-title" class="hero-title">{lang.startsWith('zh') ? c.title.split(/([·：:])/).map((part, index) => index % 2 === 0 ? <span class="compass-title-word">{part}</span> : part) : c.title}</h1>
         <p class="hero-summary">{c.subtitle}</p>
-        <div class="store-actions" aria-label={c.ctaFree}>
-          <a
-            class="store-button"
-            href={compassLinks.appStore}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-store="app-store"
-            data-placement="compass"
-          >
-            <span>{c.storeLabels.appStore}</span>
-            <small>iOS</small>
-          </a>
-          <a
-            class="store-button"
-            href={compassLinks.googlePlay}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-store="google-play"
-            data-placement="compass"
-          >
-            <span>{c.storeLabels.googlePlay}</span>
-            <small>Android</small>
-          </a>
-        </div>
+        <StoreLinks t={t} placement="compass-hero" />
+        <p class="night-fine">{c.eyebrow}</p>
       </div>
 
-      <figure class="hero-visual" aria-hidden="true">
+      <figure class="hero-visual">
         <img
-          src="/compass/sky-night.jpg"
-          width="1080"
-          height="2400"
-          alt=""
+          src="/compass/app-altitude.webp"
+          width="1200"
+          height="2600"
+          alt={c.features[0].title}
           loading="eager"
           decoding="async"
           fetchpriority="high"
@@ -82,8 +52,8 @@ const widgets = [...c.widgets].sort((a, b) => Number(b.img.includes('times')) - 
       </div>
 
       <div class="feature-layout">
-        <figure class="field-photo" aria-hidden="true">
-          <img src="/compass/snow-mountain.jpg" width="1080" height="2400" alt="" loading="lazy" decoding="async" />
+        <figure class="field-photo">
+          <img src="/compass/app-compass.webp" width="1200" height="2600" alt={c.features[1].title} loading="lazy" decoding="async" />
         </figure>
 
         <div class="feature-list">
@@ -150,6 +120,7 @@ const widgets = [...c.widgets].sort((a, b) => Number(b.img.includes('times')) - 
       </aside>
     </div>
   </section>
+  <ContentDownload lang={lang} product="compass" placement="compass-download" />
 </main>
 
 <style>

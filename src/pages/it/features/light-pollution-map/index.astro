@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
+import ContentDownload from '../../../../components/ContentDownload.astro';
+import StoreLinks from '../../../../components/home/StoreLinks.astro';
 import Footer from '../../../../components/Footer.astro';
 import { downloadLinks, siteUrl } from '../../../../data/appKnowledge';
 import { translations } from '../../../../i18n/ui';
@@ -149,17 +151,14 @@ const structuredData = [
           </ol>
         </nav>
 
-        <div class="sg-detail-hero-grid">
+        <div class="sg-detail-hero-grid night-reveal">
           <div>
             <p class="sg-eyebrow">Pianifica l'osservazione</p>
             <h1 class="sg-subpage-title sg-localized-title">Mappa dell'inquinamento luminoso</h1>
             <p class="sg-subpage-lead">
               Confronta luoghi, meteo, Luna e Via Lattea prima di partire per una sessione di osservazione.
             </p>
-            <div class="sg-store-actions">
-              <a class="sg-button sg-button-primary" href={appStoreUrl} data-store="app-store" data-placement="it-light-pollution-map">App Store</a>
-              <a class="sg-button sg-button-secondary" href={googlePlayUrl} data-store="google-play" data-placement="it-light-pollution-map">Google Play</a>
-            </div>
+            <StoreLinks t={t} placement="it-light-pollution-map" />
             <p class="sg-reviewed">Contenuto revisionato il <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time></p>
           </div>
 
@@ -265,6 +264,7 @@ const structuredData = [
         <a href="/it/" class="sg-inline-link mt-8 inline-block">Torna alla pagina italiana →</a>
       </div>
     </section>
+    <ContentDownload lang={lang} placement="feature-download" />
   </main>
   <Footer t={t} lang={lang} />
 </Layout>

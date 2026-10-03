@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ContentDownload from '../../components/ContentDownload.astro';
+import StoreLinks from '../../components/home/StoreLinks.astro';
 import Footer from '../../components/Footer.astro';
 import {
   accuracyAndSafetyNotes,
@@ -81,16 +83,16 @@ const featureMedia: Record<string, FeatureMedia> = {
     height: 1920,
   },
   'aurora-forecast': {
-    src: '/press/stargazinghub-stargazing-index-map.webp',
-    alt: 'Stargazing Hub planning map with observing conditions for a selected location',
-    caption: 'Compare aurora conditions with the weather at a selected location.',
-    width: 1206,
-    height: 2622,
+    src: '/images/screenshots/en-googleplay/googleplay-5.webp',
+    alt: 'Stargazing Hub aurora forecast with a polar probability map and KP forecast chart',
+    caption: 'Check the aurora probability map and KP forecast before heading out.',
+    width: 1080,
+    height: 1920,
   },
   '3d-moon': {
-    src: '/press/stargazinghub-observing-forecast.webp',
-    alt: 'Stargazing Hub observing forecast showing Moon phase and illumination context',
-    caption: 'Moon phase and illumination are shown alongside the conditions they affect.',
+    src: '/images/screenshots/en-googleplay/googleplay-6.webp',
+    alt: 'Stargazing Hub 3D Moon globe with lunar landmarks and feature filters',
+    caption: 'Explore lunar landmarks, feature types and eclipse simulation on the Moon globe.',
     width: 1080,
     height: 1920,
   },
@@ -214,17 +216,13 @@ const structuredData = [
           </ol>
         </nav>
 
-        <div class="sg-detail-hero-grid">
+        <div class="sg-detail-hero-grid night-reveal">
           <div>
-            <p class="sg-eyebrow">Stargazing Hub feature</p>
             <h1 class="sg-subpage-title">{feature.title}</h1>
             <p class="sg-subpage-lead">
               {feature.summary}
             </p>
-            <div class="sg-store-actions">
-              <a class="sg-button sg-button-primary" href={downloadLinks.appStore} data-store="app-store" data-placement={`feature-${feature.slug}`}>App Store</a>
-              <a class="sg-button sg-button-secondary" href={downloadLinks.googlePlay} data-store="google-play" data-placement={`feature-${feature.slug}`}>Google Play</a>
-            </div>
+            <StoreLinks t={t} placement={`feature-${feature.slug}`} />
             <p class="sg-reviewed">
               Page reviewed <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time>
             </p>
@@ -319,6 +317,7 @@ const structuredData = [
         </div>
       </div>
     </section>
+    <ContentDownload placement={`feature-${feature.slug}-download`} />
   </main>
   <Footer t={t} lang="en" />
 </Layout>

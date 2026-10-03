@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ContentDownload from '../components/ContentDownload.astro';
 import Footer from '../components/Footer.astro';
 import { downloadLinks, faqItems, siteUrl } from '../data/appKnowledge';
 import { translations } from '../i18n/ui';
@@ -85,14 +86,10 @@ const structuredData = [
           </ol>
         </nav>
 
-        <div class="sg-index-intro">
-          <p class="sg-eyebrow">Questions and answers</p>
+        <div class="sg-index-intro night-reveal">
           <h1 class="sg-subpage-title">Stargazing Hub FAQ</h1>
           <p class="sg-subpage-lead">
             Pricing, supported devices, languages and the main astronomy features.
-          </p>
-          <p class="sg-reviewed">
-            Answers reviewed <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time>
           </p>
         </div>
       </div>
@@ -118,17 +115,16 @@ const structuredData = [
             const answerLink = answerLinks[index];
 
             return (
-              <section id={`question-${index + 1}`} class="scroll-mt-24 border-t border-white/10 py-8 first:pt-0">
-                <h2 class="text-2xl sm:text-3xl">{item.question}</h2>
-                <p class="mt-4 text-lg leading-relaxed text-[var(--text-secondary)]">{item.answer}</p>
-                {answerLink && (
-                  <a href={answerLink.href} class="sg-inline-link mt-5 inline-block">
-                    {answerLink.label} →
-                  </a>
-                )}
-              </section>
+              <details id={`question-${index + 1}`} class="faq-question" open={index === 0}>
+                <summary><h2>{item.question}</h2><span aria-hidden="true">+</span></summary>
+                <div class="faq-answer">
+                  <p>{item.answer}</p>
+                  {answerLink && <a href={answerLink.href} class="sg-inline-link mt-5 inline-block">{answerLink.label} →</a>}
+                </div>
+              </details>
             );
           })}
+          <p class="sg-reviewed">Answers reviewed <time datetime={contentReviewedAt}>{formattedUpdatedAt}</time></p>
         </div>
       </div>
     </section>
@@ -138,7 +134,6 @@ const structuredData = [
         <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 class="text-3xl sm:text-4xl">Feature guides</h2>
-            <p class="mt-3 text-[var(--text-secondary)]">Each guide includes a product screenshot, feature details and known limits.</p>
           </div>
           <a href="/features/" class="sg-inline-link">View all features →</a>
         </div>
@@ -157,21 +152,23 @@ const structuredData = [
       </div>
     </section>
 
-    <section class="sg-subpage-section sg-subpage-section-related">
-      <div class="sg-shell sg-subpage-cta">
-        <div>
-          <h2 class="text-3xl sm:text-4xl">Download the app</h2>
-          <p class="mt-3 max-w-2xl leading-relaxed text-[var(--text-secondary)]">Stargazing Hub is available for iOS and Android.</p>
-        </div>
-        <div class="flex flex-wrap gap-3 lg:justify-end">
-          <a class="sg-button sg-button-primary" href={downloadLinks.appStore} data-store="app-store" data-placement="faq">App Store</a>
-          <a class="sg-button sg-button-secondary" href={downloadLinks.googlePlay} data-store="google-play" data-placement="faq">Google Play</a>
-        </div>
-      </div>
-    </section>
+    <ContentDownload placement="faq" />
   </main>
   <Footer t={t} lang="en" />
 </Layout>
+
+<script>
+  const revealQuestion = () => {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target instanceof HTMLDetailsElement) target.open = true;
+  };
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#question-"]').forEach((link) => link.addEventListener('click', () => {
+    const target = document.getElementById(link.hash.slice(1));
+    if (target instanceof HTMLDetailsElement) target.open = true;
+  }));
+  window.addEventListener('hashchange', revealQuestion);
+  revealQuestion();
+</script>
 
 <style>
   @media (max-width: 768px) {

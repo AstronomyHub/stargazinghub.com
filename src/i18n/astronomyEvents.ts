@@ -16,7 +16,7 @@ interface EventCopy {
 const eventCopy: Record<EventLocale, EventCopy> = {
   en: {
     title: 'Upcoming sky events',
-    subtitle: 'Four dates worth saving. Visibility depends on your location, weather and local sky conditions.',
+    subtitle: 'Dates worth saving. Visibility depends on your location, weather and local sky conditions.',
     checked: 'Dates checked August 10, 2026',
     source: 'Source',
     featureLink: 'Plan with Stargazing Hub',
@@ -25,7 +25,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   zh: {
     title: '接下来值得关注的天象',
-    subtitle: '先记下这四个日期。能否看到，还要看所在地、天气和当时的天空条件。',
+    subtitle: '记下值得关注的日期。能否看到，还要看所在地、天气和当时的天空条件。',
     checked: '日期核对于 2026 年 8 月 10 日',
     source: '数据来源',
     featureLink: '用天文通规划观测',
@@ -34,7 +34,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   'zh-tw': {
     title: '接下來值得關注的天象',
-    subtitle: '先記下這四個日期。能否看見，還要看所在地、天氣與當時的天空條件。',
+    subtitle: '記下值得關注的日期。能否看見，還要看所在地、天氣與當時的天空條件。',
     checked: '日期核對於 2026 年 8 月 10 日',
     source: '資料來源',
     featureLink: '用天文通規劃觀測',
@@ -43,7 +43,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   de: {
     title: 'Kommende Himmelsereignisse',
-    subtitle: 'Vier Termine zum Vormerken. Die Sichtbarkeit hängt von Standort, Wetter und lokalen Bedingungen ab.',
+    subtitle: 'Termine zum Vormerken. Die Sichtbarkeit hängt von Standort, Wetter und lokalen Bedingungen ab.',
     checked: 'Daten geprüft am 10. August 2026',
     source: 'Quelle',
     featureLink: 'Mit Stargazing Hub planen',
@@ -52,7 +52,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   ja: {
     title: 'これから見たい天文現象',
-    subtitle: '覚えておきたい4つの日付です。見え方は場所、天気、空の条件によって変わります。',
+    subtitle: '覚えておきたい日付です。見え方は場所、天気、空の条件によって変わります。',
     checked: '日付確認：2026年8月10日',
     source: '出典',
     featureLink: 'Stargazing Hubで観測を計画',
@@ -61,7 +61,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   ko: {
     title: '다가오는 천문 현상',
-    subtitle: '기억해 둘 네 가지 날짜입니다. 관측 가능 여부는 위치, 날씨와 하늘 상태에 따라 달라집니다.',
+    subtitle: '기억해 둘 날짜입니다. 관측 가능 여부는 위치, 날씨와 하늘 상태에 따라 달라집니다.',
     checked: '날짜 확인: 2026년 8월 10일',
     source: '출처',
     featureLink: 'Stargazing Hub에서 관측 계획하기',
@@ -70,7 +70,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   fr: {
     title: 'Prochains événements célestes',
-    subtitle: 'Quatre dates à retenir. La visibilité dépend du lieu, de la météo et des conditions locales.',
+    subtitle: 'Des dates à retenir. La visibilité dépend du lieu, de la météo et des conditions locales.',
     checked: 'Dates vérifiées le 10 août 2026',
     source: 'Source',
     featureLink: 'Planifier avec Stargazing Hub',
@@ -79,7 +79,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   es: {
     title: 'Próximos eventos celestes',
-    subtitle: 'Cuatro fechas para guardar. La visibilidad depende de la ubicación, el tiempo y las condiciones locales.',
+    subtitle: 'Fechas para guardar. La visibilidad depende de la ubicación, el tiempo y las condiciones locales.',
     checked: 'Fechas verificadas el 10 de agosto de 2026',
     source: 'Fuente',
     featureLink: 'Planificar con Stargazing Hub',
@@ -88,7 +88,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   it: {
     title: 'Prossimi eventi celesti',
-    subtitle: 'Quattro date da ricordare. La visibilità dipende dal luogo, dal meteo e dalle condizioni locali.',
+    subtitle: 'Date da ricordare. La visibilità dipende dal luogo, dal meteo e dalle condizioni locali.',
     checked: 'Date verificate il 10 agosto 2026',
     source: 'Fonte',
     featureLink: 'Pianifica con Stargazing Hub',
@@ -97,7 +97,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   ru: {
     title: 'Ближайшие небесные события',
-    subtitle: 'Четыре даты, которые стоит сохранить. Видимость зависит от места, погоды и местных условий.',
+    subtitle: 'Даты, которые стоит сохранить. Видимость зависит от места, погоды и местных условий.',
     checked: 'Даты проверены 10 августа 2026 года',
     source: 'Источник',
     featureLink: 'Планировать в Stargazing Hub',
@@ -106,7 +106,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   nl: {
     title: 'Komende hemelverschijnselen',
-    subtitle: 'Vier data om te bewaren. Zichtbaarheid hangt af van locatie, weer en plaatselijke omstandigheden.',
+    subtitle: 'Data om te bewaren. Zichtbaarheid hangt af van locatie, weer en plaatselijke omstandigheden.',
     checked: 'Data gecontroleerd op 10 augustus 2026',
     source: 'Bron',
     featureLink: 'Plan met Stargazing Hub',
@@ -115,7 +115,7 @@ const eventCopy: Record<EventLocale, EventCopy> = {
   },
   pl: {
     title: 'Nadchodzące zjawiska na niebie',
-    subtitle: 'Cztery daty, które warto zapisać. Widoczność zależy od miejsca, pogody i lokalnych warunków.',
+    subtitle: 'Daty, które warto zapisać. Widoczność zależy od miejsca, pogody i lokalnych warunków.',
     checked: 'Daty sprawdzono 10 sierpnia 2026',
     source: 'Źródło',
     featureLink: 'Planuj ze Stargazing Hub',

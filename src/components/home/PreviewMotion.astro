@@ -1,0 +1,29 @@
+<!-- Development-only capture controls; excluded from the production build. -->
+<script is:inline>
+  (() => {
+    const query = new URLSearchParams(location.search);
+    const proof = query.get('proof');
+    if (!proof) return;
+    document.documentElement.classList.add('night-proof', `night-proof-${proof}`);
+    if (query.get('motion') === 'slow') document.documentElement.style.setProperty('--night-motion-scale', '10');
+    if (proof === 'static') document.documentElement.classList.add('night-proof-static');
+    const capture = () => requestAnimationFrame(() => {
+      if (proof === 'language') document.querySelector('[data-language-open]')?.click();
+      if (proof === 'press') document.querySelector('.night-store')?.classList.add('night-press-proof');
+      requestAnimationFrame(() => {
+        const phase = { start: 0, middle: 0.5, end: 1 }[query.get('phase')];
+        if (phase === undefined) return;
+        document.getAnimations().forEach((animation) => {
+          const timing = animation.effect.getTiming();
+          animation.pause();
+          animation.currentTime = Number(timing.delay) + phase * Number(timing.duration);
+        });
+      });
+    });
+    if (proof === 'language' && document.querySelector('#language-picker')?.dataset.languageReady !== 'true') {
+      document.addEventListener('home-languages-ready', capture, { once: true });
+    } else {
+      capture();
+    }
+  })();
+</script>

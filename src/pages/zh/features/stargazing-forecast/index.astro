@@ -1,5 +1,7 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
+import ContentDownload from '../../../../components/ContentDownload.astro';
+import StoreLinks from '../../../../components/home/StoreLinks.astro';
 import Footer from '../../../../components/Footer.astro';
 import { downloadLinks, siteUrl } from '../../../../data/appKnowledge';
 import { translations } from '../../../../i18n/ui';
@@ -145,17 +147,14 @@ const structuredData = [
           </ol>
         </nav>
 
-        <div class="sg-detail-hero-grid">
+        <div class="sg-detail-hero-grid night-reveal">
           <div>
             <p class="sg-eyebrow">观星指数与天文天气</p>
             <h1 class="sg-subpage-title">用观星指数判断今晚要不要出门</h1>
             <p class="sg-subpage-lead">
               把云量、视宁度、透明度、月光和逐小时天文天气放在一起看。
             </p>
-            <div class="sg-store-actions">
-              <a class="sg-button sg-button-primary" href={appStoreUrl} data-store="app-store" data-placement="zh-stargazing-forecast">App Store</a>
-              <a class="sg-button sg-button-secondary" href={googlePlayUrl} data-store="google-play" data-placement="zh-stargazing-forecast">Google Play</a>
-            </div>
+            <StoreLinks t={t} placement="zh-forecast" />
             <p class="sg-reviewed">内容审查日期：<time datetime={contentReviewedAt}>{formattedUpdatedAt}</time></p>
           </div>
 
@@ -261,6 +260,7 @@ const structuredData = [
         <a href="/zh/" class="sg-inline-link mt-8 inline-block">返回天文通中文页 →</a>
       </div>
     </section>
+    <ContentDownload lang={lang} placement="feature-download" />
   </main>
   <Footer t={t} lang={lang} />
 </Layout>
