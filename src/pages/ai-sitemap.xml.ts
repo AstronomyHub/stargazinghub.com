@@ -1,4 +1,5 @@
 import { absoluteUrl, featurePages } from '../data/appKnowledge';
+import { stargazingWeatherAppAndroid } from '../data/stargazingWeatherAppAndroid';
 
 export function GET() {
   const urls = [
@@ -10,6 +11,8 @@ export function GET() {
     '/privacy/',
     '/faq/',
     '/faq.md',
+    stargazingWeatherAppAndroid.path,
+    stargazingWeatherAppAndroid.markdownPath,
     ...featurePages.flatMap((feature) => [
       `/features/${feature.slug}/`,
       `/features/${feature.slug}.md`,

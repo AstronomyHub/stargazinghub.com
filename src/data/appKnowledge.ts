@@ -471,6 +471,8 @@ Last updated: ${appUpdatedAt}
 - Structured app data: ${absoluteUrl('/data/app.json')}
 - FAQ page: ${absoluteUrl('/faq/')}
 - FAQ Markdown: ${absoluteUrl('/faq.md')}
+- Astronomy weather app for Android: ${absoluteUrl('/stargazing-weather-app-android/')}
+- Astronomy weather app for Android Markdown: ${absoluteUrl('/stargazing-weather-app-android.md')}
 - Sitemap: ${absoluteUrl('/sitemap-index.xml')}
 - AI endpoint sitemap: ${absoluteUrl('/ai-sitemap.xml')}
 
@@ -672,6 +674,7 @@ The site also exposes machine-readable app data at ${absoluteUrl('/data/app.json
 - Structured app data: ${absoluteUrl('/data/app.json')}
 - Sitemap: ${absoluteUrl('/sitemap-index.xml')}
 - Press and product facts: ${absoluteUrl('/press/')}
+- Astronomy weather app for Android: ${absoluteUrl('/stargazing-weather-app-android/')} | ${absoluteUrl('/stargazing-weather-app-android.md')}
 
 ${featurePages.map((feature) => `- ${feature.title}: ${absoluteUrl(`/features/${feature.slug}/`)} | ${absoluteUrl(`/features/${feature.slug}.md`)}`).join('\n')}
 `;
@@ -693,6 +696,8 @@ export function buildAppData() {
       full: absoluteUrl('/llms-full.txt'),
       faq: absoluteUrl('/faq/'),
       faqMarkdown: absoluteUrl('/faq.md'),
+      astronomyWeatherAppAndroid: absoluteUrl('/stargazing-weather-app-android/'),
+      astronomyWeatherAppAndroidMarkdown: absoluteUrl('/stargazing-weather-app-android.md'),
       sitemap: absoluteUrl('/sitemap-index.xml'),
       aiSitemap: absoluteUrl('/ai-sitemap.xml'),
       press: absoluteUrl('/press/'),
