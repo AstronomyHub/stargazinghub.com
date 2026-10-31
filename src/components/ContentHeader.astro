@@ -13,7 +13,7 @@ const ui = getMarketingUi(lang);
 const locale = websiteLocales.find((item) => item.code === lang) || websiteLocales[0];
 const path = Astro.url.pathname;
 const isCompass = path.includes('/compass-altimeter');
-const isMarketing = isCompass || path.includes('/features') || path.includes('/faq');
+const isMarketing = isCompass || path.includes('/features') || path.includes('/faq') || path.includes('/stargazing-weather-app-android');
 const compass = getCompass(lang);
 ---
 <header class="content-header">

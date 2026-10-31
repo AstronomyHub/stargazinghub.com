@@ -1,0 +1,272 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ContentDownload from '../../components/ContentDownload.astro';
+import Footer from '../../components/Footer.astro';
+import { siteUrl } from '../../data/appKnowledge';
+import { articleUrl, stargazingWeatherAppAndroid } from '../../data/stargazingWeatherAppAndroid';
+import { translations } from '../../i18n/ui';
+
+const t = translations.en;
+const article = stargazingWeatherAppAndroid;
+const pageUrl = articleUrl();
+const formattedPublishedAt = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${article.publishedAt}T00:00:00Z`));
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.headline,
+    name: article.title,
+    description: article.metaDescription,
+    url: pageUrl,
+    inLanguage: 'en',
+    datePublished: article.publishedAt,
+    dateModified: article.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: article.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Stargazing Hub',
+      url: siteUrl,
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: 'en',
+    mainEntity: article.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Astronomy weather app for Android',
+        item: pageUrl,
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title={article.title}
+  description={article.metaDescription}
+  image="/press/stargazinghub-observing-forecast.webp"
+  lang="en"
+  markdownUrl={article.markdownPath}
+  structuredData={structuredData}
+>
+  <main class="sg-subpage seo-article">
+    <section class="sg-subpage-hero">
+      <div class="sg-shell">
+        <nav aria-label="Breadcrumb" class="sg-breadcrumb">
+          <ol class="flex flex-wrap items-center gap-2 text-sm text-[var(--text-muted)]">
+            <li><a href="/" class="transition-colors hover:text-white">Stargazing Hub</a></li>
+            <li aria-hidden="true">/</li>
+            <li class="text-[var(--text-secondary)]" aria-current="page">Astronomy weather app for Android</li>
+          </ol>
+        </nav>
+
+        <div class="sg-index-intro night-reveal">
+          <h1 class="sg-subpage-title">{article.headline}</h1>
+          <p class="sg-subpage-lead"><strong>{article.pricingNote}</strong></p>
+          <p class="article-ctas">
+            <a href={article.heroCtas.googlePlay} data-store="google-play" data-placement="seo-android-hero">Get it on Google Play</a>
+            <span aria-hidden="true"> · </span>
+            <a href={article.heroCtas.appStore} data-store="app-store" data-placement="seo-android-hero">Download on the App Store</a>
+          </p>
+          <p class="sg-reviewed">
+            Published <time datetime={article.publishedAt}>{formattedPublishedAt}</time>
+            · {article.author}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sg-subpage-section sg-subpage-section-tight">
+      <div class="sg-shell article-prose">
+        <p>
+          A normal weather app tells you whether it will rain. Stargazers and astrophotographers need to know more: whether it will be <strong>dark, clear, steady and transparent</strong> at 1 a.m., at the site you're driving to. <strong>Stargazing Hub</strong> is a stargazing forecast app for Android and iOS, built around those questions.
+        </p>
+
+        <h2>Hourly forecasts built on ECMWF and ICON data</h2>
+        <p>
+          Stargazing Hub's forecasts are based on <strong>ECMWF</strong> and <strong>ICON</strong> numerical weather model data, processed by Stargazing Hub's servers into hourly forecasts for stargazing.
+          When both models agree on a clear night, you can plan with more confidence. When they disagree, open the hourly tables and see which hours, and which cloud layer, are in doubt.
+        </p>
+        <p>Need a longer view? A <strong>15-day forecast</strong> helps you shortlist nights before you check the hourly detail.</p>
+
+        <h2>Cloud layers, not just "partly cloudy"</h2>
+        <p>For each hour you get <strong>total cloud</strong> plus <strong>low, mid and high cloud</strong> separately:</p>
+        <ul>
+          <li><strong>Low cloud</strong> usually ruins a session outright.</li>
+          <li><strong>High, thin cloud</strong> may still let bright targets through, but it hurts faint deep-sky work.</li>
+          <li>A cloud profile view shows at what height the cloud sits.</li>
+        </ul>
+
+        <h2>Seeing and transparency</h2>
+        <ul>
+          <li><strong>Transparency</strong>: how clear the air column is. It matters most for faint galaxies, nebulae and the Milky Way.</li>
+          <li><strong>Seeing</strong>: how steady the air is. It matters most for the Moon, planets and double stars at high magnification.</li>
+        </ul>
+        <p>Stargazing Hub shows both in its hourly forecast.</p>
+
+        <h2>The rest of the weather that matters at night</h2>
+        <p>
+          Hourly <strong>temperature, dew point, humidity, wind speed and direction, gusts and precipitation</strong>: everything you need to judge dew on your optics, wind shake on a long exposure, or a cold night out.
+        </p>
+
+        <h2>Stargazing index: compare nights at a glance</h2>
+        <p>
+          The <strong>stargazing index</strong> rates conditions from <em>terrible</em> to <em>excellent</em> so you can compare nights quickly. A <strong>Stargazing Index Map</strong> shows how conditions vary across the region around you. The index is a summary, so before you go, still check the hourly cloud, moonlight, wind and dew risk.
+        </p>
+
+        <h2>Darkness, Moon and light pollution in the same place</h2>
+        <ul>
+          <li><strong>Twilight timetable</strong>: civil, nautical and astronomical dusk and dawn, so you know when real darkness starts.</li>
+          <li><strong>Moon</strong>: phase, plus rise and set times.</li>
+          <li><strong>Light pollution map layer</strong>: tap any point to see estimated SQM and Bortle class, and browse recommended stargazing spots.</li>
+          <li><strong>Clear-night map</strong>: long-term clear-night rates computed from about 20 years of climate data. Useful for choosing where to travel or which season to go.</li>
+        </ul>
+
+        <h2>Made for Android</h2>
+        <ul>
+          <li><strong>Home-screen widgets</strong> (6 types): moon phase, dark-sky window and meteor widgets are free; moon calendar, planets and next-event widgets come with membership. Widgets are also available on iOS.</li>
+          <li><strong>{article.pricingNote}</strong> See the FAQ below.</li>
+        </ul>
+
+        <h2>A simple workflow before every session</h2>
+        <ol>
+          <li>Use the <strong>15-day forecast</strong> and the <strong>stargazing index</strong> to pick candidate nights.</li>
+          <li>Open the <strong>ECMWF and ICON hourly</strong> tables, check low cloud first, then mid and high.</li>
+          <li>Check <strong>seeing</strong> (planets) or <strong>transparency</strong> (deep sky) for your target.</li>
+          <li>Confirm <strong>astronomical darkness</strong> and <strong>moonrise and moonset</strong>.</li>
+          <li>Pick a darker site on the <strong>light pollution map</strong>, then check <strong>dew point</strong> and <strong>wind</strong> before you pack.</li>
+        </ol>
+
+        <h2>More than weather</h2>
+        <p>
+          When the sky cooperates, the same app helps you use it: meteor shower forecasts with hourly predicted rates and radiant altitude, aurora probability (based on NOAA SWPC short-term forecast products; web map at our sister site <a href={article.auroraMapUrl}>AuroraMap.app</a>), a sky chart with camera AR alignment, and star recognition from photos.
+        </p>
+
+        <h3>Plan your next clear night</h3>
+        <p class="article-ctas">
+          <a href={article.bottomCtas.googlePlay} data-store="google-play" data-placement="seo-android-bottom">Get it on Google Play</a>
+          <span aria-hidden="true"> · </span>
+          <a href={article.bottomCtas.appStore} data-store="app-store" data-placement="seo-android-bottom">Download on the App Store</a>
+        </p>
+
+        <h2>FAQ</h2>
+        {article.faq.map((item, index) => (
+          <details id={`question-${index + 1}`} class="faq-question" open={index === 0}>
+            <summary><h3>{item.question}</h3><span aria-hidden="true">+</span></summary>
+            <div class="faq-answer">
+              {item.answer.split('\n').map((line) => <p>{line}</p>)}
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <ContentDownload placement="seo-android-download" />
+  </main>
+  <Footer t={t} lang="en" />
+</Layout>
+
+<style>
+  .article-prose {
+    max-width: 760px;
+  }
+
+  .article-prose p,
+  .article-prose li {
+    color: var(--text-secondary);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .article-prose p + p,
+  .article-prose p + ul,
+  .article-prose p + ol,
+  .article-prose ul + p,
+  .article-prose ol + p {
+    margin-top: 1.1rem;
+  }
+
+  .article-prose h2 {
+    margin: 2.6rem 0 1rem;
+  }
+
+  .article-prose h3 {
+    margin: 2rem 0 0.8rem;
+    font-size: 1.35rem;
+  }
+
+  .article-prose ul,
+  .article-prose ol {
+    padding-left: 1.25rem;
+    margin: 0.8rem 0 1.2rem;
+  }
+
+  .article-prose li + li {
+    margin-top: 0.55rem;
+  }
+
+  .article-prose a {
+    color: var(--sg-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .article-ctas {
+    margin-top: 1.4rem;
+    font-size: 17px;
+  }
+
+  .article-ctas a {
+    color: var(--sg-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .seo-article .faq-question summary h3 {
+    font-size: 23px;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .seo-article :global(section),
+    .seo-article :global(div),
+    .seo-article :global(p),
+    .seo-article :global(h1),
+    .seo-article :global(h2),
+    .seo-article :global(h3) {
+      word-break: normal;
+      hyphens: none;
+    }
+  }
+</style>
